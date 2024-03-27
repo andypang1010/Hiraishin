@@ -6,21 +6,24 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Input")]
-    public KeyCode sprintKey, crouchKey, jumpKey;
-
-    [Header("Movement")]
-    public float sprintSpeed;
-    public float walkSpeed;
-    public float groundDrag;
-    public Transform orientation;
-    public MovementState movementState;
     public enum MovementState {
         WALK,
         SPRINT,
         CROUCH,
         AIR
     }
+
+    [Header("Input")]
+    public KeyCode sprintKey;
+    public KeyCode crouchKey;
+    public KeyCode jumpKey;
+
+    [Header("Movement")]
+    public float sprintSpeed;
+    public float walkSpeed;
+    public float groundDrag;
+    public Transform orientation;
+    [HideInInspector] public MovementState movementState;
     private float moveSpeed;
 
     [Header("Jump")]
