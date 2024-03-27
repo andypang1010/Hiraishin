@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -28,6 +29,9 @@ public class PlayerCamera : MonoBehaviour
         // Weird but works (DON'T TOUCH)
         rotationY += mouseX;
         rotationX -= mouseY;
+
+        // Clamp y-axis rotation
+        rotationX = Math.Clamp(rotationX, -90f, 90f);
 
         // Update camera rotation
         transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
