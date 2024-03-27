@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
     public float airMultiplier;
 
-    float horizontalInput;
-    float verticalInput;
+    float horizontalInput, verticalInput;
     Vector3 moveDirection;
     Rigidbody rb;
 
@@ -55,11 +55,11 @@ public class PlayerMovement : MonoBehaviour
     void Move() {
         moveDirection = (orientation.forward * verticalInput + orientation.right * horizontalInput).normalized;
         if (grounded) {
-            print("Grounded: " + (10 * moveSpeed * moveDirection).magnitude);
+            // print("Grounded: " + (10 * moveSpeed * moveDirection).magnitude);
             rb.AddForce(10 * moveSpeed * moveDirection, ForceMode.Force);
         }
         else {
-            print("Not grounded: " + (10 * moveSpeed * moveDirection * airMultiplier).magnitude);
+            // print("Not grounded: " + (10 * moveSpeed * moveDirection * airMultiplier).magnitude);
             rb.AddForce(10 * moveSpeed * moveDirection * airMultiplier, ForceMode.Force);
         }
     }
@@ -92,5 +92,13 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+
+    public Vector3 GetMoveVelocity() {
+        return new Vector3(rb.velocity.x, 0, rb.velocity.z);
+    }
+
+    public bool isGrounded() {
+        return grounded;
     }
 }

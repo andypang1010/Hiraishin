@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.030399041, g: 0.066847906, b: 0.12888376, a: 1}
+  m_IndirectSpecularColor: {r: 0.030399084, g: 0.066848055, b: 0.128884, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -584,8 +584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a260bc097a1ab44a2782a2ed7cb9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 300
-  sensY: 300
+  sensX: 100
+  sensY: 100
   orientation: {fileID: 2147277561}
 --- !u!1 &410087039
 GameObject:
@@ -994,7 +994,6 @@ GameObject:
   - component: {fileID: 1462873635}
   - component: {fileID: 1462873636}
   - component: {fileID: 1462873637}
-  - component: {fileID: 1462873638}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1059,7 +1058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c76e911ff07b40a1b1bd08cdc0ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
+  moveSpeed: 5
   groundDrag: 5
   orientation: {fileID: 2147277561}
   playerHeight: 2
@@ -1068,31 +1067,6 @@ MonoBehaviour:
     m_Bits: 64
   jumpForce: 12
   airMultiplier: 0.4
---- !u!114 &1462873638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1462873634}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a32b61f5a93b78c49974132c967464cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 7
-  groundDrag: 5
-  jumpForce: 12
-  jumpCooldown: 0.25
-  airMultiplier: 0.4
-  walkSpeed: 0
-  sprintSpeed: 0
-  jumpKey: 32
-  playerHeight: 2
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  orientation: {fileID: 2147277561}
 --- !u!1 &1638004958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,6 +1077,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1638004959}
   - component: {fileID: 1638004960}
+  - component: {fileID: 1638004961}
   m_Layer: 0
   m_Name: CAMERA
   m_TagString: Untagged
@@ -1139,6 +1114,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraPosition: {fileID: 84367153}
+--- !u!114 &1638004961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638004958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4b41fbd09093444990a859c554b2aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabled: 1
+  player: {fileID: 1462873634}
+  amplitude: 0.015
+  frequency: 15
+  toggleSpeed: 3
+  stablizedOffset: 20
 --- !u!1 &2147277560
 GameObject:
   m_ObjectHideFlags: 0
