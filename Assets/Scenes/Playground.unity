@@ -1066,14 +1066,12 @@ MonoBehaviour:
   groundDrag: 5
   orientation: {fileID: 2147277561}
   movementState: 0
-  playerHeight: 2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   jumpForce: 12
   airMultiplier: 0.4
-  crouchSpeed: 3
+  crouchSpeed: 2.5
   crouchScale: 0.5
+  playerHeight: 2
+  maxSlopeAngle: 40
 --- !u!1 &1638004958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,8 +1133,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabled: 1
   player: {fileID: 1462873634}
-  amplitude: 0.015
-  frequency: 15
+  walkAmplitude: 0.005
+  walkFrequency: 10
+  sprintAmplitude: 0.01
+  sprintFrequency: 15
+  crouchAmplitude: 0.002
+  crouchFrequency: 7
   toggleSpeed: 3
   stablizedOffset: 20
 --- !u!1 &2147277560
