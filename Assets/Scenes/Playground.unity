@@ -584,8 +584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a260bc097a1ab44a2782a2ed7cb9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 100
-  sensY: 100
+  sensX: 50
+  sensY: 50
   orientation: {fileID: 2147277561}
 --- !u!1 &410087039
 GameObject:
@@ -1061,12 +1061,12 @@ MonoBehaviour:
   sprintKey: 304
   crouchKey: 306
   jumpKey: 32
-  sprintSpeed: 8
+  sprintSpeed: 7
   walkSpeed: 4
   groundDrag: 5
   orientation: {fileID: 2147277561}
   movementState: 0
-  jumpForce: 10
+  jumpForce: 11
   airMultiplier: 0.4
   crouchSpeed: 2
   crouchScale: 0.5
@@ -1133,11 +1133,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabled: 1
   player: {fileID: 1462873634}
-  walkAmplitude: 0.01
+  walkAmplitude: 0.4
   walkFrequency: 10
-  sprintAmplitude: 0.03
+  sprintAmplitude: 1.5
   sprintFrequency: 15
-  crouchAmplitude: 0.006
+  crouchAmplitude: 0.2
   crouchFrequency: 5
   toggleSpeed: 1
   stablizedOffset: 20

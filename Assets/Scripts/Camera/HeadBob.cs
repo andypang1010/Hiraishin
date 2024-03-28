@@ -7,11 +7,11 @@ public class HeadBob : MonoBehaviour
 {
     public new bool enabled;
     public GameObject player;
-    [Range(0, 0.1f)] public float walkAmplitude;
+    [Range(0, 1f)] public float walkAmplitude;
     [Range(0, 30)] public float walkFrequency;
-    [Range(0, 0.1f)] public float sprintAmplitude;
+    [Range(0, 2f)] public float sprintAmplitude;
     [Range(0, 30)] public float sprintFrequency;
-    [Range(0, 0.1f)] public float crouchAmplitude;
+    [Range(0, 1f)] public float crouchAmplitude;
     [Range(0, 30)] public float crouchFrequency;
     public float toggleSpeed;
     public float stablizedOffset;
@@ -67,7 +67,7 @@ public class HeadBob : MonoBehaviour
         if (!playerMovement.isGrounded()) return;
 
         // Offset camera position by head bob
-        playerCamera.localPosition += FootStepMotion();
+        playerCamera.localPosition += FootStepMotion() * Time.deltaTime;
     }
 
     Vector3 FootStepMotion() {
