@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.030399084, g: 0.066848055, b: 0.128884, a: 1}
+  m_IndirectSpecularColor: {r: 0.030399041, g: 0.066847906, b: 0.12888376, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -325,7 +325,7 @@ Transform:
   m_GameObject: {fileID: 84367152}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1061,14 +1061,14 @@ MonoBehaviour:
   sprintKey: 304
   crouchKey: 306
   jumpKey: 32
-  sprintSpeed: 9
-  walkSpeed: 5
+  sprintSpeed: 8
+  walkSpeed: 4
   groundDrag: 5
   orientation: {fileID: 2147277561}
   movementState: 0
-  jumpForce: 12
+  jumpForce: 10
   airMultiplier: 0.4
-  crouchSpeed: 2.5
+  crouchSpeed: 2
   crouchScale: 0.5
   playerHeight: 2
   maxSlopeAngle: 40
@@ -1099,7 +1099,7 @@ Transform:
   m_GameObject: {fileID: 1638004958}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1133,13 +1133,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabled: 1
   player: {fileID: 1462873634}
-  walkAmplitude: 0.005
+  walkAmplitude: 0.01
   walkFrequency: 10
-  sprintAmplitude: 0.01
+  sprintAmplitude: 0.03
   sprintFrequency: 15
-  crouchAmplitude: 0.002
-  crouchFrequency: 7
-  toggleSpeed: 3
+  crouchAmplitude: 0.006
+  crouchFrequency: 5
+  toggleSpeed: 1
   stablizedOffset: 20
 --- !u!1 &2147277560
 GameObject:
