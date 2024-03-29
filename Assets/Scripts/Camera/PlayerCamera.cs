@@ -29,7 +29,7 @@ public class PlayerCamera : MonoBehaviour
         rotationX -= mouseY;
 
         // Clamp y-axis rotation
-        rotationX = Math.Clamp(rotationX, -90f, 90f);
+        rotationX = Math.Clamp(rotationX, -80f, 80f);
 
         // Update camera rotation
         transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
