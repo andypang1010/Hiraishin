@@ -78,17 +78,13 @@ public class PlayerThrow : MonoBehaviour
                 break;
 
             case "Throwable":
-                Rigidbody throwRB = gameObject.GetComponent<Rigidbody>();
-                throwRB.useGravity = true;
-                throwRB.freezeRotation = false;
-                throwRB.drag = 0;
-                gameObject.transform.SetParent(null);
 
                 if (Physics.Raycast(cam.position, cam.forward, out hit, maxDistance)) {
                     forceDirection = (hit.point - playerPickup.heldPoint.position).normalized;
                 }
 
-                throwRB.AddForce(throwableThrowForce * forceDirection + throwableUpwardForce * transform.up, ForceMode.Impulse);
+                playerPickup.heldObj.GetComponent<Rigidbody>().AddForce(throwableThrowForce * forceDirection + throwableUpwardForce * transform.up, ForceMode.Impulse);
+                playerPickup.SetObjAsActive();
                 break;
 
         }

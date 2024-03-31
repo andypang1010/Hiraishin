@@ -16,26 +16,21 @@ public class PlayerPickup : MonoBehaviour
 
         // Move throwable with player
         if (heldObj != null) {
-            print("PLAYER PICKUP: HELDOBJ NOT NULL");
             MoveObj();
         }
 
         if (Input.GetKeyDown(pickUpKey)) {
 
             // If player already holding an object
-            if (heldObj == null) {
-
-                // If throwable found within range
-                if (Physics.Raycast(cam.transform.position, cam.forward, out RaycastHit hit, maxDistance) 
-                    && hit.transform.gameObject.CompareTag("Throwable")) {
-
-                    PickUpObj(hit.transform.gameObject);
-                    print("PICKED UP OBJ");
-                }
+            if (heldObj != null) {
+                DropObj();
             }
 
-            else {
-                DropObj();
+            // If throwable found within range
+            if (Physics.Raycast(cam.transform.position, cam.forward, out RaycastHit hit, maxDistance) 
+                && hit.transform.gameObject.CompareTag("Throwable")) {
+
+                PickUpObj(hit.transform.gameObject);
             }
 
         }
@@ -46,24 +41,38 @@ public class PlayerPickup : MonoBehaviour
             rb.useGravity = false;
             rb.freezeRotation = true;
             rb.drag = 10f;
-            
+
             pickedObj.transform.SetParent(heldPoint);
             heldObj = pickedObj;
         }
     }
 
     void MoveObj() {
-        heldObj.transform.position = heldPoint.position;
+        if (Vector3.Distance(heldObj.transform.position, heldPoint.position) > 0f) {
+            Vector3 moveDirection = heldPoint.position - heldObj.transform.position;
+
+            heldObj.GetComponent<Rigidbody>().AddForce(moveDirection * moveForce);
+        }
+
+        else if (Vector3.Distance(heldObj.transform.position, heldPoint.position) > 10f) {
+            DropObj();
+        }
+
+        // heldObj.transform.position = heldPoint.position;
     }
 
     void DropObj() {
-        if (heldObj.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
-            rb.useGravity = true;
-            rb.freezeRotation = false;
-            rb.drag = 0f;
-
-            heldObj.transform.SetParent(heldPoint);
-            heldObj = null;
-        }
+        SetObjAsActive();
     }
+
+    public void SetObjAsActive() {
+        if (heldObj.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
+                rb.useGravity = true;
+                rb.freezeRotation = false;
+                rb.drag = 0f;
+
+                heldObj.transform.SetParent(heldPoint);
+                heldObj = null;
+            }
+        }
 }
