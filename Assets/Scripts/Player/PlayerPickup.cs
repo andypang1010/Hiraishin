@@ -71,7 +71,7 @@ public class PlayerPickup : MonoBehaviour
                 rb.freezeRotation = false;
                 rb.drag = 0f;
 
-                heldObj.transform.SetParent(heldPoint);
+                heldObj.transform.SetParent(null);
                 heldObj = null;
             }
         }
