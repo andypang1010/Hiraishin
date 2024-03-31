@@ -35,6 +35,7 @@ public class HeadBob : MonoBehaviour
     {
         PlayerMovement.MovementState movementState = playerMovement.GetMovementState();
 
+        // Change amplitude and frequency depending on movement state
         switch(movementState) {
             case PlayerMovement.MovementState.SPRINT:
                 amplitude = sprintAmplitude;
@@ -73,6 +74,7 @@ public class HeadBob : MonoBehaviour
     Vector3 FootStepMotion() {
         Vector3 pos = Vector3.zero;
 
+        // Oscillate using sine and cosine curves
         pos.y += Mathf.Sin(Time.time * frequency) * amplitude;
         pos.x += Mathf.Cos(Time.time * frequency / 2) * amplitude / 2;
 

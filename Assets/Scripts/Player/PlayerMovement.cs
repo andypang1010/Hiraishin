@@ -29,11 +29,15 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jump")]
     public float jumpForce;
     public float airMultiplier;
+    public float coyoteTime;
+    public float jumpBuffer;
+    private float coyoteTimeCounter;
+    private float jumpBufferCounter;
 
     [Header("Crouch")]
     public float crouchSpeed;
     public float crouchScale;
-    float defaultScale;
+    private float defaultScale;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -76,10 +80,29 @@ public class PlayerMovement : MonoBehaviour
     void GetInput() {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        // Coyote time check
+        if (grounded) {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+
+        // Jump buffer check
+        if (Input.GetKeyDown(jumpKey)) {
+            jumpBufferCounter = jumpBuffer;
+        }
+        else {
+            jumpBufferCounter -= Time.deltaTime;
+        }
         
         if (grounded) {
-            if (Input.GetKeyDown(jumpKey)) {
+            if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f) {
                 Jump();
+
+                // Reset jump buffer to prevent jumping again
+                jumpBufferCounter = 0f;
             }
 
             if (Input.GetKeyDown(crouchKey)) {
@@ -125,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
     void Move() {
         moveDirection = (orientation.forward * verticalInput + orientation.right * horizontalInput).normalized;
 
+        // Apply force perpendicular to slope's normal if on slope
         if (OnSlope() && !exitingSlope) {
             rb.AddForce(20 * moveSpeed * GetSlopeMoveDirection(), ForceMode.Force);
 
@@ -134,15 +158,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        // Move in direction
         if (grounded) {
-            // print("Grounded: " + (10 * moveSpeed * moveDirection).magnitude);
             rb.AddForce(10 * moveSpeed * moveDirection, ForceMode.Force);
         }
+
+        // Move in direction but slower in air
         else {
-            // print("Not grounded: " + (10 * moveSpeed * moveDirection * airMultiplier).magnitude);
             rb.AddForce(10 * moveSpeed * moveDirection * airMultiplier, ForceMode.Force);
         }
 
+        // Disable gravity while on slope to avoid slipping
         rb.useGravity = !OnSlope();
     }
 
