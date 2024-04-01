@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Check if is grounded
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f);
-        exitingSlope = false;
+        exitingSlope = !grounded;
 
         GetInput();
         SpeedControl();
@@ -153,18 +153,18 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(20 * moveSpeed * GetSlopeMoveDirection(), ForceMode.Force);
 
             // Apply downward force to keep player on slope
-            if (rb.velocity.y > 0 && grounded) {
+            if (rb.velocity.y > 0) {
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
             }
         }
 
         // Move in direction
-        if (grounded) {
+        else if (grounded) {
             rb.AddForce(10 * moveSpeed * moveDirection, ForceMode.Force);
         }
 
         // Move in direction but slower in air
-        else {
+        else if (!grounded) {
             rb.AddForce(10 * moveSpeed * moveDirection * airMultiplier, ForceMode.Force);
         }
 

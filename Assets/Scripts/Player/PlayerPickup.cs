@@ -16,27 +16,38 @@ public class PlayerPickup : MonoBehaviour
 
         // Move throwable with player
         if (heldObj != null) {
-            MoveObj();
+            MoveObject();
         }
 
         if (Input.GetKeyDown(pickUpKey)) {
 
             // If player already holding an object
             if (heldObj != null) {
-                DropObj();
+                DropObject();
             }
 
             // If throwable found within range
             if (Physics.Raycast(cam.transform.position, cam.forward, out RaycastHit hit, maxDistance) 
+
+                // Alternative approach to prevent flying with throwable underneath (raycast below and disable pickup if throwable is underneath player)
+                // && Physics.Raycast(transform.position, Vector3.down, out RaycastHit underHit, 1.2f)
+                // && underHit.transform.gameObject != hit.transform.gameObject
                 && hit.transform.gameObject.CompareTag("Throwable")) {
 
-                PickUpObj(hit.transform.gameObject);
+                PickUpObject(hit.transform.gameObject);
             }
 
         }
     }
 
-    void PickUpObj(GameObject pickedObj) {
+    void PickUpObject(GameObject pickedObj) {
+
+        // Disable collider to prevent player flying on top of throwable when picking up
+        if (pickedObj.TryGetComponent<Collider>(out Collider collider)) {
+            collider.enabled = false;
+        }
+
+        // Pick up settings
         if (pickedObj.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
             rb.useGravity = false;
             rb.freezeRotation = true;
@@ -47,25 +58,34 @@ public class PlayerPickup : MonoBehaviour
         }
     }
 
-    void MoveObj() {
-        if (Vector3.Distance(heldObj.transform.position, heldPoint.position) > 0f) {
+    void MoveObject() {
+
+        // Move object around the heldPoint
+        if (Vector3.Distance(heldObj.transform.position, heldPoint.position) > 0.1f) {
             Vector3 moveDirection = heldPoint.position - heldObj.transform.position;
 
             heldObj.GetComponent<Rigidbody>().AddForce(moveDirection * moveForce);
         }
 
-        else if (Vector3.Distance(heldObj.transform.position, heldPoint.position) > 10f) {
-            DropObj();
+        // Re-enable colliders once at heldPoint
+        else {
+            heldObj.GetComponent<Collider>().enabled = true;
         }
 
-        // heldObj.transform.position = heldPoint.position;
+        // Automatically drop throwable when far away from heldPoint
+        if (Vector3.Distance(heldObj.transform.position, heldPoint.position) > 2f) {
+            DropObject();
+        }
     }
 
-    void DropObj() {
-        SetObjAsActive();
-    }
+    public void DropObject() {
 
-    public void SetObjAsActive() {
+        // Re-enable colliders
+        if (heldObj.TryGetComponent<Collider>(out Collider collider)) {
+            collider.enabled = true;
+        }
+
+        // Drop settings
         if (heldObj.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
                 rb.useGravity = true;
                 rb.freezeRotation = false;

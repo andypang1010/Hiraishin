@@ -84,7 +84,7 @@ public class PlayerThrow : MonoBehaviour
                 }
 
                 playerPickup.heldObj.GetComponent<Rigidbody>().AddForce(throwableThrowForce * forceDirection + throwableUpwardForce * transform.up, ForceMode.Impulse);
-                playerPickup.SetObjAsActive();
+                playerPickup.DropObject();
                 break;
 
         }
