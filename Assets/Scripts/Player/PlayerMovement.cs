@@ -146,7 +146,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Move() {
-        moveDirection = (orientation.forward * verticalInput + orientation.right * horizontalInput).normalized;
+        moveDirection = (transform.forward * verticalInput + transform.right * horizontalInput).normalized;
 
         // Apply force perpendicular to slope's normal if on slope
         if (OnSlope() && !exitingSlope) {
