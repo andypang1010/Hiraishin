@@ -2,21 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(InputController))]
 public class PlayerPickup : MonoBehaviour
 {
     public Transform cam;
     public Transform heldPoint;
+    public KeyCode pickUpKey;
     public float maxDistance;
     public float moveForce;
     public float moveDrag;
     [HideInInspector] public GameObject heldObj;
-
-    InputController inputController;
-
-    void Start() {
-        inputController = GetComponent<InputController>();
-    }
 
     void Update()
     {
@@ -26,7 +20,7 @@ public class PlayerPickup : MonoBehaviour
             MoveObject();
         }
 
-        if (inputController.GetPickup()) {
+        if (Input.GetKeyDown(pickUpKey)) {
 
             // If player already holding an object
             if (heldObj != null) {

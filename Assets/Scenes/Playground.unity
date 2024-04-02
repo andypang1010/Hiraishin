@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -471,6 +472,21 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a260bc097a1ab44a2782a2ed7cb9bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensX: 50
+  sensY: 50
+  orientation: {fileID: 1462873635}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,7 +1122,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126358414}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1174,8 +1190,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1462873635}
   - component: {fileID: 1462873636}
-  - component: {fileID: 1462873640}
-  - component: {fileID: 1462873641}
   - component: {fileID: 1462873637}
   - component: {fileID: 1462873638}
   - component: {fileID: 1462873639}
@@ -1242,9 +1256,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441c76e911ff07b40a1b1bd08cdc0ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprintKey: 304
+  crouchKey: 306
+  jumpKey: 32
   sprintSpeed: 7
   walkSpeed: 4
   groundDrag: 5
+  orientation: {fileID: 0}
   movementState: 0
   jumpForce: 11
   airMultiplier: 0.4
@@ -1271,8 +1289,9 @@ MonoBehaviour:
   kunai: {fileID: 1722202866422810, guid: a86ce1ff3dfabd440b44a8dadb496d70, type: 3}
   totalKunai: 100
   throwCD: 0.2
+  throwKey: 323
   kunaiThrowForce: 70
-  kunaiUpwardForce: 2.7
+  kunaiUpwardForce: 0
   throwableThrowForce: 30
   throwableUpwardForce: 20
   maxDistance: 100
@@ -1290,45 +1309,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 330585546}
   heldPoint: {fileID: 1954988668}
+  pickUpKey: 101
   maxDistance: 4
   moveForce: 1000
   moveDrag: 20
   heldObj: {fileID: 0}
---- !u!114 &1462873640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1462873634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56693d84fb72d694fa6e499f4a41140b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprintKey: 304
-  crouchKey: 306
-  altCrouchKey: 310
-  jumpKey: 32
-  pickupKey: 101
-  throwKey: 323
-  teleportKey: 324
-  attackKey: 325
---- !u!114 &1462873641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1462873634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a260bc097a1ab44a2782a2ed7cb9bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 330585545}
-  sensX: 50
-  sensY: 50
 --- !u!1 &1464456299
 GameObject:
   m_ObjectHideFlags: 0
