@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
+    public Camera cam;
     public float sensX, sensY;
-    public Transform orientation;
 
     private float rotationX, rotationY;
 
@@ -32,9 +32,9 @@ public class PlayerCamera : MonoBehaviour
         rotationX = Math.Clamp(rotationX, -80f, 80f);
 
         // Update camera rotation
-        transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+        cam.transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
         
         // Update player rotation
-        orientation.rotation = Quaternion.Euler(0, rotationY, 0);
+        transform.rotation = Quaternion.Euler(0, rotationY, 0);
     }
 }

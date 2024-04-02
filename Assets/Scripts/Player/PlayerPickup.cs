@@ -61,7 +61,7 @@ public class PlayerPickup : MonoBehaviour
         }
 
         // Automatically drop throwable when far away from heldPoint
-        if (Vector3.Distance(heldObj.transform.position, heldPoint.position) > 2f) {
+        if (Vector3.Distance(heldObj.transform.position, heldPoint.position) > maxDistance) {
             DropObject();
         }
     }

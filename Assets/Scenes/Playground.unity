@@ -344,7 +344,6 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
-  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Player Camera
   m_TagString: MainCamera
@@ -472,21 +471,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &330585548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38a260bc097a1ab44a2782a2ed7cb9bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensX: 50
-  sensY: 50
-  orientation: {fileID: 1462873635}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,9 +1174,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1462873635}
   - component: {fileID: 1462873636}
+  - component: {fileID: 1462873640}
   - component: {fileID: 1462873637}
-  - component: {fileID: 1462873638}
   - component: {fileID: 1462873639}
+  - component: {fileID: 1462873638}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1290,11 +1275,11 @@ MonoBehaviour:
   totalKunai: 100
   throwCD: 0.2
   throwKey: 323
-  kunaiThrowForce: 70
-  kunaiUpwardForce: 0
-  throwableThrowForce: 30
+  kunaiThrowForce: 0.8
+  kunaiUpwardForce: 0.06
+  throwableThrowForce: 40
   throwableUpwardForce: 20
-  maxDistance: 100
+  maxDistance: 30
 --- !u!114 &1462873639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1310,10 +1295,25 @@ MonoBehaviour:
   cam: {fileID: 330585546}
   heldPoint: {fileID: 1954988668}
   pickUpKey: 101
-  maxDistance: 4
-  moveForce: 1000
-  moveDrag: 20
+  maxDistance: 2
+  moveForce: 250
+  moveDrag: 5
   heldObj: {fileID: 0}
+--- !u!114 &1462873640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462873634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38a260bc097a1ab44a2782a2ed7cb9bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 330585545}
+  sensX: 50
+  sensY: 50
 --- !u!1 &1464456299
 GameObject:
   m_ObjectHideFlags: 0
