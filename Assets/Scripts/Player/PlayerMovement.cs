@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(InputController))]
 public class PlayerMovement : MonoBehaviour
 {
     public enum MovementState {
@@ -13,16 +14,10 @@ public class PlayerMovement : MonoBehaviour
         AIR
     }
 
-    [Header("Input")]
-    public KeyCode sprintKey;
-    public KeyCode crouchKey;
-    public KeyCode jumpKey;
-
     [Header("Movement")]
     public float sprintSpeed;
     public float walkSpeed;
     public float groundDrag;
-    public Transform orientation;
     [HideInInspector] public MovementState movementState;
     private float moveSpeed;
 
@@ -49,14 +44,17 @@ public class PlayerMovement : MonoBehaviour
     RaycastHit slopeHit;
     bool exitingSlope;
 
-    float horizontalInput, verticalInput;
+    float horizontalMovement, verticalMovement;
     Vector3 moveDirection;
+    InputController inputController;
     Rigidbody rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        inputController = GetComponent<InputController>();
 
         defaultScale = transform.localScale.y;
     }
@@ -78,8 +76,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void GetInput() {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+
+        Vector2 walkDirection = inputController.GetWalkDirection();
+        horizontalMovement = walkDirection.x;
+        verticalMovement = walkDirection.y;
 
         // Coyote time check
         if (grounded) {
@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Jump buffer check
-        if (Input.GetKeyDown(jumpKey)) {
+        if (inputController.GetJump()) {
             jumpBufferCounter = jumpBuffer;
         }
         else {
@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
                 jumpBufferCounter = 0f;
             }
 
-            if (Input.GetKeyDown(crouchKey)) {
+            if (inputController.GetCrouch()) {
                 
                 // Shrink to crouch size
                 transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
@@ -115,7 +115,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(crouchKey) || !grounded) {
+        if (inputController.GetCrouch() || !grounded) {
+            
             // Revert back to normal scale
             transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
         }
@@ -127,12 +128,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         else {
-            if (Input.GetKey(crouchKey)) {
+            if (inputController.GetCrouch()) {
                 movementState = MovementState.CROUCH;
                 moveSpeed = crouchSpeed;
             }
 
-            else if (Input.GetKey(sprintKey)) {
+            else if (inputController.GetSprint()) {
                 movementState = MovementState.SPRINT;
                 moveSpeed = sprintSpeed;
             }
@@ -146,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Move() {
-        moveDirection = (transform.forward * verticalInput + transform.right * horizontalInput).normalized;
+        moveDirection = (transform.forward * verticalMovement + transform.right * horizontalMovement).normalized;
 
         // Apply force perpendicular to slope's normal if on slope
         if (OnSlope() && !exitingSlope) {
