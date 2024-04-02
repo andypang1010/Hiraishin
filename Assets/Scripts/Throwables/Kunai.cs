@@ -27,8 +27,9 @@ public class Kunai : MonoBehaviour
             rb.isKinematic = true;
             transform.SetParent(other.transform);
 
-            // Disable collisions once collided with other object
+            // Disable collisions and rigidbody once collided with other object
             GetComponent<BoxCollider>().enabled = false;
+            Destroy(rb);
         }
         
     }

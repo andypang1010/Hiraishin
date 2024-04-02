@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(InputController))]
 public class PlayerThrow : MonoBehaviour
 {
     [Header("References")]
+    InputController inputController;
     public Transform cam;
     public Transform kunaiAttackPoint;
     public GameObject kunai;
@@ -16,7 +18,6 @@ public class PlayerThrow : MonoBehaviour
     PlayerPickup playerPickup;
 
     [Header("Throw")]
-    public KeyCode throwKey = KeyCode.Mouse0;
     public float kunaiThrowForce;
     public float kunaiUpwardForce;
     public float throwableThrowForce;
@@ -27,13 +28,14 @@ public class PlayerThrow : MonoBehaviour
     void Start()
     {
         playerPickup = GetComponent<PlayerPickup>();
+        inputController = GetComponent<InputController>();
         kunaiRemaining = totalKunai;
         readyToThrow = true;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(throwKey) && readyToThrow && kunaiRemaining > 0) {
+        if (inputController.GetThrow() && readyToThrow && kunaiRemaining > 0) {
 
             // Throw throwable if it's available
             if (playerPickup.heldObj != null) {
@@ -45,7 +47,6 @@ public class PlayerThrow : MonoBehaviour
             // Throw kunai
             else {
                 Throw(kunai);
-                kunaiRemaining--;
             }
         }
     }
@@ -89,6 +90,8 @@ public class PlayerThrow : MonoBehaviour
 
         }
         
+        kunaiRemaining--;
+
         // Apply force
         Invoke(nameof(ResetThrow), throwCD);
     }

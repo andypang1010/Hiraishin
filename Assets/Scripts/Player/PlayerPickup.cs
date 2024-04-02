@@ -27,10 +27,10 @@ public class PlayerPickup : MonoBehaviour
                 DropObject();
             }
 
-            // If throwable found within range and is not directly below the player (preventing flying with throwable)
+            // If throwable found within range
             if (Physics.Raycast(cam.transform.position, cam.forward, out RaycastHit hit, maxDistance) 
-                && Physics.Raycast(transform.position, Vector3.down, out RaycastHit underHit, 1.2f)
-                && underHit.transform.gameObject != hit.transform.gameObject
+                // && Physics.Raycast(transform.position, Vector3.down, out RaycastHit underHit, 1.2f)
+                // && underHit.transform.gameObject != hit.transform.gameObject
                 && hit.transform.gameObject.CompareTag("Throwable")) {
 
                 PickUpObject(hit.transform.gameObject);
@@ -45,6 +45,8 @@ public class PlayerPickup : MonoBehaviour
             rb.useGravity = false;
             rb.freezeRotation = true;
             rb.drag = moveDrag;
+
+            Physics.IgnoreCollision(pickedObj.GetComponent<Collider>(), GetComponentInChildren<Collider>(), true);
 
             pickedObj.transform.SetParent(heldPoint);
             heldObj = pickedObj;
@@ -72,6 +74,8 @@ public class PlayerPickup : MonoBehaviour
                 rb.useGravity = true;
                 rb.freezeRotation = false;
                 rb.drag = 0f;
+
+                Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), GetComponentInChildren<Collider>(), false);
 
                 heldObj.transform.SetParent(null);
                 heldObj = null;
