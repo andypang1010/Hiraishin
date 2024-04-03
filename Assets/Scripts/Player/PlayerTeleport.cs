@@ -36,7 +36,6 @@ public class PlayerTeleport : MonoBehaviour
             )) {
 
                 GameObject target = hit.collider.gameObject;
-                print("Target 1: " + target);
 
                 // Inherit the velocity of in-air kunai
                 if (target.TryGetComponent(out Rigidbody rb)) {

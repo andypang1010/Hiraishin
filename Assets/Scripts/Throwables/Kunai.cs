@@ -14,8 +14,8 @@ public class Kunai : MonoBehaviour
 
     // Update is called once per frame
     void OnCollisionEnter(Collision other) {
+        print("Collided with: " + other.gameObject.name);
         if (other.gameObject.CompareTag("Player")) {
-            print("collided with player");
             transform.SetParent(null);
 
             Destroy(gameObject);
@@ -23,7 +23,6 @@ public class Kunai : MonoBehaviour
         }
         
         else {
-            print("COLLIDED WITH SOMETHING ELSE");
             if (rb != null) Destroy(rb);
             transform.SetParent(other.transform);
         }

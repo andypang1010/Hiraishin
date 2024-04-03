@@ -6,7 +6,7 @@ public class PlayerPickup : MonoBehaviour
 {
     public Transform cam;
     public Transform heldPoint;
-    public KeyCode pickUpKey;
+    public KeyCode pickupKey;
     public float maxDistance;
     public float moveForce;
     public float moveDrag;
@@ -25,7 +25,7 @@ public class PlayerPickup : MonoBehaviour
             MoveObject();
         }
 
-        if (inputController.GetPickup()) {
+        if (Input.GetKeyDown(pickupKey)) {
 
             // If player already holding an object
             if (heldObj != null) {

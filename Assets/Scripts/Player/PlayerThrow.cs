@@ -6,13 +6,13 @@ using UnityEngine;
 public class PlayerThrow : MonoBehaviour
 {
     [Header("References")]
-    InputController inputController;
-    PlayerTeleport playerTeleport;
     public Transform cam;
     public Transform kunaiAttackPoint;
     public GameObject kunai;
+    PlayerTeleport playerTeleport;
 
     [Header("Settings")]
+    public KeyCode throwKey;
     public int totalKunai;
     public float throwCD;
     public int kunaiRemaining;
@@ -30,7 +30,6 @@ public class PlayerThrow : MonoBehaviour
     {
         playerPickup = GetComponent<PlayerPickup>();
         playerTeleport = GetComponent<PlayerTeleport>();
-        inputController = GetComponent<InputController>();
         kunaiRemaining = totalKunai;
         readyToThrow = true;
     }
@@ -39,7 +38,7 @@ public class PlayerThrow : MonoBehaviour
     {
 
         // If the player meets throw conditions
-        if (inputController.GetThrow() && !playerTeleport.inTeleportMode && readyToThrow && kunaiRemaining > 0) {
+        if (Input.GetKeyDown(throwKey) && !playerTeleport.inTeleportMode && readyToThrow && kunaiRemaining > 0) {
 
             // Throw throwable if it exists
             if (playerPickup.heldObj != null) {
