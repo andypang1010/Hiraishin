@@ -10,7 +10,8 @@ public class InputController : MonoBehaviour
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode pickupKey = KeyCode.E;
     public KeyCode throwKey = KeyCode.Mouse0;
-    public KeyCode teleportKey = KeyCode.Mouse1;
+    public KeyCode teleportModeKey = KeyCode.Mouse2;
+    public KeyCode teleportSelectKey = KeyCode.Mouse0;
     public KeyCode attackKey = KeyCode.Mouse2;
 
     public Vector2 GetWalkDirection() {
@@ -41,8 +42,12 @@ public class InputController : MonoBehaviour
         return Input.GetKeyDown(throwKey);
     }
 
-    public bool GetTeleport() {
-        return Input.GetKeyDown(teleportKey);
+    public bool GetTeleportMode() {
+        return Input.GetKeyDown(teleportModeKey);
+    }
+
+    public bool GetTeleportSelect() {
+        return Input.GetKeyDown(teleportSelectKey);
     }
 
     public bool GetAttack() {

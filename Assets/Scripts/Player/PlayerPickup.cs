@@ -11,6 +11,11 @@ public class PlayerPickup : MonoBehaviour
     public float moveForce;
     public float moveDrag;
     [HideInInspector] public GameObject heldObj;
+    InputController inputController;
+
+    private void Start() {
+        inputController = GetComponent<InputController>();
+    }
 
     void FixedUpdate()
     {
@@ -20,7 +25,7 @@ public class PlayerPickup : MonoBehaviour
             MoveObject();
         }
 
-        if (Input.GetKeyDown(pickUpKey)) {
+        if (inputController.GetPickup()) {
 
             // If player already holding an object
             if (heldObj != null) {

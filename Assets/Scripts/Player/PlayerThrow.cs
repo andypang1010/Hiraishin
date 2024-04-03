@@ -77,7 +77,6 @@ public class PlayerThrow : MonoBehaviour
                 // Propel projectile towards force direction
                 rb.AddForce(kunaiThrowForce * forceDirection + kunaiUpwardForce * transform.up, ForceMode.Impulse);
 
-                // Decrement kunai remaining
                 kunaiRemaining--;
 
                 break;

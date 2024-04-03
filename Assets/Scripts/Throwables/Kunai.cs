@@ -19,18 +19,15 @@ public class Kunai : MonoBehaviour
     // Update is called once per frame
     void OnCollisionEnter(Collision other) {
         if (other.gameObject.CompareTag("Player")) {
+            transform.SetParent(null);
+
             Destroy(gameObject);
             other.gameObject.GetComponent<PlayerThrow>().kunaiRemaining++;
         }
         
-        // Ignore collisions with player
         else {
-            // Stick to collided surface
-            rb.isKinematic = true;
+            if (rb != null) Destroy(rb);
             transform.SetParent(other.transform);
-
-            // Disable collisions and rigidbody once collided with other object
-            Destroy(rb);
         }
         
     }

@@ -991,12 +991,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1462873635}
   - component: {fileID: 1462873636}
+  - component: {fileID: 1462873641}
   - component: {fileID: 1462873640}
   - component: {fileID: 1462873637}
   - component: {fileID: 1462873639}
   - component: {fileID: 1462873638}
   - component: {fileID: 1462873642}
-  - component: {fileID: 1462873641}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1047,7 +1047,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 112
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2
 --- !u!114 &1462873637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,7 +1092,7 @@ MonoBehaviour:
   kunaiAttackPoint: {fileID: 989027585}
   kunai: {fileID: 1722202866422810, guid: a86ce1ff3dfabd440b44a8dadb496d70, type: 3}
   totalKunai: 7
-  throwCD: 0.2
+  throwCD: 0.5
   kunaiRemaining: 0
   kunaiThrowForce: 0.8
   kunaiUpwardForce: 0.02
@@ -1151,7 +1151,8 @@ MonoBehaviour:
   jumpKey: 32
   pickupKey: 101
   throwKey: 323
-  teleportKey: 324
+  teleportModeKey: 325
+  teleportSelectKey: 323
   attackKey: 325
 --- !u!114 &1462873642
 MonoBehaviour:
@@ -1168,6 +1169,7 @@ MonoBehaviour:
   teleportModeKey: 325
   selectKey: 323
   dilutedTimeScale: 0.3
+  detectionDistance: 70
   inTeleportMode: 0
   cam: {fileID: 330585545}
 --- !u!1 &1464456299

@@ -35,16 +35,15 @@ public class PlayerTeleport : MonoBehaviour
                 LayerMask.GetMask("Kunai")
             )) {
 
-                // Unchild the kunai
-                hit.transform.SetParent(null);
+                GameObject target = hit.transform.gameObject;
 
                 // Inherit the velocity of in-air kunai
-                if (hit.transform.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
+                if (target.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
                     GetComponent<Rigidbody>().velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 }
 
                 // Teleport to new position
-                transform.position = hit.transform.gameObject.transform.position + 0.1f * transform.up;
+                transform.position = target.transform.position + 0.1f * transform.up;
 
                 // Revert back to regularMode
                 inTeleportMode = false;
