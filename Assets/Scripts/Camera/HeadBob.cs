@@ -51,11 +51,13 @@ public class HeadBob : MonoBehaviour
                 frequency = walkFrequency;
                 break;
         }
+    }
 
+    private void FixedUpdate() {
         if (!enabled) return;
-            PlayMotion();
-            ResetPosition();
-            playerCamera.LookAt(StablizedTarget());
+        PlayMotion();
+        ResetPosition();
+        playerCamera.LookAt(StablizedTarget());
     }
 
     void PlayMotion() {

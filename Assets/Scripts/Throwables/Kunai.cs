@@ -17,8 +17,8 @@ public class Kunai : MonoBehaviour
         if (other.gameObject.CompareTag("Player")) {
             // transform.SetParent(null);
 
-            Destroy(gameObject);
             other.gameObject.GetComponent<PlayerThrow>().kunaiRemaining++;
+            Destroy(gameObject);
         }
         
         else {

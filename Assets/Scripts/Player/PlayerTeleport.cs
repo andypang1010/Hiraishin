@@ -50,11 +50,13 @@ public class PlayerTeleport : MonoBehaviour
                         GetComponent<Rigidbody>().velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                     }
 
-                    Destroy(target);
                     GetComponent<PlayerThrow>().kunaiRemaining++;
 
                     // Revert back to regularMode
                     inTeleportMode = false;
+
+                    // Remove target from level
+                    Destroy(target);
                 }
             }
         }
