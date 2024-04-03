@@ -35,11 +35,13 @@ public class PlayerThrow : MonoBehaviour
         readyToThrow = true;
     }
 
-    void Update()
+    void FixedUpdate()
     {
+
+        // If the player meets throw conditions
         if (inputController.GetThrow() && !playerTeleport.inTeleportMode && readyToThrow && kunaiRemaining > 0) {
 
-            // Throw throwable if it's available
+            // Throw throwable if it exists
             if (playerPickup.heldObj != null) {
 
                 Throw(playerPickup.heldObj);
@@ -75,6 +77,7 @@ public class PlayerThrow : MonoBehaviour
                 // Propel projectile towards force direction
                 rb.AddForce(kunaiThrowForce * forceDirection + kunaiUpwardForce * transform.up, ForceMode.Impulse);
 
+                // Decrement kunai remaining
                 kunaiRemaining--;
 
                 break;

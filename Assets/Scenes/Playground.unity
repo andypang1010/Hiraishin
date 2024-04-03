@@ -1165,7 +1165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd281fba824ad84a9bb8bcd40d34ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportModeKey: 324
+  teleportModeKey: 325
   selectKey: 323
   dilutedTimeScale: 0.3
   inTeleportMode: 0

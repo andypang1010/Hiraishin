@@ -6,7 +6,6 @@ public class Kunai : MonoBehaviour
 {
     public float damage;
     private Rigidbody rb;
-    private bool targetHit;
 
     void Start()
     {
@@ -23,15 +22,9 @@ public class Kunai : MonoBehaviour
             Destroy(gameObject);
             other.gameObject.GetComponent<PlayerThrow>().kunaiRemaining++;
         }
-
-        // if (targetHit) {
-        //     return;
-        // }
         
         // Ignore collisions with player
-        else if (!other.gameObject.CompareTag("Player")) {
-            targetHit = true;
-
+        else {
             // Stick to collided surface
             rb.isKinematic = true;
             transform.SetParent(other.transform);

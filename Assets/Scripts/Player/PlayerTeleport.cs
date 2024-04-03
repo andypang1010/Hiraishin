@@ -8,45 +8,53 @@ public class PlayerTeleport : MonoBehaviour
     public KeyCode teleportModeKey;
     public KeyCode selectKey;
     public float dilutedTimeScale;
+    public float detectionDistance;
     public bool inTeleportMode;
     public Camera cam;
-    PlayerThrow playerThrow;
-
-    void Start() {
-        playerThrow = GetComponent<PlayerThrow>();
-    }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(cam.transform.position, cam.transform.forward, Color.cyan);
-
+        // Toggle between teleportMode and regularMode
         if (Input.GetKeyDown(teleportModeKey)) {
             inTeleportMode = !inTeleportMode;
         }
 
         if (inTeleportMode) {
+
+            // Slow down time
             Time.timeScale = dilutedTimeScale;
-            // Time.fixedDeltaTime = 0.005f;
 
-            Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit debugHit, 70f, LayerMask.GetMask("Kunai"));
-
+            // If a kunai is found and selectKey pressed
             if (Input.GetKeyDown(selectKey) 
-            && Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, 70f, LayerMask.GetMask("Kunai"))) {
+            && Physics.Raycast(
+                cam.transform.position, 
+                cam.transform.forward, 
+                out RaycastHit hit, 
+                detectionDistance, 
+                LayerMask.GetMask("Kunai")
+            )) {
 
+                // Unchild the kunai
                 hit.transform.SetParent(null);
 
-                transform.position = hit.transform.position;
-                Destroy(hit.transform.gameObject);
-                playerThrow.kunaiRemaining++;
+                // Inherit the velocity of in-air kunai
+                if (hit.transform.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
+                    GetComponent<Rigidbody>().velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                }
 
+                // Teleport to new position
+                transform.position = hit.transform.gameObject.transform.position + 0.1f * transform.up;
+
+                // Revert back to regularMode
                 inTeleportMode = false;
             }
         }
 
         else {
+
+            // Set time to regular scale
             Time.timeScale = 1f;
-            // Time.fixedDeltaTime = 0.02f;
         }
     }
 }
