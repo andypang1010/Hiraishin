@@ -7,6 +7,7 @@ public class PlayerThrow : MonoBehaviour
 {
     [Header("References")]
     InputController inputController;
+    PlayerTeleport playerTeleport;
     public Transform cam;
     public Transform kunaiAttackPoint;
     public GameObject kunai;
@@ -14,7 +15,7 @@ public class PlayerThrow : MonoBehaviour
     [Header("Settings")]
     public int totalKunai;
     public float throwCD;
-    int kunaiRemaining;
+    public int kunaiRemaining;
     PlayerPickup playerPickup;
 
     [Header("Throw")]
@@ -28,6 +29,7 @@ public class PlayerThrow : MonoBehaviour
     void Start()
     {
         playerPickup = GetComponent<PlayerPickup>();
+        playerTeleport = GetComponent<PlayerTeleport>();
         inputController = GetComponent<InputController>();
         kunaiRemaining = totalKunai;
         readyToThrow = true;
@@ -35,7 +37,7 @@ public class PlayerThrow : MonoBehaviour
 
     void Update()
     {
-        if (inputController.GetThrow() && readyToThrow && kunaiRemaining > 0) {
+        if (inputController.GetThrow() && !playerTeleport.inTeleportMode && readyToThrow && kunaiRemaining > 0) {
 
             // Throw throwable if it's available
             if (playerPickup.heldObj != null) {
@@ -54,43 +56,36 @@ public class PlayerThrow : MonoBehaviour
     void Throw(GameObject gameObject) {
         readyToThrow = false;
 
-        // Calculate direction
-        Vector3 forceDirection = cam.transform.forward;
+        // Calculate default force direction
+        Vector3 forceDirection = (cam.position + maxDistance * cam.forward - kunaiAttackPoint.position).normalized;
 
-        RaycastHit hit;
-
-        // Calculate new force direction if within range
-        if (Physics.Raycast(cam.position, cam.forward, out hit, maxDistance)) {
+        // Calculate accurate force direction if in range
+        if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, maxDistance)) {
             forceDirection = (hit.point - kunaiAttackPoint.position).normalized;
         }
 
         // Calculate throw force
         switch (gameObject.GetComponent<Collider>().tag) {
             case "Kunai":
-                // Instantiate projectile
-                GameObject projectile = Instantiate(gameObject, kunaiAttackPoint.position, cam.rotation);
-                Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
-                if (Physics.Raycast(cam.position, cam.forward, out hit, maxDistance)) {
-                    forceDirection = (hit.point - kunaiAttackPoint.position).normalized;
-                }
+                // Instantiate kunai
+                GameObject kunai = Instantiate(gameObject, kunaiAttackPoint.position, cam.rotation);
+                Rigidbody rb = kunai.GetComponent<Rigidbody>();
 
+                // Propel projectile towards force direction
                 rb.AddForce(kunaiThrowForce * forceDirection + kunaiUpwardForce * transform.up, ForceMode.Impulse);
+
+                kunaiRemaining--;
+
                 break;
 
             case "Throwable":
-
-                if (Physics.Raycast(cam.position, cam.forward, out hit, maxDistance)) {
-                    forceDirection = (hit.point - playerPickup.heldPoint.position).normalized;
-                }
 
                 playerPickup.heldObj.GetComponent<Rigidbody>().AddForce(throwableThrowForce * forceDirection + throwableUpwardForce * transform.up, ForceMode.Impulse);
                 playerPickup.DropObject();
                 break;
 
         }
-        
-        kunaiRemaining--;
 
         // Apply force
         Invoke(nameof(ResetThrow), throwCD);

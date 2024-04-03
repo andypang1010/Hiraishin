@@ -9,10 +9,4 @@ public class GameManager : MonoBehaviour
     {
         Application.targetFrameRate = frameRate;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

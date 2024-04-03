@@ -13,14 +13,23 @@ public class Kunai : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    void Update() {
+        gameObject.layer = LayerMask.NameToLayer("Kunai");
+    }
+
     // Update is called once per frame
     void OnCollisionEnter(Collision other) {
-        if (targetHit) {
-            return;
+        if (other.gameObject.CompareTag("Player")) {
+            Destroy(gameObject);
+            other.gameObject.GetComponent<PlayerThrow>().kunaiRemaining++;
         }
+
+        // if (targetHit) {
+        //     return;
+        // }
         
         // Ignore collisions with player
-        if (!other.gameObject.CompareTag("Player")) {
+        else if (!other.gameObject.CompareTag("Player")) {
             targetHit = true;
 
             // Stick to collided surface
@@ -28,7 +37,6 @@ public class Kunai : MonoBehaviour
             transform.SetParent(other.transform);
 
             // Disable collisions and rigidbody once collided with other object
-            GetComponent<BoxCollider>().enabled = false;
             Destroy(rb);
         }
         

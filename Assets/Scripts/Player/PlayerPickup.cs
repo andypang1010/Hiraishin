@@ -12,7 +12,7 @@ public class PlayerPickup : MonoBehaviour
     public float moveDrag;
     [HideInInspector] public GameObject heldObj;
 
-    void Update()
+    void FixedUpdate()
     {
 
         // Move throwable with player
