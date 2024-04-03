@@ -32,18 +32,22 @@ public class PlayerTeleport : MonoBehaviour
                 cam.transform.forward, 
                 out RaycastHit hit, 
                 detectionDistance, 
-                LayerMask.GetMask("Kunai")
+                LayerMask.GetMask("Kunai", "Tagged")
             )) {
 
-                GameObject target = hit.transform.gameObject;
+                GameObject target = hit.collider.gameObject;
+                print("Target 1: " + target);
 
                 // Inherit the velocity of in-air kunai
-                if (target.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
+                if (target.TryGetComponent(out Rigidbody rb)) {
                     GetComponent<Rigidbody>().velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 }
 
                 // Teleport to new position
                 transform.position = target.transform.position + 0.1f * transform.up;
+
+                Destroy(target);
+                GetComponent<PlayerThrow>().kunaiRemaining++;
 
                 // Revert back to regularMode
                 inTeleportMode = false;

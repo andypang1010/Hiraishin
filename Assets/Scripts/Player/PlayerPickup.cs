@@ -46,7 +46,7 @@ public class PlayerPickup : MonoBehaviour
 
     void PickUpObject(GameObject pickedObj) {
         // Pick up settings
-        if (pickedObj.TryGetComponent<Rigidbody>(out Rigidbody rb)) {
+        if (pickedObj.TryGetComponent(out Rigidbody rb)) {
             rb.useGravity = false;
             rb.freezeRotation = true;
             rb.drag = moveDrag;

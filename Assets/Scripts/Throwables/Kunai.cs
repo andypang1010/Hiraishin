@@ -5,20 +5,17 @@ using UnityEngine;
 public class Kunai : MonoBehaviour
 {
     public float damage;
-    private Rigidbody rb;
+    Rigidbody rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    void Update() {
-        gameObject.layer = LayerMask.NameToLayer("Kunai");
-    }
-
     // Update is called once per frame
     void OnCollisionEnter(Collision other) {
         if (other.gameObject.CompareTag("Player")) {
+            print("collided with player");
             transform.SetParent(null);
 
             Destroy(gameObject);
@@ -26,6 +23,7 @@ public class Kunai : MonoBehaviour
         }
         
         else {
+            print("COLLIDED WITH SOMETHING ELSE");
             if (rb != null) Destroy(rb);
             transform.SetParent(other.transform);
         }
