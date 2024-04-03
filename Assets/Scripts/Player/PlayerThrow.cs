@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(InputController))]
 public class PlayerThrow : MonoBehaviour
 {
     [Header("References")]
@@ -57,14 +56,8 @@ public class PlayerThrow : MonoBehaviour
     void Throw(GameObject gameObject) {
         readyToThrow = false;
 
-        // Calculate default force direction
-        Vector3 forceDirection = (cam.position + maxDistance * cam.forward - kunaiAttackPoint.position).normalized;
-
-        // Calculate accurate force direction if in range
-        if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, maxDistance)) {
-            forceDirection = (hit.point - kunaiAttackPoint.position).normalized;
-        }
-
+        Vector3 forceDirection = new Vector3();
+        
         // Calculate throw force
         switch (gameObject.GetComponent<Collider>().tag) {
             case "Kunai":
@@ -72,6 +65,14 @@ public class PlayerThrow : MonoBehaviour
                 // Instantiate kunai
                 GameObject kunai = Instantiate(gameObject, kunaiAttackPoint.position, cam.rotation);
                 Rigidbody rb = kunai.GetComponent<Rigidbody>();
+
+                // Calculate default force direction
+                forceDirection = (cam.position + maxDistance * cam.forward - kunaiAttackPoint.position).normalized;
+
+                // Calculate accurate force direction if in range
+                if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, maxDistance)) {
+                    forceDirection = (hit.point - kunaiAttackPoint.position).normalized;
+                }
 
                 // Propel projectile towards force direction
                 rb.AddForce(kunaiThrowForce * forceDirection + kunaiUpwardForce * transform.up, ForceMode.Impulse);
@@ -81,6 +82,13 @@ public class PlayerThrow : MonoBehaviour
                 break;
 
             case "Throwable":
+                // Calculate default force direction
+                forceDirection = (cam.position + maxDistance * cam.forward - playerPickup.heldPoint.position).normalized;
+
+                // Calculate accurate force direction if in range
+                if (Physics.Raycast(cam.position, cam.forward, out hit, maxDistance)) {
+                    forceDirection = (hit.point - playerPickup.heldPoint.position).normalized;
+                }
 
                 playerPickup.heldObj.GetComponent<Rigidbody>().AddForce(throwableThrowForce * forceDirection + throwableUpwardForce * transform.up, ForceMode.Impulse);
                 playerPickup.DropObject();

@@ -251,17 +251,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33151375}
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 21635188}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &33151377
 MonoBehaviour:
@@ -310,7 +310,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 84367153}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Camera Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -886,7 +886,7 @@ GameObject:
   - component: {fileID: 1126358417}
   - component: {fileID: 1126358416}
   - component: {fileID: 1126358415}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -991,13 +991,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1462873635}
   - component: {fileID: 1462873636}
-  - component: {fileID: 1462873641}
   - component: {fileID: 1462873640}
   - component: {fileID: 1462873637}
   - component: {fileID: 1462873639}
   - component: {fileID: 1462873638}
   - component: {fileID: 1462873642}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1066,7 +1065,6 @@ MonoBehaviour:
   sprintSpeed: 7
   walkSpeed: 4
   groundDrag: 5
-  orientation: {fileID: 0}
   movementState: 0
   jumpForce: 11
   airMultiplier: 0.4
@@ -1134,27 +1132,6 @@ MonoBehaviour:
   cam: {fileID: 330585545}
   sensX: 50
   sensY: 50
---- !u!114 &1462873641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1462873634}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 339d5370c5f3b264ca09e47c9bc5e909, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprintKey: 304
-  crouchKey: 306
-  altCrouchKey: 310
-  jumpKey: 32
-  pickupKey: 101
-  throwKey: 323
-  teleportModeKey: 325
-  teleportSelectKey: 323
-  attackKey: 325
 --- !u!114 &1462873642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1168,11 +1145,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teleportModeKey: 325
-  selectKey: 323
+  teleportSelectKey: 323
   dilutedTimeScale: 0.3
-  detectionDistance: 70
+  detectionDistance: Infinity
   inTeleportMode: 0
-  cam: {fileID: 330585545}
+  cam: {fileID: 330585546}
 --- !u!1 &1464456299
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e47d628df9e814cafb9e2ac1519da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frameRate: 144
+  frameRate: 60
 --- !u!4 &1464456301
 Transform:
   m_ObjectHideFlags: 0

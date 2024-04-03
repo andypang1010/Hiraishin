@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     public float sprintSpeed;
     public float walkSpeed;
     public float groundDrag;
-    public Transform orientation;
     [HideInInspector] public MovementState movementState;
     private float moveSpeed;
 

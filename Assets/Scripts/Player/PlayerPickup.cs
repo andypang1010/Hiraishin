@@ -11,12 +11,6 @@ public class PlayerPickup : MonoBehaviour
     public float moveForce;
     public float moveDrag;
     [HideInInspector] public GameObject heldObj;
-    InputController inputController;
-
-    private void Start() {
-        inputController = GetComponent<InputController>();
-    }
-
     void FixedUpdate()
     {
 
