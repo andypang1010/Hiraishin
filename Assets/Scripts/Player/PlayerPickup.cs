@@ -32,7 +32,7 @@ public class PlayerPickup : MonoBehaviour
                 // && underHit.transform.gameObject != hit.transform.gameObject
                 && hit.transform.gameObject.CompareTag("Throwable")) {
 
-                PickUpObject(hit.transform.gameObject);
+                PickUpObject(hit.collider.gameObject);
             }
 
         }
@@ -45,7 +45,7 @@ public class PlayerPickup : MonoBehaviour
             rb.freezeRotation = true;
             rb.drag = moveDrag;
 
-            Physics.IgnoreCollision(pickedObj.GetComponent<Collider>(), GetComponentInChildren<Collider>(), true);
+            Physics.IgnoreCollision(pickedObj.GetComponent<Collider>(), gameObject.GetComponentInChildren<Collider>(), true);
 
             pickedObj.transform.SetParent(heldPoint);
             heldObj = pickedObj;
@@ -74,7 +74,7 @@ public class PlayerPickup : MonoBehaviour
                 rb.freezeRotation = false;
                 rb.drag = 0f;
 
-                Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), GetComponentInChildren<Collider>(), false);
+                Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), gameObject.GetComponentInChildren<Collider>(), false);
 
                 heldObj.transform.SetParent(null);
                 heldObj = null;

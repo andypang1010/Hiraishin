@@ -8,9 +8,15 @@ public class PlayerTeleport : MonoBehaviour
     public KeyCode teleportModeKey;
     public KeyCode teleportSelectKey;
     public float dilutedTimeScale;
+    public float detectionSize;
     public float detectionDistance;
     public bool inTeleportMode;
     public Transform cam;
+    Rigidbody rb;
+
+    private void Start() {
+        rb = GetComponent<Rigidbody>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -26,12 +32,13 @@ public class PlayerTeleport : MonoBehaviour
 
             // Slow down time
             Time.timeScale = dilutedTimeScale;
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
             // If a kunai is found and selectKey pressed
             if (Input.GetKeyDown(teleportSelectKey)) {
                 if (Physics.SphereCast(
                     cam.position, 
-                    0.2f, 
+                    detectionSize, 
                     cam.forward,
                     out RaycastHit hit, 
                     detectionDistance, 
@@ -41,13 +48,12 @@ public class PlayerTeleport : MonoBehaviour
                     GameObject target = hit.collider.gameObject;
                     print(target + " found");
 
-                    // Teleport to new position
-                    transform.position = target.transform.position + 0.1f * Vector3.up;
-                    print(target.transform.position);
+                    // Teleport to new position (Do not call transform.position directly on RigidBodies!!!)
+                    rb.MovePosition(target.transform.position + 0.1f * Vector3.up);
 
                     // Inherit the velocity of in-air kunai
-                    if (target.TryGetComponent(out Rigidbody rb)) {
-                        GetComponent<Rigidbody>().velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                    if (target.TryGetComponent(out Rigidbody targetRB)) {
+                        GetComponent<Rigidbody>().velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z);
                     }
 
                     GetComponent<PlayerThrow>().kunaiRemaining++;
@@ -65,6 +71,8 @@ public class PlayerTeleport : MonoBehaviour
 
             // Set time to regular scale
             Time.timeScale = 1f;
+
+            Time.fixedDeltaTime = 0.02f;
         }
     }
 

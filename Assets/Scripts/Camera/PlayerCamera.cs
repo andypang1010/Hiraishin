@@ -7,6 +7,7 @@ public class PlayerCamera : MonoBehaviour
 {
     public Camera cam;
     public float sensX, sensY;
+    float currentSensX, currentSensY;
 
     private float rotationX, rotationY;
 
@@ -19,10 +20,19 @@ public class PlayerCamera : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale != 1) {
+            currentSensX = sensX / Time.timeScale;
+            currentSensY = sensY / Time.timeScale;
+        }
+
+        else {
+            currentSensX = sensX;
+            currentSensY = sensY;
+        }
 
         // Get mouse input with sensitivity
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.fixedDeltaTime * sensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.fixedDeltaTime * sensY;
+        float mouseX = Input.GetAxisRaw("Mouse X") * Time.fixedDeltaTime * currentSensX;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.fixedDeltaTime * currentSensY;
     
         // Weird but works (DON'T TOUCH)
         rotationY += mouseX;
