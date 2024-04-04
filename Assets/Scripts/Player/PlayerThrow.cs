@@ -22,7 +22,7 @@ public class PlayerThrow : MonoBehaviour
     public float kunaiUpwardForce;
     public float throwableThrowForce;
     public float throwableUpwardForce;
-    public float maxDistance;
+    public float maxAccurateDistance;
     bool readyToThrow;
 
     void Start()
@@ -67,10 +67,10 @@ public class PlayerThrow : MonoBehaviour
                 Rigidbody rb = kunai.GetComponent<Rigidbody>();
 
                 // Calculate default force direction
-                forceDirection = (cam.position + maxDistance * cam.forward - kunaiAttackPoint.position).normalized;
+                forceDirection = (cam.position + maxAccurateDistance * cam.forward - kunaiAttackPoint.position).normalized;
 
                 // Calculate accurate force direction if in range
-                if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, maxDistance)) {
+                if (Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, maxAccurateDistance)) {
                     forceDirection = (hit.point - kunaiAttackPoint.position).normalized;
                 }
 
@@ -83,10 +83,10 @@ public class PlayerThrow : MonoBehaviour
 
             case "Throwable":
                 // Calculate default force direction
-                forceDirection = (cam.position + maxDistance * cam.forward - playerPickup.heldPoint.position).normalized;
+                forceDirection = (cam.position + maxAccurateDistance * cam.forward - playerPickup.heldPoint.position).normalized;
 
                 // Calculate accurate force direction if in range
-                if (Physics.Raycast(cam.position, cam.forward, out hit, maxDistance)) {
+                if (Physics.Raycast(cam.position, cam.forward, out hit, maxAccurateDistance)) {
                     forceDirection = (hit.point - playerPickup.heldPoint.position).normalized;
                 }
 

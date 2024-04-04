@@ -21,7 +21,6 @@ public class PlayerTeleport : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawLine(cam.position, cam.position + cam.forward * detectionDistance, Color.green);
 
         // Toggle between teleportMode and regularMode
         if (Input.GetKeyDown(teleportModeKey)) {
@@ -77,6 +76,6 @@ public class PlayerTeleport : MonoBehaviour
     }
 
     void OnDrawGizmos() {
-        Gizmos.DrawWireSphere(cam.position + cam.forward * 1, 0.2f);
+        Gizmos.DrawWireSphere(cam.position + cam.forward * detectionDistance, detectionSize);
     }
 }
