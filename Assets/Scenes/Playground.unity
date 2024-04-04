@@ -836,6 +836,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8183518252507792555, guid: 8a7111c389cfd1f429e10c8f898e6d7f,
         type: 3}
+      propertyPath: m_Mass
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183518252507792555, guid: 8a7111c389cfd1f429e10c8f898e6d7f,
+        type: 3}
       propertyPath: m_Interpolate
       value: 0
       objectReference: {fileID: 0}
@@ -1098,11 +1103,11 @@ MonoBehaviour:
   throwKey: 323
   totalKunai: 7
   throwCD: 0.5
-  kunaiRemaining: 0
+  kunaiRemaining: 7
   kunaiThrowForce: 0.8
   kunaiUpwardForce: 0.02
-  throwableThrowForce: 40
-  throwableUpwardForce: 20
+  throwableThrowForce: 7
+  throwableUpwardForce: 1.5
   maxDistance: 30
 --- !u!114 &1462873639
 MonoBehaviour:
@@ -1120,8 +1125,8 @@ MonoBehaviour:
   heldPoint: {fileID: 1954988668}
   pickupKey: 101
   maxDistance: 3
-  moveForce: 250
-  moveDrag: 7
+  moveForce: 30
+  moveDrag: 10
   heldObj: {fileID: 0}
 --- !u!114 &1462873640
 MonoBehaviour:
@@ -1274,6 +1279,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183518252507792555, guid: 8a7111c389cfd1f429e10c8f898e6d7f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8183518252507792555, guid: 8a7111c389cfd1f429e10c8f898e6d7f,
         type: 3}
@@ -1511,6 +1521,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183518252507792555, guid: 8a7111c389cfd1f429e10c8f898e6d7f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8183518252507792555, guid: 8a7111c389cfd1f429e10c8f898e6d7f,
         type: 3}
@@ -4567,6 +4582,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183518252507792555, guid: 8a7111c389cfd1f429e10c8f898e6d7f,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8482224217175907956, guid: 8a7111c389cfd1f429e10c8f898e6d7f,
         type: 3}
