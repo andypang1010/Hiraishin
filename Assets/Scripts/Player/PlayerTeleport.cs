@@ -5,26 +5,23 @@ using UnityEngine;
 
 public class PlayerTeleport : MonoBehaviour
 {
+    public Transform cam;
     public KeyCode teleportModeKey;
     public KeyCode teleportSelectKey;
     public float dilutedTimeScale;
     public float detectionSize;
     public float detectionDistance;
+
+    public float teleportModeDuration;
+    public float teleportCD;
     public bool inTeleportMode;
-    public Transform cam;
-    Rigidbody rb;
 
-    private void Start() {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
 
-        // Toggle between teleportMode and regularMode
+        // Enter teleport mode when presses teleportMode key and teleportMode is ready
         if (Input.GetKeyDown(teleportModeKey)) {
-            inTeleportMode = !inTeleportMode;
+            inTeleportMode = true;
         }
 
         if (inTeleportMode) {
@@ -34,48 +31,59 @@ public class PlayerTeleport : MonoBehaviour
             Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
             // If a kunai is found and selectKey pressed
-            if (Input.GetKeyDown(teleportSelectKey)) {
+            if (Input.GetKeyDown(teleportSelectKey))
                 if (Physics.SphereCast(
                     cam.position, 
                     detectionSize, 
                     cam.forward,
-                    out RaycastHit hit, 
+                    out RaycastHit kunaiHit, 
                     detectionDistance, 
-                    LayerMask.GetMask("Kunai", "Tagged")
-                )) {
-
-                    GameObject target = hit.collider.gameObject;
-                    print(target + " found");
-
-                    // Teleport to new position (Do not call transform.position directly on RigidBodies!!!)
-                    rb.MovePosition(target.transform.position + 0.1f * Vector3.up);
-
-                    // Inherit the velocity of in-air kunai
-                    if (target.TryGetComponent(out Rigidbody targetRB)) {
-                        GetComponent<Rigidbody>().velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z);
-                    }
-
+                    LayerMask.GetMask("Kunai"))
+                ) {
+                    Teleport(gameObject, kunaiHit.collider.gameObject);
                     GetComponent<PlayerThrow>().kunaiRemaining++;
+
+                    Destroy(kunaiHit.collider.gameObject);
 
                     // Revert back to regularMode
                     inTeleportMode = false;
-
-                    // Remove target from level
-                    Destroy(target);
                 }
-            }
+
+                else if (Physics.SphereCast(
+                    cam.position, 
+                    detectionSize, 
+                    cam.forward,
+                    out RaycastHit taggedHit, 
+                    detectionDistance, 
+                    LayerMask.GetMask("Tagged"))
+                ) {
+                    GameObject temp = Instantiate(gameObject);
+                    Teleport(gameObject, taggedHit.collider.gameObject);
+                    Teleport(taggedHit.collider.gameObject, temp);
+
+                    Destroy(temp);
+                    
+                    // Revert back to regularMode
+                    inTeleportMode = false;
+                }
         }
 
         else {
+            inTeleportMode = false;
 
             // Set time to regular scale
             Time.timeScale = 1f;
-
             Time.fixedDeltaTime = 0.02f;
         }
-    }
+}
 
-    void OnDrawGizmos() {
-        Gizmos.DrawWireSphere(cam.position + cam.forward * detectionDistance, detectionSize);
+    void Teleport(GameObject source, GameObject target) {
+        Rigidbody sourceRB = source.GetComponent<Rigidbody>();
+        sourceRB.MovePosition(target.transform.position + 0.1f * Vector3.up);
+
+        // Inherit the velocity of in-air kunai
+        if (target.TryGetComponent(out Rigidbody targetRB)) {
+            sourceRB.GetComponent<Rigidbody>().velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z);
+        }
     }
 }

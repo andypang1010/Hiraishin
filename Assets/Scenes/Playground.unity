@@ -767,6 +767,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1179024759603418604, guid: 8a7111c389cfd1f429e10c8f898e6d7f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6b911390c5825014e8377183a7837d3f, type: 2}
     - target: {fileID: 5588332098742436673, guid: 8a7111c389cfd1f429e10c8f898e6d7f,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -851,6 +856,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Throwable (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8482224217175907956, guid: 8a7111c389cfd1f429e10c8f898e6d7f,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3605,6 +3615,11 @@ PrefabInstance:
       objectReference: {fileID: 330585546}
     - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
+      propertyPath: teleportCD
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
       propertyPath: detectionSize
       value: 0.6
       objectReference: {fileID: 0}
@@ -3612,6 +3627,11 @@ PrefabInstance:
         type: 3}
       propertyPath: detectionDistance
       value: Infinity
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: teleportModeDuration
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2298481441888181636, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
@@ -3678,6 +3698,16 @@ PrefabInstance:
       propertyPath: maxAccurateDistance
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 4045358576660379515, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: coyoteTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4045358576660379515, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: jumpBuffer
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 4101843119388299001, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: cam
@@ -3686,7 +3716,7 @@ PrefabInstance:
     - target: {fileID: 6710756512186343302, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: m_Name
-      value: Player
+      value: PLAYER
       objectReference: {fileID: 0}
     - target: {fileID: 8306225624746193754, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
