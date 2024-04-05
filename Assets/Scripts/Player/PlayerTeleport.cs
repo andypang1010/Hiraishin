@@ -12,8 +12,8 @@ public class PlayerTeleport : MonoBehaviour
     public float detectionSize;
     public float detectionDistance;
 
-    public float teleportModeDuration;
-    public float teleportCD;
+    // public float teleportModeDuration;
+    // public float teleportCD;
     public bool inTeleportMode;
 
     void Update()
@@ -21,7 +21,7 @@ public class PlayerTeleport : MonoBehaviour
 
         // Enter teleport mode when presses teleportMode key and teleportMode is ready
         if (Input.GetKeyDown(teleportModeKey)) {
-            inTeleportMode = true;
+            inTeleportMode = !inTeleportMode;
         }
 
         if (inTeleportMode) {

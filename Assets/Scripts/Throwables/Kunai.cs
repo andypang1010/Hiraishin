@@ -15,8 +15,6 @@ public class Kunai : MonoBehaviour
     // Update is called once per frame
     void OnCollisionEnter(Collision other) {
         if (other.gameObject.CompareTag("Player")) {
-            // transform.SetParent(null);
-
             other.gameObject.GetComponent<PlayerThrow>().kunaiRemaining++;
             Destroy(gameObject);
         }
