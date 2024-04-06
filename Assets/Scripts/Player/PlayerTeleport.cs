@@ -18,6 +18,7 @@ public class PlayerTeleport : MonoBehaviour
 
     void Update()
     {
+        print(gameObject.GetComponent<Rigidbody>().velocity);
 
         // Enter teleport mode when presses teleportMode key and teleportMode is ready
         if (Input.GetKeyDown(teleportModeKey)) {
@@ -78,12 +79,13 @@ public class PlayerTeleport : MonoBehaviour
 }
 
     void Teleport(GameObject source, GameObject target) {
-        Rigidbody sourceRB = source.GetComponent<Rigidbody>();
-        sourceRB.MovePosition(target.transform.position + 0.1f * Vector3.up);
 
-        // Inherit the velocity of in-air kunai
+        Rigidbody sourceRB = source.GetComponent<Rigidbody>();
+        // Inherit the velocity of moving objects
         if (target.TryGetComponent(out Rigidbody targetRB)) {
-            sourceRB.GetComponent<Rigidbody>().velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z);
+            sourceRB.GetComponent<Rigidbody>().velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z) / targetRB.mass;
         }
+        
+        sourceRB.MovePosition(target.transform.position + 0.1f * Vector3.up);
     }
 }

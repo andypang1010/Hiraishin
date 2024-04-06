@@ -20,8 +20,10 @@ public class Kunai : MonoBehaviour
         }
         
         else {
-            rb.isKinematic = true;
-            if (rb != null) Destroy(rb);
+            if (rb != null) {
+                rb.isKinematic = true;
+                Destroy(rb);
+            }
             transform.SetParent(other.transform);
         }
         

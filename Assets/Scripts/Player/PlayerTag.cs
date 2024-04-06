@@ -31,7 +31,7 @@ public class PlayerTag : MonoBehaviour
 
             if (startTime + holdTime <= Time.time
             && Physics.Raycast(cam.transform.position, cam.forward, out hit, maxTagDistance)
-            && hit.collider.gameObject.Equals(targetObject)) {
+            && hit.collider.gameObject == targetObject) {
 
                 hit.collider.gameObject.layer = LayerMask.NameToLayer("Tagged");
                 hit.collider.gameObject.GetComponent<Renderer>().material = taggedMaterial;
