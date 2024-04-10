@@ -8,7 +8,7 @@ public class PlayerThrow : MonoBehaviour
     public Transform cam;
     public Transform kunaiAttackPoint;
     public GameObject kunai;
-    PlayerTeleport playerTeleport;
+    PlayerBulletTime playerBulletTime;
 
     [Header("Settings")]
     public KeyCode throwKey;
@@ -28,7 +28,7 @@ public class PlayerThrow : MonoBehaviour
     void Start()
     {
         playerPickup = GetComponent<PlayerPickup>();
-        playerTeleport = GetComponent<PlayerTeleport>();
+        playerBulletTime = GetComponent<PlayerBulletTime>();
         kunaiRemaining = totalKunai;
         readyToThrow = true;
     }
@@ -37,7 +37,7 @@ public class PlayerThrow : MonoBehaviour
     {
 
         // If the player meets throw conditions
-        if (Input.GetKeyDown(throwKey) && !playerTeleport.inTeleportMode && readyToThrow && kunaiRemaining > 0) {
+        if (Input.GetKeyDown(throwKey) && !playerBulletTime.inBulletTime && readyToThrow && kunaiRemaining > 0) {
 
             // Throw throwable if it exists
             if (playerPickup.heldObj != null) {
