@@ -7,11 +7,22 @@ public class PlayerTeleport : MonoBehaviour
 {
     public Transform cam;
     public KeyCode teleportSelectKey;
+    PlayerPickup playerPickup;
     public float detectionSize;
     public float detectionDistance;
 
+    void Start() {
+        playerPickup = GetComponent<PlayerPickup>();
+    }
+
     void Update()
     {
+        // Prevent player from teleporting to tagged heldObjects
+        if (playerPickup.heldObj != null 
+            && playerPickup.heldObj.layer == LayerMask.NameToLayer("Tagged")) {
+            return;
+        }
+
         // If a kunai is found and selectKey pressed
         if (Input.GetKeyDown(teleportSelectKey)) {
             if (Physics.SphereCast(
