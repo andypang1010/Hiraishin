@@ -7,10 +7,9 @@ public class PlayerTag : MonoBehaviour
     public KeyCode tagKey;
     public Transform cam;
     public float maxTagDistance;
-    public float holdTime = 5f;
+    public float tagTime;
     public Material taggedMaterial;
-    float startTime;
-    float timer;
+    public float holdTime;
     GameObject targetObject;
     RaycastHit hit;
     void Update()
@@ -19,24 +18,27 @@ public class PlayerTag : MonoBehaviour
             && Physics.Raycast(cam.transform.position, cam.forward, out hit, maxTagDistance) 
             && hit.collider.gameObject.CompareTag("Throwable")
             && hit.collider.gameObject.layer != LayerMask.NameToLayer("Tagged")) {
+                holdTime = 0;
 
                 targetObject = hit.collider.gameObject;
-
-                startTime = Time.time;
-                timer = startTime;
             }
+
+        if (Input.GetKeyUp(tagKey)) {
+            holdTime = 0;
+        }
    
         if (Input.GetKey(tagKey)) {
-            timer += Time.deltaTime;
-
-            if (startTime + holdTime <= Time.time
-            && Physics.Raycast(cam.transform.position, cam.forward, out hit, maxTagDistance)
+            if (Physics.Raycast(cam.transform.position, cam.forward, out hit, maxTagDistance)
             && hit.collider.gameObject == targetObject) {
+                holdTime += Time.deltaTime;
 
-                hit.collider.gameObject.layer = LayerMask.NameToLayer("Tagged");
-                hit.collider.gameObject.GetComponent<Renderer>().material = taggedMaterial;
-                targetObject = null;
+                if (holdTime >= tagTime) {
+                    hit.collider.gameObject.layer = LayerMask.NameToLayer("Tagged");
+                    hit.collider.gameObject.GetComponent<Renderer>().material = taggedMaterial;
+                    targetObject = null;
+                }
             }
         }
+
     }
 }
