@@ -9,11 +9,6 @@ public class PlayerTeleport : MonoBehaviour
     public KeyCode teleportSelectKey;
     public float detectionSize;
     public float detectionDistance;
-    PlayerBulletTime playerBulletTime;
-
-    void Start() {
-        playerBulletTime = GetComponent<PlayerBulletTime>();
-    }
 
     void Update()
     {
@@ -27,9 +22,11 @@ public class PlayerTeleport : MonoBehaviour
                 detectionDistance, 
                 LayerMask.GetMask("Kunai"))
             ) {
+                UpdateRotation(kunaiHit.collider.gameObject);
+                
                 Teleport(gameObject, kunaiHit.collider.gameObject);
                 GetComponent<PlayerThrow>().kunaiRemaining++;
-
+                
                 Destroy(kunaiHit.collider.gameObject);
             }
 
@@ -42,6 +39,8 @@ public class PlayerTeleport : MonoBehaviour
                 LayerMask.GetMask("Tagged"))
             ) {
                 GameObject temp = Instantiate(gameObject);
+                UpdateRotation(taggedHit.collider.gameObject);
+                
                 Teleport(gameObject, taggedHit.collider.gameObject);
                 Teleport(taggedHit.collider.gameObject, temp);
 
@@ -59,5 +58,17 @@ public class PlayerTeleport : MonoBehaviour
         }
         
         sourceRB.MovePosition(target.transform.position + 0.1f * Vector3.up);
+    }
+
+    void UpdateRotation(GameObject target) {
+        Quaternion temp = transform.rotation;
+
+        Vector3 targetEuler = target.transform.rotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(0, targetEuler.y, 0);
+
+        // Update camera rotation
+        GetComponent<PlayerCamera>().rotationY = targetEuler.y;
+
+        target.transform.rotation = temp;
     }
 }
