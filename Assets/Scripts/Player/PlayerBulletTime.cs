@@ -69,7 +69,7 @@ public class PlayerBulletTime : MonoBehaviour
             inBulletTime = false;
             startCooldown = true;
 
-            cooldownCounter = bulletTimeCD;
+            cooldownCounter = bulletTimeCD * (durationCounter / bulletTimeDuration);
         }
     }
 }
