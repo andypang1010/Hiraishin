@@ -25,12 +25,19 @@ public class PlayerBulletTime : MonoBehaviour
     void Update()
     {
         // When toggles bullet time key, cooldown is complete, and not in bullet time mode
-        if (Input.GetKeyDown(bulletTimeKey) && cooldownCounter < 0 && !inBulletTime) {
-            inBulletTime = true;
-            startCooldown = false;
+        if (Input.GetKeyDown(bulletTimeKey)) {
+            if (cooldownCounter < 0 && !inBulletTime) {
+                inBulletTime = true;
+                startCooldown = false;
 
-            // Start counting bullet time duration
-            durationCounter = 0;
+                // Start counting bullet time duration
+                durationCounter = 0;
+            }
+
+            else if (inBulletTime)
+            {
+                StartCoolDown();
+            }
         }
 
         else {
@@ -51,19 +58,18 @@ public class PlayerBulletTime : MonoBehaviour
             Time.timeScale = defaultTimeScale;
             Time.fixedDeltaTime = defaultDeltaTime;
 
-            if (!startCooldown) {
-                SetCooldown();
-                startCooldown = true;
-            }
+            StartCoolDown();
         }
-
-        // print("Duration: " + durationCounter);
-        print("Cooldown " + cooldownCounter);
     }
 
-    public void SetCooldown() {
-        inBulletTime = false;
-        cooldownCounter = bulletTimeCD;
-        durationCounter = 0;
+    private void StartCoolDown()
+    {
+        if (!startCooldown)
+        {
+            inBulletTime = false;
+            startCooldown = true;
+
+            cooldownCounter = bulletTimeCD;
+        }
     }
 }

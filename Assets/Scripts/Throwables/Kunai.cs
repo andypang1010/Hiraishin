@@ -5,7 +5,8 @@ using UnityEngine;
 public class Kunai : MonoBehaviour
 {
     public float damage;
-    private Rigidbody rb;
+    bool collided;
+    Rigidbody rb;
 
     void Start()
     {
@@ -20,10 +21,14 @@ public class Kunai : MonoBehaviour
         }
         
         else {
-            if (rb != null) {
+            if (!collided && rb != null) {
                 rb.isKinematic = true;
+                collided = true;
+            }
+            else {
                 Destroy(rb);
             }
+            
             transform.SetParent(other.transform);
         }
         

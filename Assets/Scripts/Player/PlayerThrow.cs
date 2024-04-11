@@ -23,7 +23,7 @@ public class PlayerThrow : MonoBehaviour
     public float throwableThrowForce;
     public float throwableUpwardForce;
     public float maxAccurateDistance;
-    bool readyToThrow;
+    public bool readyToThrow;
 
     void Start()
     {
@@ -98,9 +98,11 @@ public class PlayerThrow : MonoBehaviour
 
         // Apply force
         Invoke(nameof(ResetThrow), throwCD);
+        print("Started reset throw");
     }
 
     void ResetThrow() {
         readyToThrow = true;
+        print("Throw reset complete");
     }
 }

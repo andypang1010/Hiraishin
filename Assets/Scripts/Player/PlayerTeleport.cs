@@ -31,10 +31,6 @@ public class PlayerTeleport : MonoBehaviour
                 GetComponent<PlayerThrow>().kunaiRemaining++;
 
                 Destroy(kunaiHit.collider.gameObject);
-                
-                if (playerBulletTime.inBulletTime) {
-                    playerBulletTime.SetCooldown();
-                }
             }
 
             else if (Physics.SphereCast(
@@ -50,10 +46,6 @@ public class PlayerTeleport : MonoBehaviour
                 Teleport(taggedHit.collider.gameObject, temp);
 
                 Destroy(temp);
-
-                if (playerBulletTime.inBulletTime) {
-                    playerBulletTime.SetCooldown();
-                }
             }
         }
     }

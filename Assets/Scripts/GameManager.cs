@@ -8,5 +8,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = frameRate;
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Kunai"), LayerMask.NameToLayer("Kunai"));
     }
 }
