@@ -7,33 +7,63 @@ public class PlayerBulletTime : MonoBehaviour
     public KeyCode bulletTimeKey;
     public bool inBulletTime;
     public float dilutedTimeScale;
+    public float bulletTimeDuration;
+    public float bulletTimeCD;
 
     float defaultTimeScale;
     float defaultDeltaTime;
-
+    public float durationCounter;
+    public float cooldownCounter;
+    bool startCooldown;
     void Start() {
         defaultTimeScale = Time.timeScale;
         defaultDeltaTime = Time.fixedDeltaTime;
+
+        startCooldown = true;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(bulletTimeKey)) {
-            inBulletTime = !inBulletTime;
+        // When toggles bullet time key, cooldown is complete, and not in bullet time mode
+        if (Input.GetKeyDown(bulletTimeKey) && cooldownCounter < 0 && !inBulletTime) {
+            inBulletTime = true;
+            startCooldown = false;
+
+            // Start counting bullet time duration
+            durationCounter = 0;
         }
 
-        if (inBulletTime) {
+        else {
+            cooldownCounter -= Time.deltaTime / Time.timeScale;
+        }
+
+        // In bullet time mode and duration is still within max duration
+        if (inBulletTime && durationCounter < bulletTimeDuration) {
+            durationCounter += Time.deltaTime / Time.timeScale;
 
             // Slow down time
             Time.timeScale = dilutedTimeScale;
             Time.fixedDeltaTime = defaultDeltaTime * dilutedTimeScale;
         }
-        else {
-            inBulletTime = false;
 
+        else {
             // Set time to regular scale
             Time.timeScale = defaultTimeScale;
             Time.fixedDeltaTime = defaultDeltaTime;
+
+            if (!startCooldown) {
+                SetCooldown();
+                startCooldown = true;
+            }
         }
+
+        // print("Duration: " + durationCounter);
+        print("Cooldown " + cooldownCounter);
+    }
+
+    public void SetCooldown() {
+        inBulletTime = false;
+        cooldownCounter = bulletTimeCD;
+        durationCounter = 0;
     }
 }
