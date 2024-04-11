@@ -30,7 +30,7 @@ public class PlayerBulletTime : MonoBehaviour
                 inBulletTime = true;
                 startCooldown = false;
 
-                // Start counting bullet time duration
+                // Initialize duration counter
                 durationCounter = 0;
             }
 
@@ -41,6 +41,8 @@ public class PlayerBulletTime : MonoBehaviour
         }
 
         else {
+
+            // Decrement CD countdown
             cooldownCounter -= Time.deltaTime / Time.timeScale;
         }
 
@@ -69,6 +71,7 @@ public class PlayerBulletTime : MonoBehaviour
             inBulletTime = false;
             startCooldown = true;
 
+            // Cooldown time is dependent on how long the ability is used
             cooldownCounter = bulletTimeCD * (durationCounter / bulletTimeDuration);
         }
     }
