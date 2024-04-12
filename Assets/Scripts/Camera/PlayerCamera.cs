@@ -5,17 +5,23 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
+    [Header("Camera")]
     public Transform cam;
-    public float sensX, sensY;
-    public float rotationX, rotationY;
-    float currentSensX, currentSensY;
 
+    [Header("Sensitivity")]
+    public float sensX;
+    public float sensY;
+    [HideInInspector] public float rotationX, rotationY;
+    float currentSensX, currentSensY;
+    InputController inputController;
 
     void Start()
     {
         // Centers and hide cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        inputController = GetComponent<InputController>();
     }
 
     void Update()
@@ -30,9 +36,11 @@ public class PlayerCamera : MonoBehaviour
             currentSensY = sensY;
         }
 
+        Vector2 lookDirection = inputController.GetLookDirection();
+
         // Get mouse input with sensitivity
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.fixedDeltaTime * currentSensX;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * Time.fixedDeltaTime * currentSensY;
+        float mouseX = lookDirection.x * Time.fixedDeltaTime * currentSensX;
+        float mouseY = lookDirection.y * Time.fixedDeltaTime * currentSensY;
     
         // Weird but works (DON'T TOUCH)
         rotationY += mouseX;

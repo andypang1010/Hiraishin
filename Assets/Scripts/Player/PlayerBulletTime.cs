@@ -4,20 +4,24 @@ using UnityEngine;
 
 public class PlayerBulletTime : MonoBehaviour
 {
-    public KeyCode bulletTimeKey;
-    public bool inBulletTime;
+    [Header("Settings")]
     public float dilutedTimeScale;
     public float bulletTimeDuration;
     public float bulletTimeCD;
+    [HideInInspector] public float durationCounter;
+    [HideInInspector] public float cooldownCounter;
 
+    bool inBulletTime;
     float defaultTimeScale;
     float defaultDeltaTime;
-    public float durationCounter;
-    public float cooldownCounter;
     bool startCooldown;
+    InputController inputController;
+
     void Start() {
         defaultTimeScale = Time.timeScale;
         defaultDeltaTime = Time.fixedDeltaTime;
+
+        inputController = GetComponent<InputController>();
 
         startCooldown = true;
     }
@@ -25,7 +29,7 @@ public class PlayerBulletTime : MonoBehaviour
     void Update()
     {
         // When toggles bullet time key, cooldown is complete, and not in bullet time mode
-        if (Input.GetKeyDown(bulletTimeKey)) {
+        if (inputController.GetBulletTimeDown()) {
             if (cooldownCounter < 0 && !inBulletTime) {
                 inBulletTime = true;
                 startCooldown = false;

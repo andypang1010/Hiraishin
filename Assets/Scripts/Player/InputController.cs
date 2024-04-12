@@ -8,6 +8,7 @@ public class InputController : MonoBehaviour
     public KeyCode crouchKey = KeyCode.LeftControl;
     public KeyCode altCrouchKey = KeyCode.LeftCommand;
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode tagKey = KeyCode.T;
     public KeyCode pickupKey = KeyCode.E;
     public KeyCode throwKey = KeyCode.Mouse0;
     public KeyCode bulletTimeKey = KeyCode.Q;
@@ -26,27 +27,47 @@ public class InputController : MonoBehaviour
         return Input.GetKey(sprintKey);
     }
 
-    public bool GetCrouch() {
+    public bool GetCrouchDown() {
+        return Input.GetKeyDown(crouchKey) ^ Input.GetKeyDown(altCrouchKey);
+    }
+
+    public bool GetCrouchHold() {
         return Input.GetKey(crouchKey) ^ Input.GetKey(altCrouchKey);
     }
 
-    public bool GetJump() {
+    public bool GetCrouchUp() {
+        return Input.GetKeyUp(crouchKey) ^ Input.GetKeyUp(altCrouchKey);
+    }
+
+    public bool GetJumpDown() {
         return Input.GetKeyDown(jumpKey);
     }
 
-    public bool GetPickup() {
+    public bool GetTagDown() {
+        return Input.GetKeyDown(tagKey);
+    }
+
+    public bool GetTagHold() {
+        return Input.GetKey(tagKey);
+    }
+
+    public bool GetTagUp() {
+        return Input.GetKeyUp(tagKey);
+    }
+
+    public bool GetPickupDown() {
         return Input.GetKeyDown(pickupKey);
     }
 
-    public bool GetThrow() {
+    public bool GetThrowDown() {
         return Input.GetKeyDown(throwKey);
     }
 
-    public bool GetBulletTime() {
+    public bool GetBulletTimeDown() {
         return Input.GetKeyDown(bulletTimeKey);
     }
 
-    public bool GetTeleport() {
+    public bool GetTeleportDown() {
         return Input.GetKeyDown(teleportKey);
     }
 

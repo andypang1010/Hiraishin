@@ -9,26 +9,25 @@ public class PlayerThrow : MonoBehaviour
     public Transform kunaiAttackPoint;
     public GameObject kunai;
 
-    [Header("Settings")]
-    public KeyCode throwKey;
-    public int totalKunai;
-    public float throwCD;
-    public int kunaiRemaining;
-    PlayerPickup playerPickup;
-
     [Header("Throw")]
     public float kunaiThrowForce;
     public float kunaiUpwardForce;
     public float throwableThrowForce;
     public float throwableUpwardForce;
     public float maxAccurateDistance;
-    public bool readyToThrow;
+    bool readyToThrow;
 
-    bool throwConditions;
+    [Header("Settings")]
+    public int totalKunai;
+    public float throwCD;
+    public int kunaiRemaining;
+    PlayerPickup playerPickup;
+    InputController inputController;
 
     void Start()
     {
         playerPickup = GetComponent<PlayerPickup>();
+        inputController = GetComponent<InputController>();
         kunaiRemaining = totalKunai;
         readyToThrow = true;
     }
@@ -36,7 +35,7 @@ public class PlayerThrow : MonoBehaviour
     void Update() {
 
         // If the player meets throw conditions
-        if (Input.GetKeyDown(throwKey) && readyToThrow && kunaiRemaining > 0) {
+        if (inputController.GetThrowDown() && readyToThrow && kunaiRemaining > 0) {
 
             // Throw throwable if it exists
             if (playerPickup.heldObj != null) {

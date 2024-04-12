@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public KeyCode sprintKey;
     public KeyCode crouchKey;
     public KeyCode jumpKey;
+    InputController inputController;
 
     [Header("Movement")]
     public float sprintSpeed;
@@ -55,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        inputController = GetComponent<InputController>();
         rb.freezeRotation = true;
 
         defaultScale = transform.localScale.y;
@@ -77,8 +79,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void GetInput() {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
+        Vector2 movement = inputController.GetWalkDirection();
+        horizontalInput = movement.x;
+        verticalInput = movement.y;
 
         // Coyote time check
         if (grounded) {
@@ -89,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Jump buffer check
-        if (Input.GetKeyDown(jumpKey)) {
+        if (inputController.GetJumpDown()) {
             jumpBufferCounter = jumpBuffer;
         }
         else {
@@ -104,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
                 jumpBufferCounter = 0f;
             }
 
-            if (Input.GetKeyDown(crouchKey)) {
+            if (inputController.GetCrouchDown()) {
                 
                 // Shrink to crouch size
                 transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
@@ -114,8 +117,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(crouchKey) || !grounded) {
-            // Revert back to normal scale
+        if (inputController.GetCrouchUp() || !grounded) {
             transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
         }
     }
@@ -126,12 +128,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         else {
-            if (Input.GetKey(crouchKey)) {
+            if (inputController.GetCrouchHold() && grounded) {
                 movementState = MovementState.CROUCH;
                 moveSpeed = crouchSpeed;
             }
 
-            else if (Input.GetKey(sprintKey)) {
+            else if (inputController.GetSprint()) {
                 movementState = MovementState.SPRINT;
                 moveSpeed = sprintSpeed;
             }
