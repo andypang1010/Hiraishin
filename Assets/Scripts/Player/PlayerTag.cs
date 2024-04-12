@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class PlayerTag : MonoBehaviour
 {
-    public KeyCode tagKey;
+    [Header("Camera")]
     public Transform cam;
+
+    [Header("Settings")]
     public float maxTagDistance;
-    public float tagTime;
+    public float minTagTime;
     public Material taggedMaterial;
-    public float holdTime;
+    [HideInInspector] public float holdTime;
     GameObject targetObject;
     RaycastHit hit;
+    InputController inputController;
+
+    void Start() {
+        inputController = GetComponent<InputController>();
+    }
+
     void Update()
     {
-        if (Input.GetKeyDown(tagKey) 
+        if (inputController.GetTagDown()
             && Physics.Raycast(cam.transform.position, cam.forward, out hit, maxTagDistance) 
             && hit.collider.gameObject.CompareTag("Throwable")
             && hit.collider.gameObject.layer != LayerMask.NameToLayer("Tagged")) {
@@ -23,16 +31,16 @@ public class PlayerTag : MonoBehaviour
                 targetObject = hit.collider.gameObject;
             }
 
-        if (Input.GetKeyUp(tagKey)) {
+        if (inputController.GetTagUp()) {
             holdTime = 0;
         }
    
-        if (Input.GetKey(tagKey)) {
+        if (inputController.GetTagHold()) {
             if (Physics.Raycast(cam.transform.position, cam.forward, out hit, maxTagDistance)
             && hit.collider.gameObject == targetObject) {
                 holdTime += Time.deltaTime;
 
-                if (holdTime >= tagTime) {
+                if (holdTime >= minTagTime) {
                     hit.collider.gameObject.layer = LayerMask.NameToLayer("Tagged");
                     hit.collider.gameObject.GetComponent<Renderer>().material = taggedMaterial;
                     targetObject = null;

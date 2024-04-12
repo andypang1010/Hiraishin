@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class PlayerTeleport : MonoBehaviour
 {
+    [Header("Camera")]
     public Transform cam;
-    public KeyCode teleportSelectKey;
-    PlayerPickup playerPickup;
+
+    [Header("Settings")]
     public float detectionSize;
     public float detectionDistance;
+    PlayerPickup playerPickup;
+    InputController inputController;
+
 
     void Start() {
+        inputController = GetComponent<InputController>();
         playerPickup = GetComponent<PlayerPickup>();
     }
 
@@ -24,7 +29,7 @@ public class PlayerTeleport : MonoBehaviour
         }
 
         // If a kunai is found and selectKey pressed
-        if (Input.GetKeyDown(teleportSelectKey)) {
+        if (inputController.GetTeleportDown()) {
             if (Physics.SphereCast(
                 cam.position, 
                 detectionSize, 
@@ -63,6 +68,7 @@ public class PlayerTeleport : MonoBehaviour
     void Teleport(GameObject source, GameObject target) {
 
         Rigidbody sourceRB = source.GetComponent<Rigidbody>();
+
         // Inherit the velocity of moving objects
         if (target.TryGetComponent(out Rigidbody targetRB)) {
             sourceRB.GetComponent<Rigidbody>().velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z) / targetRB.mass;
