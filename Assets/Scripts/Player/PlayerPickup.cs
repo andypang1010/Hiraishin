@@ -88,6 +88,6 @@ public class PlayerPickup : MonoBehaviour
 
                 heldObj.transform.SetParent(null);
                 heldObj = null;
-            }
         }
+    }
 }

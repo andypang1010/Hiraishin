@@ -101,4 +101,13 @@ public class PlayerThrow : MonoBehaviour
     void ResetThrow() {
         readyToThrow = true;
     }
+
+    
+    void OnCollisionEnter(Collision other) {
+        if (other.collider.gameObject.tag == "Kunai") {
+            Destroy(other.collider.gameObject);
+
+            kunaiRemaining++;
+        }
+    }
 }
