@@ -8,7 +8,6 @@ public class PlayerThrow : MonoBehaviour
     public Transform cam;
     public Transform kunaiAttackPoint;
     public GameObject kunai;
-    PlayerBulletTime playerBulletTime;
 
     [Header("Settings")]
     public KeyCode throwKey;
@@ -25,19 +24,19 @@ public class PlayerThrow : MonoBehaviour
     public float maxAccurateDistance;
     public bool readyToThrow;
 
+    bool throwConditions;
+
     void Start()
     {
         playerPickup = GetComponent<PlayerPickup>();
-        playerBulletTime = GetComponent<PlayerBulletTime>();
         kunaiRemaining = totalKunai;
         readyToThrow = true;
     }
 
-    void FixedUpdate()
-    {
+    void Update() {
 
         // If the player meets throw conditions
-        if (Input.GetKeyDown(throwKey) && !playerBulletTime.inBulletTime && readyToThrow && kunaiRemaining > 0) {
+        if (Input.GetKeyDown(throwKey) && readyToThrow && kunaiRemaining > 0) {
 
             // Throw throwable if it exists
             if (playerPickup.heldObj != null) {
@@ -98,11 +97,9 @@ public class PlayerThrow : MonoBehaviour
 
         // Apply force
         Invoke(nameof(ResetThrow), throwCD);
-        print("Started reset throw");
     }
 
     void ResetThrow() {
         readyToThrow = true;
-        print("Throw reset complete");
     }
 }

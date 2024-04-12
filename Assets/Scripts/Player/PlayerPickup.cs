@@ -11,14 +11,8 @@ public class PlayerPickup : MonoBehaviour
     public float moveForce;
     public float moveDrag;
     [HideInInspector] public GameObject heldObj;
-    void FixedUpdate()
-    {
 
-        // Move throwable with player
-        if (heldObj != null) {
-            MoveObject();
-        }
-
+    void Update() {
         if (Input.GetKeyDown(pickupKey)) {
 
             // If player already holding an object
@@ -36,6 +30,15 @@ public class PlayerPickup : MonoBehaviour
             }
 
         }
+    }
+
+    void FixedUpdate()
+    {
+
+        // Move throwable with player
+        if (heldObj != null) {
+            MoveObject();
+        }        
     }
 
     void PickUpObject(GameObject pickedObj) {
