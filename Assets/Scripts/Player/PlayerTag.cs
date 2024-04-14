@@ -14,15 +14,10 @@ public class PlayerTag : MonoBehaviour
     [HideInInspector] public float holdTime;
     GameObject targetObject;
     RaycastHit hit;
-    InputController inputController;
-
-    void Start() {
-        inputController = GetComponent<InputController>();
-    }
 
     void Update()
     {
-        if (inputController.GetTagDown()
+        if (InputController.GetTagDown()
             && Physics.Raycast(cam.transform.position, cam.forward, out hit, maxTagDistance) 
             && hit.collider.gameObject.CompareTag("Throwable")
             && hit.collider.gameObject.layer != LayerMask.NameToLayer("Tagged")) {
@@ -31,11 +26,11 @@ public class PlayerTag : MonoBehaviour
                 targetObject = hit.collider.gameObject;
             }
 
-        if (inputController.GetTagUp()) {
+        if (InputController.GetTagUp()) {
             holdTime = 0;
         }
    
-        if (inputController.GetTagHold()) {
+        if (InputController.GetTagHold()) {
             if (Physics.Raycast(cam.transform.position, cam.forward, out hit, maxTagDistance)
             && hit.collider.gameObject == targetObject) {
                 holdTime += Time.deltaTime;

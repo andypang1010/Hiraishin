@@ -13,15 +13,12 @@ public class PlayerCamera : MonoBehaviour
     public float sensY;
     [HideInInspector] public float rotationX, rotationY;
     float currentSensX, currentSensY;
-    InputController inputController;
 
     void Start()
     {
         // Centers and hide cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        inputController = GetComponent<InputController>();
     }
 
     void Update()
@@ -36,7 +33,7 @@ public class PlayerCamera : MonoBehaviour
             currentSensY = sensY;
         }
 
-        Vector2 lookDirection = inputController.GetLookDirection();
+        Vector2 lookDirection = InputController.GetLookDirection();
 
         // Get mouse input with sensitivity
         float mouseX = lookDirection.x * Time.fixedDeltaTime * currentSensX;

@@ -15,8 +15,4 @@ public class PlayerAttack : MonoBehaviour
     {
         
     }
-
-    private void OnCollisionEnter(Collision other) {
-        print(other.collider.gameObject);
-    }
 }

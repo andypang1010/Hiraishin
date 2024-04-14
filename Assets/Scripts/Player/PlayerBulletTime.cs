@@ -15,13 +15,10 @@ public class PlayerBulletTime : MonoBehaviour
     float defaultTimeScale;
     float defaultDeltaTime;
     bool startCooldown;
-    InputController inputController;
 
     void Start() {
         defaultTimeScale = Time.timeScale;
         defaultDeltaTime = Time.fixedDeltaTime;
-
-        inputController = GetComponent<InputController>();
 
         startCooldown = true;
     }
@@ -29,7 +26,7 @@ public class PlayerBulletTime : MonoBehaviour
     void Update()
     {
         // When toggles bullet time key, cooldown is complete, and not in bullet time mode
-        if (inputController.GetBulletTimeDown()) {
+        if (InputController.GetBulletTimeDown()) {
             if (cooldownCounter < 0 && !inBulletTime) {
                 inBulletTime = true;
                 startCooldown = false;

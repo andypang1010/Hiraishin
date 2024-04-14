@@ -12,11 +12,8 @@ public class PlayerTeleport : MonoBehaviour
     public float detectionSize;
     public float detectionDistance;
     PlayerPickup playerPickup;
-    InputController inputController;
-
 
     void Start() {
-        inputController = GetComponent<InputController>();
         playerPickup = GetComponent<PlayerPickup>();
     }
 
@@ -29,7 +26,7 @@ public class PlayerTeleport : MonoBehaviour
         }
 
         // If a kunai is found and selectKey pressed
-        if (inputController.GetTeleportDown()) {
+        if (InputController.GetTeleportDown()) {
             if (Physics.SphereCast(
                 cam.position, 
                 detectionSize, 

@@ -1029,7 +1029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e744c38fadcea94baa40fcd772b6e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1462873652
+--- !u!114 &1462873658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1038,19 +1038,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1462873634}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 339d5370c5f3b264ca09e47c9bc5e909, type: 3}
+  m_Script: {fileID: 11500000, guid: e068d5413e6adf843bb73e2796fb4e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprintKey: 304
-  crouchKey: 306
-  altCrouchKey: 310
-  jumpKey: 32
-  tagKey: 116
-  pickupKey: 101
-  throwKey: 323
-  bulletTimeKey: 113
-  teleportKey: 325
-  attackKey: 324
 --- !u!1 &1464456299
 GameObject:
   m_ObjectHideFlags: 0
@@ -2575,6 +2565,16 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1462873634}
+    - target: {fileID: 5929807373012844353, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
+        type: 3}
+      propertyPath: idleAmplitude
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5929807373012844353, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
+        type: 3}
+      propertyPath: idleFrequency
+      value: 1.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6062257456430369382, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
       propertyPath: m_Name
@@ -4520,8 +4520,8 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6710756512186343302, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 1462873652}
+      insertIndex: -1
+      addedObject: {fileID: 1462873658}
   m_SourcePrefab: {fileID: 100100000, guid: 316dd6211a8a8964698e6a6c1c191a4e, type: 3}
 --- !u!4 &7328883387173765214
 Transform:

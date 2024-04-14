@@ -22,12 +22,10 @@ public class PlayerThrow : MonoBehaviour
     public float throwCD;
     public int kunaiRemaining;
     PlayerPickup playerPickup;
-    InputController inputController;
 
     void Start()
     {
         playerPickup = GetComponent<PlayerPickup>();
-        inputController = GetComponent<InputController>();
         kunaiRemaining = totalKunai;
         readyToThrow = true;
     }
@@ -35,7 +33,7 @@ public class PlayerThrow : MonoBehaviour
     void Update() {
 
         // If the player meets throw conditions
-        if (inputController.GetThrowDown() && readyToThrow && kunaiRemaining > 0) {
+        if (InputController.GetThrowDown() && readyToThrow && kunaiRemaining > 0) {
 
             // Throw throwable if it exists
             if (playerPickup.heldObj != null) {

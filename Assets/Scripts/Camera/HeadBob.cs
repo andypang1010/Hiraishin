@@ -7,13 +7,14 @@ public class HeadBob : MonoBehaviour
 {
     public new bool enabled;
     public GameObject player;
+    [Range(0, 1f)] public float idleAmplitude;
+    [Range(0, 30)] public float idleFrequency;
     [Range(0, 1f)] public float walkAmplitude;
     [Range(0, 30)] public float walkFrequency;
     [Range(0, 2f)] public float sprintAmplitude;
     [Range(0, 30)] public float sprintFrequency;
     [Range(0, 1f)] public float crouchAmplitude;
     [Range(0, 30)] public float crouchFrequency;
-    public float toggleSpeed;
     public float stablizedOffset;
 
     PlayerMovement playerMovement;
@@ -35,21 +36,27 @@ public class HeadBob : MonoBehaviour
     {
         PlayerMovement.MovementState movementState = playerMovement.GetMovementState();
 
-        // Change amplitude and frequency depending on movement state
-        switch(movementState) {
-            case PlayerMovement.MovementState.SPRINT:
-                amplitude = sprintAmplitude;
-                frequency = sprintFrequency;
-                break;
-            case PlayerMovement.MovementState.CROUCH: 
-                amplitude = crouchAmplitude;
-                frequency = crouchFrequency;
-                break;
-            case PlayerMovement.MovementState.WALK:
-            default:
-                amplitude = walkAmplitude;
-                frequency = walkFrequency;
-                break;
+        if (playerMovement.GetMoveVelocity().magnitude <= 0.3f) {
+            amplitude = idleAmplitude;
+            frequency = idleFrequency;
+        }
+        else {
+            // Change amplitude and frequency depending on movement state
+            switch(movementState) {
+                case PlayerMovement.MovementState.SPRINT:
+                    amplitude = sprintAmplitude;
+                    frequency = sprintFrequency;
+                    break;
+                case PlayerMovement.MovementState.CROUCH: 
+                    amplitude = crouchAmplitude;
+                    frequency = crouchFrequency;
+                    break;
+                case PlayerMovement.MovementState.WALK:
+                default:
+                    amplitude = walkAmplitude;
+                    frequency = walkFrequency;
+                    break;
+            }
         }
     }
 
@@ -61,12 +68,7 @@ public class HeadBob : MonoBehaviour
     }
 
     void PlayMotion() {
-        float moveSpeed = new Vector2(
-            Math.Abs(playerMovement.GetMoveVelocity().x), 
-            Math.Abs(playerMovement.GetMoveVelocity().z)).magnitude;
-
-        // Head bob only if reaches toggle speed and is grounded
-        if (moveSpeed < toggleSpeed) return;
+        // Head bob only if is grounded
         if (!playerMovement.isGrounded()) return;
 
         // Offset camera position by head bob
