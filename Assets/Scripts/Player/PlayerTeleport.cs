@@ -41,13 +41,11 @@ public class PlayerTeleport : MonoBehaviour
                 maxDetectionSize = crosshair.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y);
                 centerPoint = new Vector2(Screen.width / 2, Screen.height / 2);
                 Vector2 screenPointPos = cam.gameObject.GetComponent<Camera>().WorldToScreenPoint(target.transform.position);
+                
+                if (Vector2.Distance(screenPointPos, centerPoint) < maxDetectionSize
+                || target.GetComponent<Collider>().Raycast(new Ray(cam.position, cam.forward), out RaycastHit hit, 2f)) {
 
-                print("Teleportable position: " + screenPointPos);
-                print("Teleportable distance to center: " + Vector2.Distance(screenPointPos, centerPoint));
-                print("Maximum allowed distance: " + maxDetectionSize);
-                print("\n");
-
-                if (Vector2.Distance(screenPointPos, centerPoint) < maxDetectionSize) {
+                    print(target.GetComponent<Collider>().Raycast(new Ray(cam.position, cam.forward), out hit, 2f));
 
                     if (target.layer == LayerMask.NameToLayer("Kunai")) {
                         UpdateRotation(target);
