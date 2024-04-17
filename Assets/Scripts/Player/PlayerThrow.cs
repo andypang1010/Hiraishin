@@ -60,6 +60,8 @@ public class PlayerThrow : MonoBehaviour
 
                 // Instantiate kunai
                 GameObject kunai = Instantiate(gameObject, kunaiAttackPoint.position, cam.rotation);
+                PlayerTeleport.teleportables.Add(kunai);
+
                 Rigidbody rb = kunai.GetComponent<Rigidbody>();
 
                 // Calculate default force direction
@@ -103,6 +105,8 @@ public class PlayerThrow : MonoBehaviour
     
     void OnCollisionEnter(Collision other) {
         if (other.collider.gameObject.tag == "Kunai") {
+            PlayerTeleport.teleportables.Remove(other.collider.gameObject);
+
             Destroy(other.collider.gameObject);
 
             kunaiRemaining++;
