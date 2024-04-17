@@ -19,9 +19,11 @@ public class PlayerTeleport : MonoBehaviour
     public float detectionDistance;
     public static List<GameObject> teleportables = new List<GameObject>();
     PlayerPickup playerPickup;
+    Camera cameraObj;
 
     void Start() {
         playerPickup = GetComponent<PlayerPickup>();
+        cameraObj = cam.gameObject.GetComponent<Camera>();
     }
 
     void Update()
@@ -33,42 +35,61 @@ public class PlayerTeleport : MonoBehaviour
             return;
         }
 
-
         // When player wants to teleport
         if (InputController.GetTeleportDown()) {
 
+            // Calculate the radius crosshair and centerpoint of the screen
+            maxDetectionSize = (float) Math.Pow(crosshair.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y), 2);
+            centerPoint = new Vector2(Screen.width / 2, Screen.height / 2);
+
+            GameObject closestTarget = null;
+
+            // Iterate through all teleportables
             foreach (GameObject target in teleportables) {
-                maxDetectionSize = crosshair.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y);
-                centerPoint = new Vector2(Screen.width / 2, Screen.height / 2);
-                Vector2 screenPointPos = cam.gameObject.GetComponent<Camera>().WorldToScreenPoint(target.transform.position);
-                
-                if (Vector2.Distance(screenPointPos, centerPoint) < maxDetectionSize
-                || target.GetComponent<Collider>().Raycast(new Ray(cam.position, cam.forward), out RaycastHit hit, 2f)) {
 
-                    print(target.GetComponent<Collider>().Raycast(new Ray(cam.position, cam.forward), out hit, 2f));
+                // Convert target's world position to screen position
+                Vector2 screenPointPos = cameraObj.WorldToScreenPoint(target.transform.position);
 
-                    if (target.layer == LayerMask.NameToLayer("Kunai")) {
-                        UpdateRotation(target);
+                // If the target position is within the crosshair radius
+                if (Vector2.SqrMagnitude(screenPointPos - centerPoint) < maxDetectionSize
 
-                        Teleport(gameObject, target);
-                        GetComponent<PlayerThrow>().kunaiRemaining++;
-
-                        teleportables.Remove(target);
-                        Destroy(target);
-                        break;
+                // Alternate check for close proximity
+                || target.GetComponent<Collider>().Raycast(new Ray(cam.position, cam.forward), out _, 2f))
+                {
+                    if (closestTarget == null) {
+                        closestTarget = target;
                     }
 
-                    else if (target.layer == LayerMask.NameToLayer("Tagged")) {
-                        GameObject temp = Instantiate(gameObject);
-                        UpdateRotation(target);
-                
-                        Teleport(gameObject, target);
-                        Teleport(target, temp);
-
-                        Destroy(temp);
-                        break;
+                    // If the new target is closer 
+                    else if (Vector3.SqrMagnitude(target.transform.position - transform.position) 
+                        < Vector3.SqrMagnitude(closestTarget.transform.position - transform.position)) {
+                        closestTarget = target;
                     }
                 }
+            }
+
+            if (closestTarget != null) {
+                if (closestTarget.layer == LayerMask.NameToLayer("Kunai"))
+                    {
+                        UpdateRotation(closestTarget);
+
+                        Teleport(gameObject, closestTarget);
+                        GetComponent<PlayerThrow>().kunaiRemaining++;
+
+                        teleportables.Remove(closestTarget);
+                        Destroy(closestTarget);
+                    }
+
+                    else if (closestTarget.layer == LayerMask.NameToLayer("Tagged"))
+                    {
+                        GameObject temp = Instantiate(gameObject);
+                        UpdateRotation(closestTarget);
+
+                        Teleport(gameObject, closestTarget);
+                        Teleport(closestTarget, temp);
+
+                        Destroy(temp);
+                    }
             }
         }
     }
