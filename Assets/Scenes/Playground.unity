@@ -2493,12 +2493,12 @@ PrefabInstance:
     - target: {fileID: 1975681992950084963, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1975681992950084963, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.75
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 2700550143776567090, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
@@ -4389,6 +4389,16 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 330585546}
+    - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 1694458868}
+    - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: canvasScaler
+      value: 
+      objectReference: {fileID: 21635186}
     - target: {fileID: 2298481441888181636, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4446,6 +4456,12 @@ PrefabInstance:
       objectReference: {fileID: 330585546}
     - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
+      propertyPath: kunai
+      value: 
+      objectReference: {fileID: 6179897952453435299, guid: a86ce1ff3dfabd440b44a8dadb496d70,
+        type: 3}
+    - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
       propertyPath: throwCD
       value: 0.2
       objectReference: {fileID: 0}
@@ -4467,7 +4483,7 @@ PrefabInstance:
     - target: {fileID: 4102721824815875172, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5084041552704671043, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}

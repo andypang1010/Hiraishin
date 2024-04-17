@@ -1,16 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerTeleport : MonoBehaviour
 {
     [Header("Camera")]
     public Transform cam;
+    public CanvasScaler canvasScaler;
+    public RectTransform crosshair;
+    float maxDetectionSize;
+    Vector2 centerPoint;
 
     [Header("Settings")]
-    public float detectionSize;
     public float detectionDistance;
+    public static List<GameObject> teleportables = new List<GameObject>();
     PlayerPickup playerPickup;
 
     void Start() {
@@ -19,45 +26,51 @@ public class PlayerTeleport : MonoBehaviour
 
     void Update()
     {
+
         // Prevent player from teleporting to tagged heldObjects
         if (playerPickup.heldObj != null 
             && playerPickup.heldObj.layer == LayerMask.NameToLayer("Tagged")) {
             return;
         }
 
-        // If a kunai is found and selectKey pressed
+
+        // When player wants to teleport
         if (InputController.GetTeleportDown()) {
-            if (Physics.SphereCast(
-                cam.position, 
-                detectionSize, 
-                cam.forward,
-                out RaycastHit kunaiHit, 
-                detectionDistance, 
-                LayerMask.GetMask("Kunai"))
-            ) {
-                UpdateRotation(kunaiHit.collider.gameObject);
-                
-                Teleport(gameObject, kunaiHit.collider.gameObject);
-                GetComponent<PlayerThrow>().kunaiRemaining++;
-                
-                Destroy(kunaiHit.collider.gameObject);
-            }
 
-            else if (Physics.SphereCast(
-                cam.position, 
-                detectionSize, 
-                cam.forward,
-                out RaycastHit taggedHit, 
-                detectionDistance, 
-                LayerMask.GetMask("Tagged"))
-            ) {
-                GameObject temp = Instantiate(gameObject);
-                UpdateRotation(taggedHit.collider.gameObject);
-                
-                Teleport(gameObject, taggedHit.collider.gameObject);
-                Teleport(taggedHit.collider.gameObject, temp);
+            foreach (GameObject target in teleportables) {
+                maxDetectionSize = crosshair.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y);
+                centerPoint = new Vector2(Screen.width / 2, Screen.height / 2);
+                Vector2 screenPointPos = cam.gameObject.GetComponent<Camera>().WorldToScreenPoint(target.transform.position);
 
-                Destroy(temp);
+                print("Teleportable position: " + screenPointPos);
+                print("Teleportable distance to center: " + Vector2.Distance(screenPointPos, centerPoint));
+                print("Maximum allowed distance: " + maxDetectionSize);
+                print("\n");
+
+                if (Vector2.Distance(screenPointPos, centerPoint) < maxDetectionSize) {
+
+                    if (target.layer == LayerMask.NameToLayer("Kunai")) {
+                        UpdateRotation(target);
+
+                        Teleport(gameObject, target);
+                        GetComponent<PlayerThrow>().kunaiRemaining++;
+
+                        teleportables.Remove(target);
+                        Destroy(target);
+                        break;
+                    }
+
+                    else if (target.layer == LayerMask.NameToLayer("Tagged")) {
+                        GameObject temp = Instantiate(gameObject);
+                        UpdateRotation(target);
+                
+                        Teleport(gameObject, target);
+                        Teleport(target, temp);
+
+                        Destroy(temp);
+                        break;
+                    }
+                }
             }
         }
     }
