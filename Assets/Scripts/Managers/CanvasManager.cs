@@ -11,17 +11,20 @@ public class CanvasManager : MonoBehaviour
     public TMP_Text tagCountdown;
     public TMP_Text bulletTimeCD;
     public TMP_Text bulletTimeDuration;
+    public TMP_Text attackReady;
 
     public PlayerMovement playerMovement;
     public PlayerThrow playerThrow;
     public PlayerTag playerTag;
     public PlayerBulletTime playerBulletTime;
+    public PlayerAttack playerAttack;
 
     // Update is called once per frame
     void Update()
     {
         playerSpeed.text = "Player Speed: " + Math.Round(playerMovement.GetMoveVelocity().magnitude, 1);
         kunaiCount.text = "Kunai Count: " + playerThrow.kunaiRemaining;
+        attackReady.text = "Attack Ready: " + playerAttack.attackReady;
         tagCountdown.text = "Tag Countdown: " + Math.Round(playerTag.minTagTime - playerTag.holdTime, 1);
         bulletTimeCD.text = "Bullet Time CD: " + Math.Max(0, Math.Round(playerBulletTime.cooldownCounter, 1));
         bulletTimeDuration.text = "Bullet Time Duration: " + Math.Round(playerBulletTime.durationCounter, 1);

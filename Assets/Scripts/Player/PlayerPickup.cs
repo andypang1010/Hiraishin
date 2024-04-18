@@ -24,8 +24,6 @@ public class PlayerPickup : MonoBehaviour
 
             // If throwable found within range
             if (Physics.Raycast(cam.transform.position, cam.forward, out RaycastHit hit, maxDistance) 
-                // && Physics.Raycast(transform.position, Vector3.down, out RaycastHit underHit, 1.2f)
-                // && underHit.transform.gameObject != hit.transform.gameObject
                 && hit.collider.gameObject.CompareTag("Throwable")) {
 
                 PickUpObject(hit.collider.gameObject);
