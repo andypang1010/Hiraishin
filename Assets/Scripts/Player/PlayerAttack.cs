@@ -17,14 +17,18 @@ public class PlayerAttack : MonoBehaviour
     public float attackCD;
     public float attackForce;
     public bool attackReady;
+
     [Header("Sinking")]
     public float sinkSpeed;
     public float destroyTime;
 
+    PlayerThrow playerThrow;
+
     void Start() {
         attackReady = true;
-
         attackPoint.localScale = new Vector3(attackReach, attackDistance, 0.1f);
+
+        playerThrow = GetComponent<PlayerThrow>();
     }
 
     void Update()
@@ -80,6 +84,8 @@ public class PlayerAttack : MonoBehaviour
             SetupComponent(lowerHull);
         }
 
+        // Automatically collects all kunais on the target
+        playerThrow.kunaiRemaining += target.GetComponentsInChildren<Kunai>().Length;
         Destroy(target);
     }
 
