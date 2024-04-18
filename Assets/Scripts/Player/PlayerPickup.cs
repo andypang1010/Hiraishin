@@ -6,7 +6,7 @@ public class PlayerPickup : MonoBehaviour
 {
     [Header("Camera")]
     public Transform cam;
-    public Transform heldPoint;
+    public Transform throwPoint;
 
     [Header("Settings")]
     public float maxDistance;
@@ -52,7 +52,7 @@ public class PlayerPickup : MonoBehaviour
 
             Physics.IgnoreCollision(pickedObj.GetComponent<Collider>(), gameObject.GetComponentInChildren<Collider>(), true);
 
-            pickedObj.transform.SetParent(heldPoint);
+            pickedObj.transform.SetParent(throwPoint);
             heldObj = pickedObj;
         }
     }
@@ -60,14 +60,14 @@ public class PlayerPickup : MonoBehaviour
     void MoveObject() {
 
         // Move object around the heldPoint
-        if (Vector3.Distance(heldObj.transform.position, heldPoint.position) > 0f) {
-            Vector3 moveDirection = heldPoint.position - heldObj.transform.position;
+        if (Vector3.Distance(heldObj.transform.position, throwPoint.position) > 0f) {
+            Vector3 moveDirection = throwPoint.position - heldObj.transform.position;
 
             heldObj.GetComponent<Rigidbody>().AddForce(moveDirection * moveForce);
         }
 
         // Automatically drop throwable when far away from heldPoint
-        if (Vector3.Distance(heldObj.transform.position, heldPoint.position) > maxDistance) {
+        if (Vector3.Distance(heldObj.transform.position, throwPoint.position) > maxDistance) {
             DropObject();
         }
     }

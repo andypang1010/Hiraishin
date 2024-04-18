@@ -701,12 +701,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a7111c389cfd1f429e10c8f898e6d7f, type: 3}
---- !u!4 &989027585 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1975681992950084963, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
-    type: 3}
-  m_PrefabInstance: {fileID: 2644700636370575354}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1149376820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,16 +2484,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1975681992950084963, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1975681992950084963, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.25
-      objectReference: {fileID: 0}
     - target: {fileID: 2700550143776567090, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2555,25 +2539,15 @@ PrefabInstance:
       propertyPath: cameraPosition
       value: 
       objectReference: {fileID: 84367153}
-    - target: {fileID: 4446448150210315335, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
-        type: 3}
-      propertyPath: far clip plane
-      value: 200
-      objectReference: {fileID: 0}
     - target: {fileID: 5929807373012844353, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1462873634}
-    - target: {fileID: 5929807373012844353, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
+    - target: {fileID: 5961561435554987497, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
-      propertyPath: idleAmplitude
-      value: 0.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 5929807373012844353, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
-        type: 3}
-      propertyPath: idleFrequency
-      value: 1.3
+      propertyPath: m_Name
+      value: Throwable Point
       objectReference: {fileID: 0}
     - target: {fileID: 6062257456430369382, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
@@ -4469,7 +4443,7 @@ PrefabInstance:
         type: 3}
       propertyPath: kunaiAttackPoint
       value: 
-      objectReference: {fileID: 989027585}
+      objectReference: {fileID: 1954988668}
     - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: throwableThrowForce
