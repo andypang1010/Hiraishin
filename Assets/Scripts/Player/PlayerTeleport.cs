@@ -36,7 +36,7 @@ public class PlayerTeleport : MonoBehaviour
         }
 
         // When player wants to teleport
-        if (InputController.GetTeleportDown()) {
+        if (InputController.Instance.GetTeleportDown()) {
 
             // Calculate the radius crosshair and centerpoint of the screen
             maxDetectionSize = (float) Math.Pow(crosshair.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y), 2);

@@ -2,76 +2,86 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class InputController
+public class InputController : MonoBehaviour
 {
-    static KeyCode sprintKey = KeyCode.LeftShift;
-    static KeyCode crouchKey = KeyCode.LeftControl;
-    static KeyCode altCrouchKey = KeyCode.LeftCommand;
-    static KeyCode jumpKey = KeyCode.Space;
-    static KeyCode tagKey = KeyCode.T;
-    static KeyCode pickupKey = KeyCode.E;
-    static KeyCode bulletTimeKey = KeyCode.Q;
-    static KeyCode throwKey = KeyCode.Mouse0;
-    static KeyCode attackKey = KeyCode.Mouse1;
-    static KeyCode teleportKey = KeyCode.Mouse2;
+    public static InputController Instance { get; private set;}
+    
+    public KeyCode sprintKey = KeyCode.LeftShift;
+    public KeyCode crouchKey = KeyCode.LeftControl;
+    public KeyCode altCrouchKey = KeyCode.LeftCommand;
+    public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode tagKey = KeyCode.T;
+    public KeyCode pickupKey = KeyCode.E;
+    public KeyCode bulletTimeKey = KeyCode.Q;
+    public KeyCode throwKey = KeyCode.Mouse0;
+    public KeyCode attackKey = KeyCode.Mouse1;
+    public KeyCode teleportKey = KeyCode.Mouse2;
 
-    public static Vector2 GetWalkDirection() {
+    void Awake() {
+        if (Instance != null) {
+            Debug.LogWarning("More than one InputController in scene");
+        }
+
+        Instance = this;
+    }
+
+    public Vector2 GetWalkDirection() {
         return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 
-    public static Vector2 GetLookDirection() {
+    public Vector2 GetLookDirection() {
         return new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
     }
 
-    public static bool GetSprint() {
+    public bool GetSprint() {
         return Input.GetKey(sprintKey);
     }
 
-    public static bool GetCrouchDown() {
+    public bool GetCrouchDown() {
         return Input.GetKeyDown(crouchKey) ^ Input.GetKeyDown(altCrouchKey);
     }
 
-    public static bool GetCrouchHold() {
+    public bool GetCrouchHold() {
         return Input.GetKey(crouchKey) ^ Input.GetKey(altCrouchKey);
     }
 
-    public static bool GetCrouchUp() {
+    public bool GetCrouchUp() {
         return Input.GetKeyUp(crouchKey) ^ Input.GetKeyUp(altCrouchKey);
     }
 
-    public static bool GetJumpDown() {
+    public bool GetJumpDown() {
         return Input.GetKeyDown(jumpKey);
     }
 
-    public static bool GetTagDown() {
+    public bool GetTagDown() {
         return Input.GetKeyDown(tagKey);
     }
 
-    public static bool GetTagHold() {
+    public bool GetTagHold() {
         return Input.GetKey(tagKey);
     }
 
-    public static bool GetTagUp() {
+    public bool GetTagUp() {
         return Input.GetKeyUp(tagKey);
     }
 
-    public static bool GetPickupDown() {
+    public bool GetPickupDown() {
         return Input.GetKeyDown(pickupKey);
     }
 
-    public static bool GetThrowDown() {
+    public bool GetThrowDown() {
         return Input.GetKeyDown(throwKey);
     }
 
-    public static bool GetBulletTimeDown() {
+    public bool GetBulletTimeDown() {
         return Input.GetKeyDown(bulletTimeKey);
     }
 
-    public static bool GetTeleportDown() {
+    public bool GetTeleportDown() {
         return Input.GetKeyDown(teleportKey);
     }
 
-    public static bool GetAttackDown() {
+    public bool GetAttackDown() {
         return Input.GetKeyDown(attackKey);
     }
 }

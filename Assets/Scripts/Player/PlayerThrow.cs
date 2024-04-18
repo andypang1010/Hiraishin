@@ -33,7 +33,7 @@ public class PlayerThrow : MonoBehaviour
     void Update() {
 
         // If the player meets throw conditions
-        if (InputController.GetThrowDown() && readyToThrow && kunaiRemaining > 0) {
+        if (InputController.Instance.GetThrowDown() && readyToThrow && kunaiRemaining > 0) {
 
             // Throw throwable if it exists
             if (playerPickup.heldObj != null) {
