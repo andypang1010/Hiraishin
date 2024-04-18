@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using EzySlice;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -72,6 +71,7 @@ public class PlayerAttack : MonoBehaviour
     void Slice(GameObject target, Transform slicePlane) {
         SlicedHull hull = target.Slice(slicePlane.position, slicePlane.up, target.GetComponent<Renderer>().material);
 
+        // Create upper and lower hulls
         if (hull != null) {
             GameObject upperHull = hull.CreateUpperHull(target);
             SetupComponent(upperHull);
@@ -87,20 +87,9 @@ public class PlayerAttack : MonoBehaviour
         Rigidbody rb = slicedObject.AddComponent<Rigidbody>();
         MeshCollider collider = slicedObject.AddComponent<MeshCollider>();
         collider.convex = true;
-        // slicedObject.layer = LayerMask.NameToLayer("Enemy");
 
         rb.AddExplosionForce(attackForce, slicedObject.transform.position, 1);
         StartCoroutine(Sink(slicedObject));
-        // slicedObject.transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
-
-        // StartCoroutine(SinkSlicedObject(slicedObject));
-        // StartCoroutine(DisableSlicedObject(rb, collider));
-    }
-
-    IEnumerator DisableSlicedObject(Rigidbody rb, MeshCollider collider) {
-        yield return new WaitForSeconds(1);
-        rb.isKinematic = true;
-        Destroy(collider);
     }
 
     IEnumerator Sink(GameObject target)
@@ -108,10 +97,16 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(attackCD + 0.5f);
         target.GetComponent<Rigidbody>().isKinematic = true;
         target.GetComponent<MeshCollider>().enabled = false;
+
         float time = 0;
         while (time < destroyTime)
         {
-            target.transform.position = new Vector3(target.transform.position.x, target.transform.position.y - sinkSpeed, target.transform.position.z);
+            target.transform.position = new Vector3(
+                target.transform.position.x, 
+                target.transform.position.y - sinkSpeed, 
+                target.transform.position.z
+            );
+
             time += Time.deltaTime;
             yield return null;
         }
