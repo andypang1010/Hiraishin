@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Kunai : MonoBehaviour
 {
-    public float damage;
     bool collided;
     Rigidbody rb;
 
