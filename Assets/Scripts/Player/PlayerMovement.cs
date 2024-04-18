@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
             coyoteTimeCounter = coyoteTime;
         }
         else {
-            coyoteTimeCounter -= Time.deltaTime;
+            coyoteTimeCounter -= Time.deltaTime / Time.timeScale;
         }
 
         // Jump buffer check
@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter = jumpBuffer;
         }
         else {
-            jumpBufferCounter -= Time.deltaTime;
+            jumpBufferCounter -= Time.deltaTime / Time.timeScale;
         }
         
         if (grounded) {
@@ -136,6 +136,8 @@ public class PlayerMovement : MonoBehaviour
                 movementState = MovementState.WALK;
                 moveSpeed = walkSpeed;
             }
+
+            moveSpeed /= Time.timeScale;
         }
     }
 

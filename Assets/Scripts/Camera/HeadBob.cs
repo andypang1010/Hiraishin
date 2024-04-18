@@ -72,15 +72,15 @@ public class HeadBob : MonoBehaviour
         if (!playerMovement.isGrounded()) return;
 
         // Offset camera position by head bob
-        playerCamera.localPosition += FootStepMotion() * Time.deltaTime;
+        playerCamera.localPosition += FootStepMotion() * Time.deltaTime / Time.timeScale;
     }
 
     Vector3 FootStepMotion() {
         Vector3 pos = Vector3.zero;
 
         // Oscillate using sine and cosine curves
-        pos.y += Mathf.Sin(Time.time * frequency) * amplitude;
-        pos.x += Mathf.Cos(Time.time * frequency / 2) * amplitude / 2;
+        pos.y += Mathf.Sin(Time.time / Time.timeScale * frequency) * amplitude;
+        pos.x += Mathf.Cos(Time.time / Time.timeScale * frequency / 2) * amplitude / 2;
 
         return pos;
     }
@@ -89,7 +89,7 @@ public class HeadBob : MonoBehaviour
         if (playerCamera.localPosition == startPosition) return;
 
         // Slowly move back to start position
-        playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, startPosition, 1 * Time.deltaTime);
+        playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, startPosition, 1 * Time.deltaTime / Time.timeScale);
     }
 
     Vector3 StablizedTarget() {

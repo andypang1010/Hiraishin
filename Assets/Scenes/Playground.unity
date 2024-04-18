@@ -2547,7 +2547,7 @@ PrefabInstance:
     - target: {fileID: 5961561435554987497, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
       propertyPath: m_Name
-      value: Throwable Point
+      value: Throw Point
       objectReference: {fileID: 0}
     - target: {fileID: 6062257456430369382, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
@@ -4441,6 +4441,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
+      propertyPath: throwPoint
+      value: 
+      objectReference: {fileID: 1954988668}
+    - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
       propertyPath: kunaiAttackPoint
       value: 
       objectReference: {fileID: 1954988668}
@@ -4457,7 +4462,7 @@ PrefabInstance:
     - target: {fileID: 4102721824815875172, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5084041552704671043, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
@@ -4502,6 +4507,11 @@ PrefabInstance:
     - target: {fileID: 8306225624746193754, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: heldPoint
+      value: 
+      objectReference: {fileID: 1954988668}
+    - target: {fileID: 8306225624746193754, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: throwPoint
       value: 
       objectReference: {fileID: 1954988668}
     m_RemovedComponents: []
