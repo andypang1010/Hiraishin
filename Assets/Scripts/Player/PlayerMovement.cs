@@ -34,13 +34,11 @@ public class PlayerMovement : MonoBehaviour
     public float crouchScale;
     private float defaultScale;
 
-    [Header("Ground Check")]
-    public float playerHeight;
-    bool grounded;
-
     [Header("Slope Check")]
     public float maxSlopeAngle;
     RaycastHit slopeHit;
+    float playerHeight = 2;
+    bool grounded;
     bool exitingSlope;
 
     Rigidbody rb;

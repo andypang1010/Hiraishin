@@ -18,6 +18,7 @@ public class Kunai : MonoBehaviour
             rb.isKinematic = true;
             collided = true;
         }
+        
         else {
             Destroy(rb);
         }

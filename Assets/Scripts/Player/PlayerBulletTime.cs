@@ -8,8 +8,8 @@ public class PlayerBulletTime : MonoBehaviour
     public float dilutedTimeScale;
     public float bulletTimeDuration;
     public float bulletTimeCD;
-    [HideInInspector] public float durationCounter;
-    [HideInInspector] public float cooldownCounter;
+    [HideInInspector] public float durationCounter { get; private set; }
+    [HideInInspector] public float cooldownCounter { get; private set; }
 
     bool inBulletTime;
     float defaultTimeScale;

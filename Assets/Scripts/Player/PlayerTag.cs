@@ -11,7 +11,7 @@ public class PlayerTag : MonoBehaviour
     public float maxTagDistance;
     public float minTagTime;
     public Material taggedMaterial;
-    [HideInInspector] public float holdTime;
+    [HideInInspector] public float holdTime { get; private set; }
     GameObject targetObject;
     RaycastHit hit;
 

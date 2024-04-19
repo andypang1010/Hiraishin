@@ -13,10 +13,11 @@ public class PlayerAttack : MonoBehaviour
     public Transform attackPoint;
     public float attackReach;
     public float attackDistance;
-    public LayerMask attackLayer;
     public float attackCD;
     public float attackForce;
-    public bool attackReady;
+    [HideInInspector] public bool attackReady {
+        get; private set;
+    }
 
     [Header("Sinking")]
     public float startSinkTime;
@@ -81,16 +82,16 @@ public class PlayerAttack : MonoBehaviour
     void Slice(GameObject target, Transform slicePlane) {
         SlicedHull hull = target.Slice(slicePlane.position, slicePlane.up, target.GetComponent<Renderer>().material);
 
-        // Create upper and lower hulls
         if (hull != null) {
-            GameObject upperHull = hull.CreateUpperHull(target);
-            SetupComponent(upperHull);
 
+            // Create upper and lower hulls
+            GameObject upperHull = hull.CreateUpperHull(target);
             GameObject lowerHull = hull.CreateLowerHull(target);
+            SetupComponent(upperHull);
             SetupComponent(lowerHull);
             
             // Automatically collects all kunais on the target
-            playerThrow.kunaiRemaining += target.GetComponentsInChildren<Kunai>().Length;
+            playerThrow.AddKunaiCount(target.GetComponentsInChildren<Kunai>().Length);
 
             // Remove target from teleportables list
             PlayerTeleport.teleportables.Remove(target);
@@ -100,6 +101,8 @@ public class PlayerAttack : MonoBehaviour
     }
 
     void SetupComponent(GameObject slicedObject) {
+
+        // Adding rigidBody and meshCollider to slicedObject
         Rigidbody rb = slicedObject.AddComponent<Rigidbody>();
         MeshCollider collider = slicedObject.AddComponent<MeshCollider>();
         collider.convex = true;
@@ -118,9 +121,9 @@ public class PlayerAttack : MonoBehaviour
         foreach (Kunai kunai in target.GetComponentsInChildren<Kunai>()) {
             Destroy(kunai.gameObject);
         }
-        playerThrow.kunaiRemaining += target.GetComponentsInChildren<Kunai>().Length;
+        playerThrow.AddKunaiCount(target.GetComponentsInChildren<Kunai>().Length);
 
-        // Sink
+        // Start sinking
         float time = 0;
         while (time < destroyTime)
         {

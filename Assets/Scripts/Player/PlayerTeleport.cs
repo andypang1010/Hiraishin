@@ -72,7 +72,7 @@ public class PlayerTeleport : MonoBehaviour
                         UpdateRotation(closestTarget);
 
                         Teleport(gameObject, closestTarget);
-                        GetComponent<PlayerThrow>().kunaiRemaining++;
+                        GetComponent<PlayerThrow>().AddKunaiCount(1);
 
                         teleportables.Remove(closestTarget);
                         Destroy(closestTarget);

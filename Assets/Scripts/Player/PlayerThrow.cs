@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,7 @@ public class PlayerThrow : MonoBehaviour
     [Header("Settings")]
     public int totalKunai;
     public float throwCD;
-    public int kunaiRemaining;
+    [HideInInspector] public int kunaiRemaining { get; private set; }
     PlayerPickup playerPickup;
 
     void Start()
@@ -111,5 +112,9 @@ public class PlayerThrow : MonoBehaviour
 
             kunaiRemaining++;
         }
+    }
+
+    public void AddKunaiCount(int kunaiCount) {
+        kunaiRemaining = Math.Clamp(kunaiRemaining + kunaiCount, 0, totalKunai);
     }
 }
