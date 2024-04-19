@@ -19,7 +19,8 @@ public class PlayerTag : MonoBehaviour
     {
         if (InputController.Instance.GetTagDown()
             && Physics.Raycast(cam.transform.position, cam.forward, out hit, maxTagDistance) 
-            && hit.collider.gameObject.CompareTag("Throwable")
+            && (hit.collider.gameObject.CompareTag("Throwable")
+            || hit.collider.gameObject.CompareTag("Enemy"))
             && hit.collider.gameObject.layer != LayerMask.NameToLayer("Tagged")) {
                 holdTime = 0;
 

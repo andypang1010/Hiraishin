@@ -19,6 +19,7 @@ public class PlayerAttack : MonoBehaviour
     public bool attackReady;
 
     [Header("Sinking")]
+    public float startSinkTime;
     public float sinkSpeed;
     public float destroyTime;
 
@@ -52,24 +53,29 @@ public class PlayerAttack : MonoBehaviour
             attackPoint.localScale / 2, 
             cam.forward, 
             attackPoint.rotation, 
-            1,
-            attackLayer).Select(hit => hit.collider.gameObject).ToArray();
+            1)
+            .Select(hit => hit.collider.gameObject).ToArray();
             
-            GameObject closestTarget = null;
-            float distance = Mathf.Infinity;
+        GameObject closestTarget = null;
+        float distance = Mathf.Infinity;
 
-            // Find closest target
-            foreach (GameObject target in targetsInRange) {
-                if (Vector3.SqrMagnitude(target.transform.position - gameObject.transform.position) < distance) {
-                    closestTarget = target;
-                    distance = Vector3.SqrMagnitude(target.transform.position - gameObject.transform.position);
-                }
-            }
+        // Find closest target
+        foreach (GameObject target in targetsInRange) {
+            if (!target.CompareTag("Enemy")) continue;
 
-            // Slice if closest target
-            if (closestTarget != null) {
-                Slice(closestTarget, attackPoint);
+            if (Vector3.SqrMagnitude(target.transform.position - gameObject.transform.position) < distance) {
+                closestTarget = target;
+                distance = Vector3.SqrMagnitude(target.transform.position - gameObject.transform.position);
             }
+        }
+
+        // Slice if closest target is not obstructed
+        if (closestTarget != null
+            && Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, attackReach)
+            && hit.collider.gameObject == closestTarget) {
+
+            Slice(closestTarget, attackPoint);
+        }
     }
 
     void Slice(GameObject target, Transform slicePlane) {
@@ -82,11 +88,15 @@ public class PlayerAttack : MonoBehaviour
 
             GameObject lowerHull = hull.CreateLowerHull(target);
             SetupComponent(lowerHull);
+            
+            // Automatically collects all kunais on the target
+            playerThrow.kunaiRemaining += target.GetComponentsInChildren<Kunai>().Length;
+
+            // Remove target from teleportables list
+            PlayerTeleport.teleportables.Remove(target);
+            Destroy(target);
         }
 
-        // Automatically collects all kunais on the target
-        playerThrow.kunaiRemaining += target.GetComponentsInChildren<Kunai>().Length;
-        Destroy(target);
     }
 
     void SetupComponent(GameObject slicedObject) {
@@ -100,10 +110,17 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator Sink(GameObject target)
     {
-        yield return new WaitForSeconds(attackCD + 0.5f);
-        target.GetComponent<Rigidbody>().isKinematic = true;
+        yield return new WaitForSeconds(startSinkTime);
         target.GetComponent<MeshCollider>().enabled = false;
+        target.GetComponent<Rigidbody>().isKinematic = true;
 
+        // Destroy all kunais on the target
+        foreach (Kunai kunai in target.GetComponentsInChildren<Kunai>()) {
+            Destroy(kunai.gameObject);
+        }
+        playerThrow.kunaiRemaining += target.GetComponentsInChildren<Kunai>().Length;
+
+        // Sink
         float time = 0;
         while (time < destroyTime)
         {
