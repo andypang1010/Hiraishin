@@ -6,116 +6,90 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
-    [Header("Navigation")]
-    public GameObject player;
-    public LayerMask playerMask;
+    [Header("States")]
     public EnemyStates initState;
     public EnemyStates currentState;
-    public Vector3 currentTargetPosition;
-    NavMeshAgent agent;
-    PlayerMovement playerMovement;
 
     [Header("Senses")]
     public float listenRadius;
+    public float listenThreshold;
     public float lookRadius;
+    [Range(0, 180)] public float lookAngle;
+    public LayerMask playerMask;
 
-    [Header("Patrol")]
-    public float patrolSpeed;
-    public List<Transform> patrolPoints;
-    public int currentPatrolIndex = 0;
-    public float minReachPatrolDistance;
-
-    [Header("Question")]
-    public float questionSpeed;
-    public Vector3 playerLastHeardPosition;
-
-    [Header("Chase")]
-    public float chaseSpeed;
-    
-    [Header("Attack")]
-    public float attackCD;
-    public float minAttackDistance;
+    public GameObject player;
+    PlayerMovement playerMovement;
+    EnemyMovement enemyMovement;
+    EnemyAttack enemyAttack;
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        playerMovement = GetComponent<PlayerMovement>();
         currentState = initState;
-
-        patrolPoints.Insert(0, transform);
+        player = GameObject.Find("PLAYER");
+        playerMovement = player.GetComponent<PlayerMovement>();
+        enemyMovement = GetComponent<EnemyMovement>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         ListenForPlayer();
         LookForPlayer();
-        HandleMovementState();
 
-        agent.SetDestination(currentTargetPosition);
+        HandleEnemyState();
+    }
+
+    void HandleEnemyState() {
+        switch(currentState) {
+
+            case EnemyStates.PATROL:
+                enemyMovement.Patrol();
+                break;
+
+            case EnemyStates.QUESTION:
+                enemyMovement.Question();
+                break;
+
+            case EnemyStates.CHASE:
+                enemyMovement.Chase();
+                break;
+
+            case EnemyStates.ATTACK:
+                enemyAttack.Attack();
+                break;
+
+        }
     }
 
     void ListenForPlayer() {
 
-        // Check if player is within distance, not crouching, and moving
+        // Check if player is within distance and moving
         if (Vector3.SqrMagnitude(player.transform.position - transform.position) < Mathf.Pow(listenRadius, 2)
-        && playerMovement.movementState != PlayerMovement.MovementState.CROUCH
-        && playerMovement.GetMoveVelocity().magnitude > 0.3f) {
+        && playerMovement.GetMoveVelocity().magnitude > listenThreshold) {
 
             currentState = EnemyStates.QUESTION;
-            playerLastHeardPosition = player.transform.position;
+            enemyMovement.playerLastHeardPosition = player.transform.position;
         }
     }
 
     void LookForPlayer() {
-        if (Physics.CheckSphere(transform.position, lookRadius, playerMask)) {
+        Vector3 playerDirection = player.transform.position - transform.position;
+        if (Physics.CheckSphere(transform.position, lookRadius, playerMask)
+        && Vector3.Angle(transform.forward, playerDirection) <= lookAngle / 2
+        && Physics.Raycast(transform.position, playerDirection, out RaycastHit hit, lookRadius)
+        && hit.transform.gameObject == player) {
             currentState = EnemyStates.CHASE;
 
         }
     }
 
-    void AttackPlayer() {
+    public void CheckAttackDistance() {
 
     }
+}
 
-    void HandleMovementState() {
-        switch(currentState) {
-
-            case EnemyStates.PATROL:
-                agent.speed = patrolSpeed;
-
-                // If enemy is within minReachPatrolDistance of the patrol point, go to the next patrol point
-                if (Vector3.SqrMagnitude(currentTargetPosition - transform.position) < Mathf.Pow(minReachPatrolDistance, 2)) {
-                    currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Count;
-                }
-
-                currentTargetPosition = patrolPoints[currentPatrolIndex].position;
-
-                break;
-
-            case EnemyStates.QUESTION:
-                agent.speed = questionSpeed;
-
-                currentTargetPosition = playerLastHeardPosition;
-                break;
-
-            case EnemyStates.CHASE:
-                agent.speed = chaseSpeed;
-
-                currentTargetPosition = player.transform.position;
-                break;
-
-            case EnemyStates.ATTACK:
-                agent.speed = 0;
-                break;
-
-        }
-    }
-
-    public enum EnemyStates {
-        PATROL,
-        QUESTION,
-        CHASE,
-        ATTACK
-    }
+public enum EnemyStates {
+    PATROL,
+    QUESTION,
+    CHASE,
+    ATTACK
 }
