@@ -1223,7 +1223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1526773046}
   m_Layer: 9
-  m_Name: Patrol Points
+  m_Name: Patrol Points 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2237,6 +2237,16 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1462873634}
+    - target: {fileID: 9039999320744688087, guid: edf7b3c52014a0043957627408f6052c,
+        type: 3}
+      propertyPath: lookRadius
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 9039999320744688087, guid: edf7b3c52014a0043957627408f6052c,
+        type: 3}
+      propertyPath: listenRadius
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3670,6 +3680,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: GAME MANAGER
       objectReference: {fileID: 0}
+    - target: {fileID: 7159329896051752108, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
+        type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 2a6033d65bfa44b429884798c4c7d027,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
