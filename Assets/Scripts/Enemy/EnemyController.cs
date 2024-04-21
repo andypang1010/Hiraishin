@@ -74,6 +74,10 @@ public class EnemyController : MonoBehaviour
 
     void ListenForPlayer() {
 
+        if (playerMovement.movementState == PlayerMovement.MovementState.CROUCH) {
+            return;
+        }
+
         // Check if player is within distance and moving
         if (Vector3.SqrMagnitude(player.transform.position - transform.position) < Mathf.Pow(listenRadius, 2)
         && playerMovement.GetMoveVelocity().magnitude > listenThreshold
