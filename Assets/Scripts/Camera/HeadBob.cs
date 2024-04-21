@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class HeadBob : MonoBehaviour
 {
-    public new bool enabled;
     public GameObject player;
     [Range(0, 1f)] public float idleAmplitude;
     [Range(0, 30)] public float idleFrequency;

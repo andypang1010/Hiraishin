@@ -34,6 +34,10 @@ public class EnemyMovement : MonoBehaviour
         patrolPoints.Insert(0, patrolPoint0.transform);
     }
 
+    void Update() {
+        
+    }
+
     public void Patrol() {
         agent.speed = patrolSpeed;
         agent.acceleration = patrolSpeed;

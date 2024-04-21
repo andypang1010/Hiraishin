@@ -28,17 +28,29 @@ public class EnemyController : MonoBehaviour
         player = GameObject.Find("PLAYER");
         playerMovement = player.GetComponent<PlayerMovement>();
         enemyMovement = GetComponent<EnemyMovement>();
+        enemyAttack = GetComponent<EnemyAttack>();
     }
 
     void Update()
     {
-        ListenForPlayer();
-        LookForPlayer();
+        if (player != null) {
+            ListenForPlayer();
+            LookForPlayer();
+        }
 
         HandleEnemyState();
     }
 
     void HandleEnemyState() {
+
+        if (player == null) {
+            currentState = EnemyStates.PATROL;
+            enemyMovement.currentPatrolIndex = 0;
+            enemyMovement.currentTargetPosition = enemyMovement.patrolPoints[0].position;
+            enemyMovement.Patrol();
+            return;
+        }
+
         switch(currentState) {
 
             case EnemyStates.PATROL:
@@ -51,12 +63,12 @@ public class EnemyController : MonoBehaviour
 
             case EnemyStates.CHASE:
                 enemyMovement.Chase();
-                break;
 
-            case EnemyStates.ATTACK:
-                enemyAttack.Attack();
-                break;
+                if (CheckCanAttack()) {
+                    enemyAttack.Attack();
+                }
 
+                break;
         }
     }
 
@@ -64,7 +76,8 @@ public class EnemyController : MonoBehaviour
 
         // Check if player is within distance and moving
         if (Vector3.SqrMagnitude(player.transform.position - transform.position) < Mathf.Pow(listenRadius, 2)
-        && playerMovement.GetMoveVelocity().magnitude > listenThreshold) {
+        && playerMovement.GetMoveVelocity().magnitude > listenThreshold
+        && currentState != EnemyStates.CHASE) {
 
             currentState = EnemyStates.QUESTION;
             enemyMovement.playerLastHeardPosition = player.transform.position;
@@ -73,23 +86,26 @@ public class EnemyController : MonoBehaviour
 
     void LookForPlayer() {
         Vector3 playerDirection = player.transform.position - transform.position;
+
+        // Check if player is within viewing distance
         if (Physics.CheckSphere(transform.position, lookRadius, playerMask)
         && Vector3.Angle(transform.forward, playerDirection) <= lookAngle / 2
         && Physics.Raycast(transform.position, playerDirection, out RaycastHit hit, lookRadius)
         && hit.transform.gameObject == player) {
+
             currentState = EnemyStates.CHASE;
 
         }
     }
 
-    public void CheckAttackDistance() {
-
+    public bool CheckCanAttack() {
+        return Vector3.SqrMagnitude(player.transform.position - transform.position) <= Mathf.Pow(enemyAttack.minAttackDistance, 2)
+        && enemyAttack.canAttack;
     }
 }
 
 public enum EnemyStates {
     PATROL,
     QUESTION,
-    CHASE,
-    ATTACK
+    CHASE
 }
