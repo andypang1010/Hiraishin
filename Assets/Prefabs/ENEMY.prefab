@@ -32,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4091392008899898400}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6, y: 1, z: 24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -150,8 +150,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 4
-  m_Acceleration: 4
+  m_Speed: 0
+  m_Acceleration: 0
   avoidancePriority: 50
   m_AngularSpeed: 60
   m_StoppingDistance: 1.5
@@ -176,10 +176,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initState: 0
   currentState: 0
-  listenRadius: 5
+  listenRadius: 10
   listenThreshold: 0.5
-  lookRadius: 15
-  lookAngle: 35
+  lookRadius: 25
+  lookAngle: 55
   playerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -218,11 +218,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd0ca277e1dbae345a19e01e80abf031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCD: 0
-  minAttackDistance: 0
-  attackReach: 0
+  attackCD: 2
+  minAttackDistance: 1.5
+  attackReach: 1.5
   canAttack: 0
-  cameraExplosionForce: 0
+  cameraExplosionForce: 3
 --- !u!1 &4215319272827469063
 GameObject:
   m_ObjectHideFlags: 0

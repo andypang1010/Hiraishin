@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class PlayerTeleport : MonoBehaviour
@@ -9,11 +11,15 @@ public class PlayerTeleport : MonoBehaviour
     [Header("References")]
     public CanvasScaler canvasScaler;
     public RectTransform crosshair;
+    public Volume volume;
     float maxDetectionSize;
     Vector2 centerPoint;
+    LensDistortion lensDistortion;
 
     [Header("Settings")]
     public float detectionDistance;
+    public float maxLensDistortion;
+    public float distortionSpeed;
     public static List<GameObject> teleportables = new List<GameObject>();
     PlayerPickup playerPickup;
     Camera cameraObj;
@@ -21,6 +27,10 @@ public class PlayerTeleport : MonoBehaviour
     void Start() {
         playerPickup = GetComponent<PlayerPickup>();
         cameraObj = Camera.main.transform.gameObject.GetComponent<Camera>();
+        
+        if (!volume.profile.TryGet(out lensDistortion)) {
+            Debug.LogWarning("No Lens Distortion component found on Global Volume");
+        }
     }
 
     void Update()
@@ -68,30 +78,19 @@ public class PlayerTeleport : MonoBehaviour
             if (closestTarget != null) {
                 if (closestTarget.layer == LayerMask.NameToLayer("Kunai"))
                     {
-                        UpdateRotation(closestTarget);
-
-                        Teleport(gameObject, closestTarget);
-                        GetComponent<PlayerThrow>().AddKunaiCount(1);
-
-                        teleportables.Remove(closestTarget);
-                        Destroy(closestTarget);
+                        StartCoroutine(Teleport(closestTarget));
                     }
 
                     else if (closestTarget.layer == LayerMask.NameToLayer("Tagged"))
                     {
                         GameObject temp = Instantiate(gameObject);
-                        UpdateRotation(closestTarget);
-
-                        Teleport(gameObject, closestTarget);
-                        Teleport(closestTarget, temp);
-
-                        Destroy(temp);
+                        StartCoroutine(SwapLocations(closestTarget, temp));
                     }
             }
         }
     }
 
-    void Teleport(GameObject source, GameObject target) {
+    void TeleportObjects(GameObject source, GameObject target) {
 
         Rigidbody sourceRB = source.GetComponent<Rigidbody>();
 
@@ -113,5 +112,46 @@ public class PlayerTeleport : MonoBehaviour
         GetComponent<PlayerCamera>().rotationY = targetEuler.y;
 
         target.transform.rotation = temp;
+    }
+
+    IEnumerator Teleport(GameObject closestTarget) {
+        while (lensDistortion.intensity.value < 0.5) {
+            lensDistortion.intensity.value += Time.deltaTime * 2;
+            yield return null;
+        }
+
+        UpdateRotation(closestTarget);
+        TeleportObjects(gameObject, closestTarget);
+        GetComponent<PlayerThrow>().AddKunaiCount(1);
+        
+        teleportables.Remove(closestTarget);
+        Destroy(closestTarget);
+
+        if (lensDistortion.intensity.value >0.5) {
+            while (lensDistortion.intensity.value > 0) {
+                lensDistortion.intensity.value -= Time.deltaTime * 2;
+                yield return null;
+            } 
+        }
+    }
+
+    IEnumerator SwapLocations(GameObject closestTarget, GameObject temp) {
+        while (lensDistortion.intensity.value < maxLensDistortion) {
+            lensDistortion.intensity.value += Time.deltaTime * distortionSpeed;
+            yield return null;
+        }
+
+        UpdateRotation(closestTarget);
+        TeleportObjects(gameObject, closestTarget);
+        TeleportObjects(closestTarget, temp);
+
+        Destroy(temp);
+
+        if (lensDistortion.intensity.value > maxLensDistortion) {
+            while (lensDistortion.intensity.value > 0) {
+                lensDistortion.intensity.value -= Time.deltaTime * distortionSpeed;
+                yield return null;
+            } 
+        }
     }
 }
