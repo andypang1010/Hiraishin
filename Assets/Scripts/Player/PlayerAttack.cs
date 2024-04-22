@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [Header("Camera")]
-    public Transform cam;
-
     [Header("Attack")]
     public Transform attackPoint;
     public float attackReach;
@@ -52,7 +49,7 @@ public class PlayerAttack : MonoBehaviour
         GameObject[] targetsInRange = Physics.BoxCastAll(
             attackPoint.position, 
             attackPoint.localScale / 2, 
-            cam.forward, 
+            Camera.main.transform.forward, 
             attackPoint.rotation, 
             1)
             .Select(hit => hit.collider.gameObject).ToArray();
@@ -72,7 +69,7 @@ public class PlayerAttack : MonoBehaviour
 
         // Slice if closest target is not obstructed
         if (closestTarget != null
-            && Physics.Raycast(cam.position, cam.forward, out RaycastHit hit, attackReach)
+            && Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, attackReach)
             && hit.collider.gameObject == closestTarget) {
 
             Slice(closestTarget, attackPoint);

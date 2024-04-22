@@ -7,7 +7,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public enum MovementState {
-        IDLE,
         WALK,
         SPRINT,
         CROUCH,

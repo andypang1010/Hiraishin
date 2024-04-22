@@ -2232,6 +2232,21 @@ PrefabInstance:
       propertyPath: m_Acceleration
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7118181496552032111, guid: edf7b3c52014a0043957627408f6052c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7118181496552032111, guid: edf7b3c52014a0043957627408f6052c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7118181496552032111, guid: edf7b3c52014a0043957627408f6052c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9039999320744688087, guid: edf7b3c52014a0043957627408f6052c,
         type: 3}
       propertyPath: player
@@ -2240,12 +2255,12 @@ PrefabInstance:
     - target: {fileID: 9039999320744688087, guid: edf7b3c52014a0043957627408f6052c,
         type: 3}
       propertyPath: lookRadius
-      value: 40
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 9039999320744688087, guid: edf7b3c52014a0043957627408f6052c,
         type: 3}
       propertyPath: listenRadius
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

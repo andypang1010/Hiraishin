@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerPickup : MonoBehaviour
 {
-    [Header("Camera")]
-    public Transform cam;
+    [Header("References")]
     public Transform throwPoint;
 
     [Header("Settings")]
@@ -23,7 +22,7 @@ public class PlayerPickup : MonoBehaviour
             }
 
             // If throwable found within range
-            if (Physics.Raycast(cam.transform.position, cam.forward, out RaycastHit hit, maxDistance) 
+            if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxDistance) 
                 && hit.collider.gameObject.CompareTag("Throwable")) {
 
                 PickUpObject(hit.collider.gameObject);

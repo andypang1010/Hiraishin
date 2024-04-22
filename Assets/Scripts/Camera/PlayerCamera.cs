@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [Header("Camera")]
-    public Transform cam;
-
     [Header("Sensitivity")]
     public float sensX;
     public float sensY;
@@ -47,7 +44,7 @@ public class PlayerCamera : MonoBehaviour
         rotationX = Math.Clamp(rotationX, -80f, 80f);
 
         // Update camera rotation
-        cam.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+        Camera.main.transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
         
         // Update player rotation
         transform.rotation = Quaternion.Euler(0, rotationY, 0);

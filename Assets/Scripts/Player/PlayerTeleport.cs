@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerTeleport : MonoBehaviour
 {
-    [Header("Camera")]
-    public Transform cam;
+    [Header("References")]
     public CanvasScaler canvasScaler;
     public RectTransform crosshair;
     float maxDetectionSize;
@@ -21,7 +20,7 @@ public class PlayerTeleport : MonoBehaviour
 
     void Start() {
         playerPickup = GetComponent<PlayerPickup>();
-        cameraObj = cam.gameObject.GetComponent<Camera>();
+        cameraObj = Camera.main.transform.gameObject.GetComponent<Camera>();
     }
 
     void Update()
@@ -52,7 +51,7 @@ public class PlayerTeleport : MonoBehaviour
                 if (Vector2.SqrMagnitude(screenPointPos - centerPoint) < maxDetectionSize
 
                 // Alternate check for close proximity
-                || target.GetComponent<Collider>().Raycast(new Ray(cam.position, cam.forward), out _, 2f))
+                || target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, 2f))
                 {
                     if (closestTarget == null) {
                         closestTarget = target;
