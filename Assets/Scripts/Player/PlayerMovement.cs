@@ -100,7 +100,8 @@ public class PlayerMovement : MonoBehaviour
         }
         
         if (grounded) {
-            if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f) {
+            if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f
+            && movementState != MovementState.CROUCH) {
                 Jump();
 
                 // Reset jump buffer to prevent jumping again
