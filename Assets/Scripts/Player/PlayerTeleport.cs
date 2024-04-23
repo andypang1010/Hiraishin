@@ -20,11 +20,10 @@ public class PlayerTeleport : MonoBehaviour
 
     [Header("Settings")]
     public float detectionDistance;
-    public Color normalColor;
+    public Color defaultColor;
     public Color detectedColor;
     public float maxLensDistortion;
     public float distortionSpeed;
-    public float headBobOffsetMultiplier;
     [HideInInspector] public static List<GameObject> teleportables = new List<GameObject>();
     PlayerPickup playerPickup;
 
@@ -43,61 +42,60 @@ public class PlayerTeleport : MonoBehaviour
     {
         Debug.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * maxDetectionSize, Color.red);
 
-        // Prevent player from teleporting to tagged heldObjects
-        if (playerPickup.heldObj != null 
-            && playerPickup.heldObj.layer == LayerMask.NameToLayer("Tagged")) {
-            return;
+        // Calculate the radius crosshair and centerpoint of the screen
+        maxDetectionSize = (float) Math.Pow(crosshairRectTransform.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y), 2);
+        centerPoint = new Vector2(Screen.width / 2, Screen.height / 2);
+
+        GameObject closestTarget = null;
+
+        // Iterate through all teleportables
+        foreach (GameObject target in teleportables) {
+
+            if (target == playerPickup.heldObj) {
+                continue;
+            }
+
+            // Convert target's world position to screen position
+            Vector2 screenPointPos = Camera.main.WorldToScreenPoint(target.transform.position);
+
+            // If the target position is within the crosshair radius
+            if (Vector2.SqrMagnitude(screenPointPos - centerPoint) <= maxDetectionSize
+
+            // Alternate check for larger objects/close proximity
+            || target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, maxDetectionSize))
+            {
+                if (closestTarget == null) {
+                    closestTarget = target;
+                }
+
+                // If the new target is closer 
+                else if (Vector3.SqrMagnitude(target.transform.position - transform.position) 
+                    < Vector3.SqrMagnitude(closestTarget.transform.position - transform.position)) {
+                    closestTarget = target;
+                }
+            }
         }
-            // Calculate the radius crosshair and centerpoint of the screen
-            maxDetectionSize = (float) Math.Pow(crosshairRectTransform.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y), 2);
-            centerPoint = new Vector2(Screen.width / 2, Screen.height / 2  + Camera.main.transform.GetChild(0).transform.rotation.y * headBobOffsetMultiplier);
 
-            GameObject closestTarget = null;
+        if (closestTarget != null) {
+            crosshairImage.color = detectedColor;
 
-            // Iterate through all teleportables
-            foreach (GameObject target in teleportables) {
+            // When player wants to teleport
+            if (InputController.Instance.GetTeleportDown()) {
 
-                // Convert target's world position to screen position
-                Vector2 screenPointPos = Camera.main.WorldToScreenPoint(target.transform.position);
+                if (closestTarget.layer == LayerMask.NameToLayer("Kunai")) {
+                        StartCoroutine(Teleport(closestTarget));
+                }
 
-                // If the target position is within the crosshair radius
-                if (Vector2.SqrMagnitude(screenPointPos - centerPoint) <= maxDetectionSize
-
-                // Alternate check for larger objects/close proximity
-                || target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, maxDetectionSize))
-                {
-                    if (closestTarget == null) {
-                        closestTarget = target;
-                    }
-
-                    // If the new target is closer 
-                    else if (Vector3.SqrMagnitude(target.transform.position - transform.position) 
-                        < Vector3.SqrMagnitude(closestTarget.transform.position - transform.position)) {
-                        closestTarget = target;
-                    }
+                else if (closestTarget.layer == LayerMask.NameToLayer("Tagged")) {
+                    GameObject temp = Instantiate(gameObject);
+                    StartCoroutine(SwapLocations(closestTarget, temp));
                 }
             }
+        }
 
-            if (closestTarget != null) {
-                crosshairImage.color = detectedColor;
-
-                // When player wants to teleport
-                if (InputController.Instance.GetTeleportDown()) {
-
-                    if (closestTarget.layer == LayerMask.NameToLayer("Kunai")) {
-                            StartCoroutine(Teleport(closestTarget));
-                    }
-
-                    else if (closestTarget.layer == LayerMask.NameToLayer("Tagged")) {
-                        GameObject temp = Instantiate(gameObject);
-                        StartCoroutine(SwapLocations(closestTarget, temp));
-                    }
-                }
-            }
-
-            else {
-                crosshairImage.color = normalColor;
-            }
+        else {
+            crosshairImage.color = defaultColor;
+        }
     }
 
     void TeleportObjects(GameObject source, GameObject target) {
