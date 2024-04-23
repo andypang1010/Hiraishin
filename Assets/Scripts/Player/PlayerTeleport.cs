@@ -41,7 +41,7 @@ public class PlayerTeleport : MonoBehaviour
 
     void Update()
     {
-        Debug.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * maxDetectionSize, Color.red);
+        Debug.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * detectionDistance, Color.red);
 
         // Calculate the radius crosshair and centerpoint of the screen
         maxDetectionSize = (float) Math.Pow(crosshairRectTransform.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y), 2);
@@ -59,11 +59,12 @@ public class PlayerTeleport : MonoBehaviour
             // Convert target's world position to screen position
             Vector2 screenPointPos = Camera.main.WorldToScreenPoint(target.transform.position);
 
-            // If the target position is within the crosshair radius
-            if (Vector2.SqrMagnitude(screenPointPos - centerPoint) <= maxDetectionSize
+            // If the target position is within the crosshair radius and within 
+            if ((Vector2.SqrMagnitude(screenPointPos - centerPoint) <= maxDetectionSize 
+            && Vector3.SqrMagnitude(target.transform.position - transform.position) <= Mathf.Pow(detectionDistance, 2))
 
             // Alternate check for larger objects/close proximity
-            || target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, maxDetectionSize))
+            || target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, detectionDistance))
             {
                 if (closestTarget == null) {
                     closestTarget = target;
