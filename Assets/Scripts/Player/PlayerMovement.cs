@@ -40,6 +40,12 @@ public class PlayerMovement : MonoBehaviour
     bool grounded;
     bool exitingSlope;
 
+    [Header("Step Check")]
+    public GameObject rayLower;
+    public GameObject rayUpper;
+    public float stepHeight;
+    public float stepSmoothing;
+
     Rigidbody rb;
     Vector3 moveDirection;
     float horizontalInput, verticalInput;
@@ -49,11 +55,14 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+
+        rayUpper.transform.position = rayLower.transform.position + stepHeight * Vector3.up;
         defaultScale = transform.localScale.y;
     }
 
     void Update()
     {
+        
         // Check if is grounded
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f);
         exitingSlope = !grounded;
@@ -66,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate() {
         Move();
+        StepClimb();
     }
 
     void GetInput() {
@@ -201,6 +211,16 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+
+    void StepClimb() {
+        Debug.DrawRay(rayLower.transform.position, rayLower.transform.forward * 0.1f, Color.red);
+        Debug.DrawRay(rayUpper.transform.position, rayUpper.transform.forward * 0.2f, Color.green);
+
+        if (Physics.Raycast(rayLower.transform.position, rayLower.transform.forward, out _, 0.15f)
+        && !Physics.Raycast(rayUpper.transform.position, rayUpper.transform.forward, out _, 0.2f)) {
+            rb.position += new Vector3(0f , stepSmoothing, 0f);
+        }
     }
 
     bool OnSlope() {
