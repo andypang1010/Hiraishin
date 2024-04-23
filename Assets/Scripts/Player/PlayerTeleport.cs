@@ -10,23 +10,28 @@ public class PlayerTeleport : MonoBehaviour
 {
     [Header("References")]
     public CanvasScaler canvasScaler;
-    public RectTransform crosshair;
+    public GameObject teleportCrosshair;
     public Volume volume;
     float maxDetectionSize;
     Vector2 centerPoint;
+    RectTransform crosshairRectTransform;
+    Image crosshairImage;
     LensDistortion lensDistortion;
 
     [Header("Settings")]
     public float detectionDistance;
+    public Color normalColor;
+    public Color detectedColor;
     public float maxLensDistortion;
     public float distortionSpeed;
     public static List<GameObject> teleportables = new List<GameObject>();
     PlayerPickup playerPickup;
-    Camera cameraObj;
 
     void Start() {
+        crosshairRectTransform = teleportCrosshair.GetComponent<RectTransform>();
+        crosshairImage = teleportCrosshair.GetComponent<Image>();
+
         playerPickup = GetComponent<PlayerPickup>();
-        cameraObj = Camera.main.transform.gameObject.GetComponent<Camera>();
         
         if (!volume.profile.TryGet(out lensDistortion)) {
             Debug.LogWarning("No Lens Distortion component found on Global Volume");
@@ -41,12 +46,8 @@ public class PlayerTeleport : MonoBehaviour
             && playerPickup.heldObj.layer == LayerMask.NameToLayer("Tagged")) {
             return;
         }
-
-        // When player wants to teleport
-        if (InputController.Instance.GetTeleportDown()) {
-
             // Calculate the radius crosshair and centerpoint of the screen
-            maxDetectionSize = (float) Math.Pow(crosshair.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y), 2);
+            maxDetectionSize = (float) Math.Pow(crosshairRectTransform.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y), 2);
             centerPoint = new Vector2(Screen.width / 2, Screen.height / 2);
 
             GameObject closestTarget = null;
@@ -55,10 +56,10 @@ public class PlayerTeleport : MonoBehaviour
             foreach (GameObject target in teleportables) {
 
                 // Convert target's world position to screen position
-                Vector2 screenPointPos = cameraObj.WorldToScreenPoint(target.transform.position);
+                Vector2 screenPointPos = Camera.main.WorldToScreenPoint(target.transform.position);
 
                 // If the target position is within the crosshair radius
-                if (Vector2.SqrMagnitude(screenPointPos - centerPoint) < maxDetectionSize
+                if (Vector2.SqrMagnitude(screenPointPos - centerPoint) <= maxDetectionSize
 
                 // Alternate check for close proximity
                 || target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, 2f))
@@ -76,18 +77,25 @@ public class PlayerTeleport : MonoBehaviour
             }
 
             if (closestTarget != null) {
-                if (closestTarget.layer == LayerMask.NameToLayer("Kunai"))
-                    {
-                        StartCoroutine(Teleport(closestTarget));
+                crosshairImage.color = detectedColor;
+
+                // When player wants to teleport
+                if (InputController.Instance.GetTeleportDown()) {
+
+                    if (closestTarget.layer == LayerMask.NameToLayer("Kunai")) {
+                            StartCoroutine(Teleport(closestTarget));
                     }
 
-                    else if (closestTarget.layer == LayerMask.NameToLayer("Tagged"))
-                    {
+                    else if (closestTarget.layer == LayerMask.NameToLayer("Tagged")) {
                         GameObject temp = Instantiate(gameObject);
                         StartCoroutine(SwapLocations(closestTarget, temp));
                     }
+                }
             }
-        }
+
+            else {
+                crosshairImage.color = normalColor;
+            }
     }
 
     void TeleportObjects(GameObject source, GameObject target) {
@@ -98,8 +106,8 @@ public class PlayerTeleport : MonoBehaviour
         if (target.TryGetComponent(out Rigidbody targetRB)) {
             sourceRB.GetComponent<Rigidbody>().velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z) / targetRB.mass;
         }
-        
-        sourceRB.MovePosition(target.transform.position + 0.1f * Vector3.up);
+
+        sourceRB.MovePosition(target.transform.position);
     }
 
     void UpdateRotation(GameObject target) {
@@ -115,8 +123,8 @@ public class PlayerTeleport : MonoBehaviour
     }
 
     IEnumerator Teleport(GameObject closestTarget) {
-        while (lensDistortion.intensity.value < 0.5) {
-            lensDistortion.intensity.value += Time.deltaTime * 2;
+        while (lensDistortion.intensity.value < maxLensDistortion) {
+            lensDistortion.intensity.value += Time.deltaTime / Time.timeScale * distortionSpeed;
             yield return null;
         }
 
@@ -127,9 +135,9 @@ public class PlayerTeleport : MonoBehaviour
         teleportables.Remove(closestTarget);
         Destroy(closestTarget);
 
-        if (lensDistortion.intensity.value >0.5) {
+        if (lensDistortion.intensity.value > maxLensDistortion) {
             while (lensDistortion.intensity.value > 0) {
-                lensDistortion.intensity.value -= Time.deltaTime * 2;
+                lensDistortion.intensity.value -= Time.deltaTime / Time.timeScale * distortionSpeed;
                 yield return null;
             } 
         }
@@ -137,7 +145,7 @@ public class PlayerTeleport : MonoBehaviour
 
     IEnumerator SwapLocations(GameObject closestTarget, GameObject temp) {
         while (lensDistortion.intensity.value < maxLensDistortion) {
-            lensDistortion.intensity.value += Time.deltaTime * distortionSpeed;
+            lensDistortion.intensity.value += Time.deltaTime / Time.timeScale * distortionSpeed;
             yield return null;
         }
 
@@ -147,11 +155,11 @@ public class PlayerTeleport : MonoBehaviour
 
         Destroy(temp);
 
-        if (lensDistortion.intensity.value > maxLensDistortion) {
+        // if (lensDistortion.intensity.value > maxLensDistortion) {
             while (lensDistortion.intensity.value > 0) {
-                lensDistortion.intensity.value -= Time.deltaTime * distortionSpeed;
+                lensDistortion.intensity.value -= Time.deltaTime / Time.timeScale * distortionSpeed;
                 yield return null;
             } 
-        }
+        // }
     }
 }

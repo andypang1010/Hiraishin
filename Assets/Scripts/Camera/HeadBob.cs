@@ -57,10 +57,9 @@ public class HeadBob : MonoBehaviour
                     break;
             }
         }
-    }
+    // }
 
-    private void FixedUpdate() {
-        if (!enabled) return;
+    // private void FixedUpdate() {
         PlayMotion();
         ResetPosition();
         playerCamera.LookAt(StablizedTarget());
