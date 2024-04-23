@@ -130,7 +130,7 @@ public class PlayerAttack : MonoBehaviour
                 target.transform.position.z
             );
 
-            time += Time.deltaTime;
+            time += Time.fixedDeltaTime;
             yield return null;
         }
 
