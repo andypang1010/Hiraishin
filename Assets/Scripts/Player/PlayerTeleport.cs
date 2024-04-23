@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
@@ -107,7 +108,12 @@ public class PlayerTeleport : MonoBehaviour
             sourceRB.GetComponent<Rigidbody>().velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z) / targetRB.mass;
         }
 
-        sourceRB.MovePosition(target.transform.position);
+        if (source.TryGetComponent(out NavMeshAgent agent)) {
+            agent.Warp(target.transform.position);
+        }
+        else {
+            sourceRB.MovePosition(target.transform.position);
+        }
     }
 
     void UpdateRotation(GameObject target) {
