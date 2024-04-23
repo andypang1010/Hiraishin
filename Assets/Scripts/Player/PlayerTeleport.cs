@@ -24,7 +24,8 @@ public class PlayerTeleport : MonoBehaviour
     public Color detectedColor;
     public float maxLensDistortion;
     public float distortionSpeed;
-    public static List<GameObject> teleportables = new List<GameObject>();
+    public float headBobOffsetMultiplier;
+    [HideInInspector] public static List<GameObject> teleportables = new List<GameObject>();
     PlayerPickup playerPickup;
 
     void Start() {
@@ -40,6 +41,7 @@ public class PlayerTeleport : MonoBehaviour
 
     void Update()
     {
+        Debug.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * maxDetectionSize, Color.red);
 
         // Prevent player from teleporting to tagged heldObjects
         if (playerPickup.heldObj != null 
@@ -48,7 +50,7 @@ public class PlayerTeleport : MonoBehaviour
         }
             // Calculate the radius crosshair and centerpoint of the screen
             maxDetectionSize = (float) Math.Pow(crosshairRectTransform.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y), 2);
-            centerPoint = new Vector2(Screen.width / 2, Screen.height / 2);
+            centerPoint = new Vector2(Screen.width / 2, Screen.height / 2  + Camera.main.transform.GetChild(0).transform.rotation.y * headBobOffsetMultiplier);
 
             GameObject closestTarget = null;
 
@@ -61,8 +63,8 @@ public class PlayerTeleport : MonoBehaviour
                 // If the target position is within the crosshair radius
                 if (Vector2.SqrMagnitude(screenPointPos - centerPoint) <= maxDetectionSize
 
-                // Alternate check for close proximity
-                || target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, 2f))
+                // Alternate check for larger objects/close proximity
+                || target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, maxDetectionSize))
                 {
                     if (closestTarget == null) {
                         closestTarget = target;

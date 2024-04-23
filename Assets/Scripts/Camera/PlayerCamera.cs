@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
+    [Header("References")]
+    public HeadBob headBob;
+
     [Header("Sensitivity")]
     public float sensX;
     public float sensY;
@@ -16,10 +19,17 @@ public class PlayerCamera : MonoBehaviour
         // Centers and hide cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        // Disable HeadBob first to ensure camera is working correctly
+        // headBob.enabled = false;
+
+        StartCoroutine(EnableHeadBob());
     }
 
     void Update()
     {
+        // headBob.enabled = true;
+
         if (Time.timeScale != 1) {
             currentSensX = sensX / Time.timeScale;
             currentSensY = sensY / Time.timeScale;
@@ -48,5 +58,12 @@ public class PlayerCamera : MonoBehaviour
         
         // Update player rotation
         transform.rotation = Quaternion.Euler(0, rotationY, 0);
+    }
+
+    IEnumerator EnableHeadBob() {
+        headBob.enabled = false;
+
+        yield return null;
+        headBob.enabled = true;
     }
 }

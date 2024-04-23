@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38a260bc097a1ab44a2782a2ed7cb9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
+  headBob: {fileID: 0}
   sensX: 50
   sensY: 50
   rotationX: 0
@@ -282,7 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e744c38fadcea94baa40fcd772b6e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   maxTagDistance: 3
   minTagTime: 5
   taggedMaterial: {fileID: 2100000, guid: f865be2c3c1853e4292d465855dea3bb, type: 2}
@@ -298,7 +297,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2c0d427c6664f46af482ab4b4db754, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   throwPoint: {fileID: 0}
   maxDistance: 3
   moveForce: 30
@@ -316,11 +314,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e715ef919ebff2f4ab17dd86bdba1689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   throwPoint: {fileID: 0}
   kunai: {fileID: 6179897952453435299, guid: a86ce1ff3dfabd440b44a8dadb496d70, type: 3}
   kunaiThrowForce: 0.8
-  kunaiUpwardForce: 0.02
+  kunaiUpwardForce: 0.06
   throwableThrowForce: 5
   throwableUpwardForce: 1.5
   maxAccurateDistance: 30
@@ -338,10 +335,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd281fba824ad84a9bb8bcd40d34ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   canvasScaler: {fileID: 0}
-  crosshair: {fileID: 0}
-  detectionDistance: 100
+  teleportCrosshair: {fileID: 0}
+  volume: {fileID: 0}
+  detectionDistance: 50
+  normalColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  detectedColor: {r: 1, g: 0, b: 0, a: 0.39215687}
+  maxLensDistortion: 0.6
+  distortionSpeed: 3
+  headBobOffsetMultiplier: 0
 --- !u!114 &5084041552704671043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,7 +371,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e068d5413e6adf843bb73e2796fb4e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
   attackPoint: {fileID: 0}
   attackReach: 1.5
   attackDistance: 2
