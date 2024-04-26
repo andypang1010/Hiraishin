@@ -14,12 +14,13 @@ public class PlayerGroundedState : PlayerBaseState
 
     public override void Enter() {
         base.DoChecks();
-
-        playerController.rb.drag = playerData.groundDrag;
     }
 
     public override void LogicUpdate() {
         base.LogicUpdate();
+
+        
+        playerController.rb.drag = playerData.groundDrag;
 
         // Handle Grounded States Inputs
         walkInput = playerController.inputController.GetWalkDirection();

@@ -20,6 +20,14 @@ public class PlayerIdleState : PlayerGroundedState
         if (walkInput.sqrMagnitude > 0.1f) {
             playerStateMachine.ChangeState(playerController.WalkState);
         }
+
+        else if (jumpInput) {
+            playerStateMachine.ChangeState(playerController.JumpState);
+        }
+
+        else if (crouchInput) {
+            playerStateMachine.ChangeState(playerController.CrouchIdleState);
+        }
     }
 
     public override void PhysicsUpdate() {

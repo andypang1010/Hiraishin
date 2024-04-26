@@ -16,7 +16,7 @@ public class HeadBob : MonoBehaviour
     [Range(0, 30)] public float crouchFrequency;
     public float stablizedOffset;
 
-    PlayerMovement playerMovement;
+    PlayerController playerController;
     Transform playerCamera, cameraHolder;
     Vector3 startPosition;
     float amplitude;
@@ -28,35 +28,34 @@ public class HeadBob : MonoBehaviour
 
         startPosition = playerCamera.localPosition;
 
-        playerMovement = player.GetComponent<PlayerMovement>();
+        playerController = player.GetComponent<PlayerController>();
     }
 
     void Update()
     {
-        PlayerMovement.MovementState movementState = playerMovement.GetMovementState();
+        // PlayerMovement.MovementState movementState = playercon.GetMovementState();
 
-        if (playerMovement.GetMoveVelocity().magnitude <= 0.3f) {
+        if (playerController.GetMoveVelocity().magnitude <= 0.3f) {
             amplitude = idleAmplitude;
             frequency = idleFrequency;
         }
-        else {
-            // Change amplitude and frequency depending on movement state
-            switch(movementState) {
-                case PlayerMovement.MovementState.SPRINT:
-                    amplitude = sprintAmplitude;
-                    frequency = sprintFrequency;
-                    break;
-                case PlayerMovement.MovementState.CROUCH: 
-                    amplitude = crouchAmplitude;
-                    frequency = crouchFrequency;
-                    break;
-                case PlayerMovement.MovementState.WALK:
-                default:
-                    amplitude = walkAmplitude;
-                    frequency = walkFrequency;
-                    break;
-            }
+
+        else if (playerController.locomotionStateMachine.CurrentState is PlayerSprintState) {
+            amplitude = sprintAmplitude;
+            frequency = sprintFrequency;
         }
+
+        else if (playerController.locomotionStateMachine.CurrentState is PlayerCrouchWalkState) {
+            amplitude = crouchAmplitude;
+            frequency = crouchFrequency;
+        }
+
+        else if (playerController.locomotionStateMachine.CurrentState is PlayerWalkState) {
+            amplitude = walkAmplitude;
+            frequency = walkFrequency;
+        }
+
+
     // }
 
     // private void FixedUpdate() {
@@ -67,7 +66,7 @@ public class HeadBob : MonoBehaviour
 
     void PlayMotion() {
         // Head bob only if is grounded
-        if (!playerMovement.isGrounded()) return;
+        if (playerController.locomotionStateMachine.CurrentState as PlayerGroundedState == null) return;
 
         // Offset camera position by head bob
         playerCamera.localPosition += FootStepMotion() * Time.deltaTime;
