@@ -55,7 +55,6 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
-
         rayUpper.transform.position = rayLower.transform.position + stepHeight * Vector3.up;
         defaultScale = transform.localScale.y;
     }
@@ -134,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
                 moveSpeed = crouchSpeed;
             }
 
-            else if (InputController.Instance.GetSprint()) {
+            else if (InputController.Instance.GetSprintHold()) {
                 movementState = MovementState.SPRINT;
                 moveSpeed = sprintSpeed;
             }

@@ -33,7 +33,7 @@ public class InputController : MonoBehaviour
         return new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
     }
 
-    public bool GetSprint() {
+    public bool GetSprintHold() {
         return Input.GetKey(sprintKey);
     }
 
