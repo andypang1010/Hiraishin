@@ -7,37 +7,62 @@ public class PlayerGroundedState : PlayerBaseState
     protected Vector2 walkInput;
     protected bool crouchInput, sprintInput, jumpInput;
 
+    protected RaycastHit slopeHit;
+
     public PlayerGroundedState(PlayerController playerController, PlayerStateMachine playerStateMachine, PlayerData playerData)
      : base(playerController, playerStateMachine, playerData)
     {
     }
 
     public override void Enter() {
-        base.DoChecks();
+        base.Enter();
+        
     }
 
     public override void LogicUpdate() {
         base.LogicUpdate();
 
-        
-        playerController.rb.drag = playerData.groundDrag;
+        controller.coyoteTimeCounter = data.coyoteTime;
+
+        controller.rb.drag = data.groundDrag;
 
         // Handle Grounded States Inputs
-        walkInput = playerController.inputController.GetWalkDirection();
-        crouchInput = playerController.inputController.GetCrouchHold();
-        sprintInput = playerController.inputController.GetSprintHold();
-        jumpInput = playerController.inputController.GetJumpDown();
+        walkInput = controller.inputController.GetMoveDirection();
+        crouchInput = controller.inputController.GetCrouchHold();
+        sprintInput = controller.inputController.GetSprintHold();
+        jumpInput = controller.inputController.GetJumpDown();
+
+        if (jumpInput) {
+            controller.jumpBufferCounter = data.jumpBuffer;
+        }
+
+        else {
+            controller.jumpBufferCounter -= Time.deltaTime * Time.timeScale;
+        }
     }
 
     public override void PhysicsUpdate() {
         base.PhysicsUpdate();
+
+        controller.rb.useGravity = !OnSlope;
     }
 
     public override void Exit() {
         base.Exit();
     }
 
-    public override void DoChecks() {
-        base.DoChecks();
+    protected bool OnSlope
+    {
+        get
+        {
+            if (Physics.Raycast(controller.transform.position, Vector3.down, out slopeHit, data.playerHeight * 0.5f + 0.3f))
+            {
+                float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+
+                return angle < data.maxSlopeAngle && angle != 0;
+            }
+
+            return false;
+        }
     }
 }

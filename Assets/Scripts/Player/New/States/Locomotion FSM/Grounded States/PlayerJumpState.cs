@@ -10,7 +10,18 @@ public class PlayerJumpState : PlayerGroundedState
     }
 
     public override void Enter() {
-        base.DoChecks();
+        base.Enter();
+        Debug.Log("Jump State");
+
+        // Reset jump buffer to prevent jumping again
+        controller.jumpBufferCounter = 0f;
+
+        // Resets y-velocity to have consistent jump height
+        controller.rb.velocity = new Vector3(controller.rb.velocity.x, 0, controller.rb.velocity.z);
+        controller.rb.AddForce(controller.transform.up * data.jumpForce, ForceMode.Impulse);
+
+        stateMachine.ChangeState(controller.AirState);
+        return;
     }
 
     public override void LogicUpdate() {
@@ -23,9 +34,5 @@ public class PlayerJumpState : PlayerGroundedState
 
     public override void Exit() {
         base.Exit();
-    }
-
-    public override void DoChecks() {
-        base.DoChecks();
     }
 }

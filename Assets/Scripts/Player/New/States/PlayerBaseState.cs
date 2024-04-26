@@ -4,30 +4,18 @@ using UnityEngine;
 
 public class PlayerBaseState
 {
-    protected PlayerController playerController;
-    protected PlayerStateMachine playerStateMachine;
-    protected PlayerData playerData;
+    protected PlayerController controller;
+    protected PlayerStateMachine stateMachine;
+    protected PlayerData data;
 
-    protected float startTime;
-
-    public PlayerBaseState(PlayerController playerController, PlayerStateMachine playerStateMachine, PlayerData playerData) {
-        this.playerController = playerController;
-        this.playerStateMachine = playerStateMachine;
-        this.playerData = playerData;
+    public PlayerBaseState(PlayerController controller, PlayerStateMachine stateMachine, PlayerData data) {
+        this.controller = controller;
+        this.stateMachine = stateMachine;
+        this.data = data;
     }
 
-    public virtual void Enter() {
-        DoChecks();
-        startTime = Time.time;
-    }
-
+    public virtual void Enter() {}
     public virtual void LogicUpdate() {}
-
-    public virtual void PhysicsUpdate() {
-        DoChecks();
-    }
-
+    public virtual void PhysicsUpdate() {}
     public virtual void Exit() {}
-
-    public virtual void DoChecks() {}
 }

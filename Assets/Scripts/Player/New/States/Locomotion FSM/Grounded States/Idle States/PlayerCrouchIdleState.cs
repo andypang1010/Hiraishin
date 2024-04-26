@@ -10,25 +10,26 @@ public class PlayerCrouchIdleState : PlayerGroundedState
     }
 
     public override void Enter() {
-        base.DoChecks();
+        base.Enter();
+        Debug.Log("Crouch Idle State");
 
         // Shrink to crouch size
-        playerController.transform.localScale = new Vector3(playerController.transform.localScale.x, playerData.crouchScale, playerController.transform.localScale.z);
+        controller.transform.localScale = new Vector3(controller.transform.localScale.x, data.crouchScale, controller.transform.localScale.z);
         
         // Apply downward force so doesn't float
-        playerController.rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        controller.rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
     }
 
     public override void LogicUpdate() {
         base.LogicUpdate();
 
         if (walkInput.sqrMagnitude > 0.1f) {
-            playerStateMachine.ChangeState(playerController.CrouchWalkState);
+            stateMachine.ChangeState(controller.CrouchWalkState);
         }
 
         else if (!crouchInput) {
-            playerController.transform.localScale = new Vector3(playerController.transform.localScale.x, playerController.defaultScale, playerController.transform.localScale.z);
-            playerStateMachine.ChangeState(playerController.IdleState);
+            controller.transform.localScale = new Vector3(controller.transform.localScale.x, controller.defaultScale, controller.transform.localScale.z);
+            stateMachine.ChangeState(controller.IdleState);
         }
     }
 
@@ -40,7 +41,4 @@ public class PlayerCrouchIdleState : PlayerGroundedState
         base.Exit();
     }
 
-    public override void DoChecks() {
-        base.DoChecks();
-    }
 }

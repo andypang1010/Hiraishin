@@ -25,7 +25,7 @@ public class InputController : MonoBehaviour
         Instance = this;
     }
 
-    public Vector2 GetWalkDirection() {
+    public Vector2 GetMoveDirection() {
         return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
     }
 

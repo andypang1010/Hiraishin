@@ -9,37 +9,43 @@ public class PlayerSprintState : PlayerMovingState
     }
 
     public override void Enter() {
-        base.DoChecks();
+        base.Enter();
+        Debug.Log("Sprint State");
     }
 
     public override void LogicUpdate() {
         base.LogicUpdate();
 
+        SpeedControl(data.sprintSpeed);
+
         if (walkInput.sqrMagnitude < 0.1f) {
-            playerStateMachine.ChangeState(playerController.IdleState);
+            stateMachine.ChangeState(controller.IdleState);
+            return;
         }
 
-        else if (jumpInput) {
-            playerStateMachine.ChangeState(playerController.JumpState);
+        else if (jumpInput
+        && controller.coyoteTimeCounter > 0f 
+        && controller.jumpBufferCounter > 0f) {
+
+            stateMachine.ChangeState(controller.JumpState);
+            controller.AirState.moveSpeed = data.sprintSpeed;
+            return;
         }
 
         else if (!sprintInput) {
-            playerStateMachine.ChangeState(playerController.WalkState);
+            stateMachine.ChangeState(controller.WalkState);
+            return;
         }
     }
 
     public override void PhysicsUpdate() {
         base.PhysicsUpdate();
 
-        Move(playerData.sprintSpeed);
-        SpeedControl(playerData.sprintSpeed);
+        Move(data.sprintSpeed);
     }
 
     public override void Exit() {
         base.Exit();
     }
 
-    public override void DoChecks() {
-        base.DoChecks();
-    }
 }

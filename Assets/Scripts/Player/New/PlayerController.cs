@@ -12,15 +12,18 @@ public class PlayerController : MonoBehaviour
     public Transform stepRayLower, stepRayUpper;
     public Transform throwPoint;
     public float defaultScale;
+    public float coyoteTimeCounter;
+    public float jumpBufferCounter;
 
     [Header("Locomotion FSM")]
     public PlayerStateMachine locomotionStateMachine;
-    public PlayerIdleState IdleState { get; set; }
-    public PlayerWalkState WalkState { get; set; }
-    public PlayerCrouchIdleState CrouchIdleState { get; set; }
-    public PlayerCrouchWalkState CrouchWalkState { get; set; }
-    public PlayerSprintState SprintState { get; set; }
-    public PlayerJumpState JumpState { get; set; }
+    public PlayerIdleState IdleState { get; private set; }
+    public PlayerWalkState WalkState { get; private set; }
+    public PlayerCrouchIdleState CrouchIdleState { get; private set; }
+    public PlayerCrouchWalkState CrouchWalkState { get; private set; }
+    public PlayerSprintState SprintState { get; private set; }
+    public PlayerJumpState JumpState { get; private set; }
+    public PlayerAirState AirState { get; private set; }
 
     [Header("Action FSM")]
     public PlayerStateMachine actionStateMachine;
@@ -35,6 +38,7 @@ public class PlayerController : MonoBehaviour
         CrouchWalkState = new PlayerCrouchWalkState(this, locomotionStateMachine, playerData);
         SprintState = new PlayerSprintState(this, locomotionStateMachine, playerData);
         JumpState = new PlayerJumpState(this, locomotionStateMachine, playerData);
+        AirState = new PlayerAirState(this, locomotionStateMachine, playerData);
     }
 
     void Start()

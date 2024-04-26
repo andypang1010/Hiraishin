@@ -10,23 +10,31 @@ public class PlayerIdleState : PlayerGroundedState
     }
 
     public override void Enter() {
-        Debug.Log("Entered Idle State");
-        base.DoChecks();
+        base.Enter();
+        Debug.Log("Idle State");
+        
     }
 
     public override void LogicUpdate() {
         base.LogicUpdate();
 
         if (walkInput.sqrMagnitude > 0.1f) {
-            playerStateMachine.ChangeState(playerController.WalkState);
+            stateMachine.ChangeState(controller.WalkState);
+            return;
         }
 
-        else if (jumpInput) {
-            playerStateMachine.ChangeState(playerController.JumpState);
+        else if (jumpInput
+        && controller.coyoteTimeCounter > 0f 
+        && controller.jumpBufferCounter > 0f) {
+            
+            stateMachine.ChangeState(controller.JumpState);
+            controller.AirState.moveSpeed = 0;
+            return;
         }
 
         else if (crouchInput) {
-            playerStateMachine.ChangeState(playerController.CrouchIdleState);
+            stateMachine.ChangeState(controller.CrouchIdleState);
+            return;
         }
     }
 
@@ -38,7 +46,4 @@ public class PlayerIdleState : PlayerGroundedState
         base.Exit();
     }
 
-    public override void DoChecks() {
-        base.DoChecks();
-    }
 }

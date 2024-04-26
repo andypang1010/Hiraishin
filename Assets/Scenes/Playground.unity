@@ -1285,6 +1285,8 @@ MonoBehaviour:
   stepRayUpper: {fileID: 7275962397415266445}
   throwPoint: {fileID: 1954988668}
   defaultScale: 1
+  coyoteTimeCounter: 0
+  jumpBufferCounter: 0
 --- !u!114 &1462873663 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5983896709886268956, guid: 316dd6211a8a8964698e6a6c1c191a4e,
@@ -2250,7 +2252,7 @@ PrefabInstance:
     - target: {fileID: 4091392008899898400, guid: edf7b3c52014a0043957627408f6052c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5823535376537395620, guid: edf7b3c52014a0043957627408f6052c,
         type: 3}

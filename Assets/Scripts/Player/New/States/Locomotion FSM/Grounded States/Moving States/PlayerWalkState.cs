@@ -10,41 +10,48 @@ public class PlayerWalkState : PlayerMovingState
     }
 
     public override void Enter() {
-        base.DoChecks();
+        base.Enter();
+        Debug.Log("Walk State");
     }
 
     public override void LogicUpdate() {
         base.LogicUpdate();
 
+        SpeedControl(data.walkSpeed);
+
         if (walkInput.sqrMagnitude < 0.1f) {
-            playerStateMachine.ChangeState(playerController.IdleState);
+            stateMachine.ChangeState(controller.IdleState);
+            return;
         }
 
-        else if (jumpInput) {
-            playerStateMachine.ChangeState(playerController.JumpState);
+        else if (jumpInput
+        && controller.coyoteTimeCounter > 0f 
+        && controller.jumpBufferCounter > 0f) {
+
+            stateMachine.ChangeState(controller.JumpState);
+            controller.AirState.moveSpeed = data.sprintSpeed;
+            return;
         }
 
         else if (crouchInput) {
-            playerStateMachine.ChangeState(playerController.CrouchWalkState);
+            stateMachine.ChangeState(controller.CrouchWalkState);
+            return;
         }
 
         else if (sprintInput) {
-            playerStateMachine.ChangeState(playerController.SprintState);
+            stateMachine.ChangeState(controller.SprintState);
+            return;
         }
     }
 
     public override void PhysicsUpdate() {
         base.PhysicsUpdate();
 
-        Move(playerData.walkSpeed);
-        SpeedControl(playerData.walkSpeed);
+        Move(data.walkSpeed);
     }
 
     public override void Exit() {
         base.Exit();
     }
 
-    public override void DoChecks() {
-        base.DoChecks();
-    }
 }
