@@ -26,7 +26,7 @@ public class PlayerBulletTime : MonoBehaviour
     void Update()
     {
         // When toggles bullet time key, cooldown is complete, and not in bullet time mode
-        if (InputController.Instance.GetBulletTimeDown()) {
+        if (InputManager.Instance.BulletTime) {
             if (cooldownCounter < 0 && !inBulletTime) {
                 inBulletTime = true;
                 startCooldown = false;

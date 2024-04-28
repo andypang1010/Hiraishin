@@ -14,7 +14,7 @@ public class PlayerTag : MonoBehaviour
 
     void Update()
     {
-        if (InputController.Instance.GetTagDown()
+        if (InputManager.Instance.TagDown
             && Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out hit, maxTagDistance) 
             && (hit.collider.gameObject.CompareTag("Throwable")
             || hit.collider.gameObject.CompareTag("Enemy"))
@@ -24,11 +24,11 @@ public class PlayerTag : MonoBehaviour
                 targetObject = hit.collider.gameObject;
             }
 
-        if (InputController.Instance.GetTagUp()) {
+        if (InputManager.Instance.TagUp) {
             holdTime = 0;
         }
    
-        if (InputController.Instance.GetTagHold()) {
+        if (InputManager.Instance.TagHold) {
             if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out hit, maxTagDistance)
             && hit.collider.gameObject == targetObject) {
                 holdTime += Time.deltaTime;

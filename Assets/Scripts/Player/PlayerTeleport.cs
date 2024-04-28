@@ -82,10 +82,10 @@ public class PlayerTeleport : MonoBehaviour
             crosshairImage.color = detectedColor;
 
             // When player wants to teleport
-            if (InputController.Instance.GetTeleportDown()) {
+            if (InputManager.Instance.Teleport) {
 
                 if (closestTarget.layer == LayerMask.NameToLayer("Kunai")) {
-                        StartCoroutine(Teleport(closestTarget));
+                    StartCoroutine(Teleport(closestTarget));
                 }
 
                 else if (closestTarget.layer == LayerMask.NameToLayer("Tagged")) {
@@ -142,12 +142,12 @@ public class PlayerTeleport : MonoBehaviour
         teleportables.Remove(closestTarget);
         Destroy(closestTarget);
 
-        if (lensDistortion.intensity.value > maxLensDistortion) {
-            while (lensDistortion.intensity.value > 0) {
-                lensDistortion.intensity.value -= Time.deltaTime / Time.timeScale * distortionSpeed;
-                yield return null;
-            } 
-        }
+        // if (lensDistortion.intensity.value > maxLensDistortion) {
+        while (lensDistortion.intensity.value > 0) {
+            lensDistortion.intensity.value -= Time.deltaTime / Time.timeScale * distortionSpeed;
+            yield return null;
+        } 
+        // }
     }
 
     IEnumerator SwapLocations(GameObject closestTarget, GameObject temp) {

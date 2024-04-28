@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void GetInput() {
-        Vector2 movement = InputController.Instance.GetWalkDirection();
+        Vector2 movement = InputManager.Instance.WalkDirection;
         horizontalInput = movement.x;
         verticalInput = movement.y;
 
@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Jump buffer check
-        if (InputController.Instance.GetJumpDown()) {
+        if (InputManager.Instance.Jump) {
             jumpBufferCounter = jumpBuffer;
         }
         else {
@@ -108,8 +108,9 @@ public class PlayerMovement : MonoBehaviour
                 jumpBufferCounter = 0f;
             }
 
-            if (InputController.Instance.GetCrouchDown()) {
+            if (InputManager.Instance.CrouchDown) {
                 
+                print("Down");
                 // Shrink to crouch size
                 transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
                 
@@ -118,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (InputController.Instance.GetCrouchUp() || !grounded) {
+        if (!InputManager.Instance.CrouchHold || !grounded) {
             transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
         }
     }
@@ -129,12 +130,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         else {
-            if (InputController.Instance.GetCrouchHold() && grounded) {
+            if (InputManager.Instance.CrouchHold && grounded) {
                 movementState = MovementState.CROUCH;
                 moveSpeed = crouchSpeed;
             }
 
-            else if (InputController.Instance.GetSprint()) {
+            else if (InputManager.Instance.Sprint) {
                 movementState = MovementState.SPRINT;
                 moveSpeed = sprintSpeed;
             }

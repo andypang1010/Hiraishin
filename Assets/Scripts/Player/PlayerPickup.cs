@@ -14,7 +14,7 @@ public class PlayerPickup : MonoBehaviour
     [HideInInspector] public GameObject heldObj;
 
     void Update() {
-        if (InputController.Instance.GetPickupDown()) {
+        if (InputManager.Instance.PickUp) {
 
             // If player already holding an object
             if (heldObj != null) {

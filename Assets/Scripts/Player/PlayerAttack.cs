@@ -32,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (InputController.Instance.GetAttackDown() && attackReady) {
+        if (InputManager.Instance.Attack && attackReady) {
             Attack();
 
             attackReady = false;
