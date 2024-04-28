@@ -23,7 +23,7 @@ public class PlayerCamera : MonoBehaviour
         // Disable HeadBob first to ensure camera is working correctly
         // headBob.enabled = false;
 
-        StartCoroutine(EnableHeadBob());
+        // StartCoroutine(EnableHeadBob());
     }
 
     void Update()

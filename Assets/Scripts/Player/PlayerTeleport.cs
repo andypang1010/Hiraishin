@@ -13,7 +13,7 @@ public class PlayerTeleport : MonoBehaviour
     public CanvasScaler canvasScaler;
     public GameObject teleportCrosshair;
     public Volume volume;
-    float maxDetectionSize;
+    float detectionRadius;
     Vector2 centerPoint;
     RectTransform crosshairRectTransform;
     Image crosshairImage;
@@ -44,7 +44,7 @@ public class PlayerTeleport : MonoBehaviour
         Debug.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * detectionDistance, Color.red);
 
         // Calculate the radius crosshair and centerpoint of the screen
-        maxDetectionSize = (float) Math.Pow(crosshairRectTransform.rect.height / 2.5f * (Screen.height / canvasScaler.referenceResolution.y), 2);
+        detectionRadius = crosshairRectTransform.rect.height / 2f * (Screen.height / canvasScaler.referenceResolution.y);
         centerPoint = new Vector2(Screen.width / 2, Screen.height / 2);
 
         GameObject closestTarget = null;
@@ -60,12 +60,21 @@ public class PlayerTeleport : MonoBehaviour
             Vector2 screenPointPos = Camera.main.WorldToScreenPoint(target.transform.position);
 
             // If the target position is within the crosshair radius and within 
-            if ((Vector2.SqrMagnitude(screenPointPos - centerPoint) <= maxDetectionSize 
+            if ((Vector2.SqrMagnitude(screenPointPos - centerPoint) <= Mathf.Pow(detectionRadius, 2)
             && Vector3.SqrMagnitude(target.transform.position - transform.position) <= Mathf.Pow(detectionDistance, 2))
 
             // Alternate check for larger objects/close proximity
             || target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, detectionDistance))
             {
+
+                // if (target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, detectionDistance)) {
+                //     print("Raycast found");
+                // }
+
+                // else {
+                //     print("ScreenPoint found");
+                // }
+
                 if (closestTarget == null) {
                     closestTarget = target;
                 }
