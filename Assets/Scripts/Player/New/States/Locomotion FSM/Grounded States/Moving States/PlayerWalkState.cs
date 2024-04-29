@@ -11,36 +11,34 @@ public class PlayerWalkState : PlayerMovingState
 
     public override void Enter() {
         base.Enter();
-        Debug.Log("Walk State");
+        // Debug.Log("Walk State");
     }
 
     public override void LogicUpdate() {
         base.LogicUpdate();
 
-        SpeedControl(data.walkSpeed);
-
         if (walkInput.sqrMagnitude < 0.1f) {
             stateMachine.ChangeState(controller.IdleState);
-            return;
         }
 
         else if (jumpInput
         && controller.coyoteTimeCounter > 0f 
         && controller.jumpBufferCounter > 0f) {
 
+            controller.AirState.moveSpeed = data.walkSpeed;
             stateMachine.ChangeState(controller.JumpState);
-            controller.AirState.moveSpeed = data.sprintSpeed;
-            return;
         }
 
         else if (crouchInput) {
             stateMachine.ChangeState(controller.CrouchWalkState);
-            return;
         }
 
         else if (sprintInput) {
             stateMachine.ChangeState(controller.SprintState);
-            return;
+        }
+
+        else {
+            SpeedControl(data.walkSpeed);
         }
     }
 

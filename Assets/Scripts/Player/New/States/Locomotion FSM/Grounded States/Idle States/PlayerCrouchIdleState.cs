@@ -11,7 +11,7 @@ public class PlayerCrouchIdleState : PlayerGroundedState
 
     public override void Enter() {
         base.Enter();
-        Debug.Log("Crouch Idle State");
+        // Debug.Log("Crouch Idle State");
 
         // Shrink to crouch size
         controller.transform.localScale = new Vector3(controller.transform.localScale.x, data.crouchScale, controller.transform.localScale.z);

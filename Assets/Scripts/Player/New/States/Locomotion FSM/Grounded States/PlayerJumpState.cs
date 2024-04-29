@@ -11,7 +11,6 @@ public class PlayerJumpState : PlayerGroundedState
 
     public override void Enter() {
         base.Enter();
-        Debug.Log("Jump State");
 
         // Reset jump buffer to prevent jumping again
         controller.jumpBufferCounter = 0f;
@@ -21,7 +20,6 @@ public class PlayerJumpState : PlayerGroundedState
         controller.rb.AddForce(controller.transform.up * data.jumpForce, ForceMode.Impulse);
 
         stateMachine.ChangeState(controller.AirState);
-        return;
     }
 
     public override void LogicUpdate() {

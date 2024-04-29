@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
-public class PlayerAirState : PlayerBaseState
+public class PlayerAirState : PlayerLocomotionState
 {
     Vector3 moveDirection;
     public float moveSpeed;
@@ -13,8 +12,6 @@ public class PlayerAirState : PlayerBaseState
 
     public override void Enter() {
         base.Enter();
-        Debug.Log("Air State");
-        Debug.Log(moveSpeed);
 
         controller.rb.drag = 0;
         controller.rb.useGravity = true;
@@ -22,14 +19,30 @@ public class PlayerAirState : PlayerBaseState
 
     public override void LogicUpdate() {
         base.LogicUpdate();
+
         moveDirection = (controller.transform.right * controller.inputController.GetMoveDirection().x + controller.transform.forward * controller.inputController.GetMoveDirection().y).normalized;
-
-        SpeedControl(data.walkSpeed);
-
+        SpeedControl(moveSpeed);
         controller.coyoteTimeCounter -= Time.deltaTime * Time.timeScale;
 
-        if (Physics.Raycast(controller.transform.position, Vector3.down, data.playerHeight * 0.5f + 0.1f)) {
-            stateMachine.ChangeState(controller.IdleState);
+        if (Physics.Raycast(controller.transform.position, Vector3.down, out RaycastHit hit, data.playerHeight * 0.5f + 0.0001f)
+            && hit.transform.gameObject != controller.gameObject) {
+                Debug.Log("Distance: " + hit.distance);
+                Debug.Log(hit.transform.gameObject);
+                if (moveSpeed == data.walkSpeed) {
+                    // Debug.Log("GOING TO WALKSTATE");
+                    stateMachine.ChangeState(controller.WalkState);
+                }
+
+                else if (moveSpeed == data.sprintSpeed) {
+                    // Debug.Log("GOING TO SPRINTSTATE");
+                    stateMachine.ChangeState(controller.SprintState);
+                }
+
+                else {
+                    // Debug.Log("GOING TO IDLESTATE");
+                    stateMachine.ChangeState(controller.IdleState);
+                }
+
         }
     }
 
@@ -47,7 +60,7 @@ public class PlayerAirState : PlayerBaseState
         Vector3 rawVelocity = new Vector3(controller.rb.velocity.x, 0, controller.rb.velocity.z);
 
         // Clamp x and z axis velocity
-        if (rawVelocity.magnitude > maxSpeed) {
+        if (rawVelocity.sqrMagnitude > Mathf.Pow(maxSpeed, 2)) {
             Vector3 clampedVelocity = rawVelocity.normalized * maxSpeed;
             controller.rb.velocity = new Vector3(clampedVelocity.x, controller.rb.velocity.y, clampedVelocity.z);
         }

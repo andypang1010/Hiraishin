@@ -11,7 +11,6 @@ public class PlayerIdleState : PlayerGroundedState
 
     public override void Enter() {
         base.Enter();
-        Debug.Log("Idle State");
         
     }
 
@@ -20,21 +19,18 @@ public class PlayerIdleState : PlayerGroundedState
 
         if (walkInput.sqrMagnitude > 0.1f) {
             stateMachine.ChangeState(controller.WalkState);
-            return;
         }
 
         else if (jumpInput
         && controller.coyoteTimeCounter > 0f 
         && controller.jumpBufferCounter > 0f) {
             
-            stateMachine.ChangeState(controller.JumpState);
             controller.AirState.moveSpeed = 0;
-            return;
+            stateMachine.ChangeState(controller.JumpState);
         }
 
         else if (crouchInput) {
             stateMachine.ChangeState(controller.CrouchIdleState);
-            return;
         }
     }
 

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerMovingState : PlayerGroundedState
 {
-    protected Vector3 moveDirection;
-    float horizontalInput, verticalInput;
 
     public PlayerMovingState(PlayerController playerController, PlayerStateMachine playerStateMachine, PlayerData playerData) : base(playerController, playerStateMachine, playerData)
     {
@@ -18,9 +16,6 @@ public class PlayerMovingState : PlayerGroundedState
 
     public override void LogicUpdate() {
         base.LogicUpdate();
-        
-        horizontalInput = walkInput.x;
-        verticalInput = walkInput.y;
     }
 
     public override void PhysicsUpdate() {
@@ -36,7 +31,6 @@ public class PlayerMovingState : PlayerGroundedState
 
     
     protected void Move(float moveSpeed) {
-        moveDirection = (controller.transform.right * horizontalInput + controller.transform.forward * verticalInput).normalized;
 
         // Apply force perpendicular to slope's normal if on slope
         if (OnSlope) {
@@ -66,7 +60,7 @@ public class PlayerMovingState : PlayerGroundedState
             Vector3 rawVelocity = new Vector3(controller.rb.velocity.x, 0, controller.rb.velocity.z);
 
             // Clamp x and z axis velocity
-            if (rawVelocity.magnitude > maxSpeed) {
+            if (rawVelocity.sqrMagnitude > Mathf.Pow(maxSpeed, 2)) {
                 Vector3 clampedVelocity = rawVelocity.normalized * maxSpeed;
                 controller.rb.velocity = new Vector3(clampedVelocity.x, controller.rb.velocity.y, clampedVelocity.z);
             }

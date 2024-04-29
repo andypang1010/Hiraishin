@@ -10,31 +10,30 @@ public class PlayerSprintState : PlayerMovingState
 
     public override void Enter() {
         base.Enter();
-        Debug.Log("Sprint State");
+        // Debug.Log("Sprint State");
     }
 
     public override void LogicUpdate() {
         base.LogicUpdate();
 
-        SpeedControl(data.sprintSpeed);
-
         if (walkInput.sqrMagnitude < 0.1f) {
             stateMachine.ChangeState(controller.IdleState);
-            return;
         }
 
         else if (jumpInput
         && controller.coyoteTimeCounter > 0f 
         && controller.jumpBufferCounter > 0f) {
 
-            stateMachine.ChangeState(controller.JumpState);
             controller.AirState.moveSpeed = data.sprintSpeed;
-            return;
+            stateMachine.ChangeState(controller.JumpState);
         }
 
         else if (!sprintInput) {
             stateMachine.ChangeState(controller.WalkState);
-            return;
+        }
+
+        else {  
+            SpeedControl(data.sprintSpeed);
         }
     }
 

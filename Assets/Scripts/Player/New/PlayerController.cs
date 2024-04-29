@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -30,8 +31,6 @@ public class PlayerController : MonoBehaviour
 
     void Awake() {
         locomotionStateMachine = new PlayerStateMachine();
-        actionStateMachine = new PlayerStateMachine();
-
         IdleState = new PlayerIdleState(this, locomotionStateMachine, playerData);
         WalkState = new PlayerWalkState(this, locomotionStateMachine, playerData);
         CrouchIdleState = new PlayerCrouchIdleState(this, locomotionStateMachine, playerData);
@@ -39,12 +38,14 @@ public class PlayerController : MonoBehaviour
         SprintState = new PlayerSprintState(this, locomotionStateMachine, playerData);
         JumpState = new PlayerJumpState(this, locomotionStateMachine, playerData);
         AirState = new PlayerAirState(this, locomotionStateMachine, playerData);
+
+        // actionStateMachine = new PlayerStateMachine();
     }
 
     void Start()
     {
         locomotionStateMachine.Initialize(IdleState);
-        actionStateMachine.Initialize(null);
+        // actionStateMachine.Initialize(null);
 
         inputController = GetComponent<InputController>();
         rb = GetComponent<Rigidbody>();
@@ -57,6 +58,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, playerData.playerHeight * 0.5f + 0.0001f)
+        //     && hit.transform.gameObject != gameObject) {
+            // Debug.Log("Distance to ground: " + transform.position.y);
+        // }
+
         locomotionStateMachine.CurrentState.LogicUpdate();
         // actionStateMachine.CurrentState.LogicUpdate();
     }

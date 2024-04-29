@@ -3769,7 +3769,7 @@ PrefabInstance:
     - target: {fileID: 1215424797891536722, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
       propertyPath: frameRate
-      value: 1000
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 4926103014756612030, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
@@ -5110,6 +5110,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102721824815875172, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5084041552704671043, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
