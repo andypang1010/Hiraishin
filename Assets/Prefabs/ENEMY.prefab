@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 4044627111781324416}
   - component: {fileID: 6882121501124020609}
   - component: {fileID: 9039999320744688087}
+  - component: {fileID: 1561135359032034021}
+  - component: {fileID: 3338928757763786659}
   - component: {fileID: 1123144206393337153}
   - component: {fileID: 5289317697801729558}
   m_Layer: 9
@@ -65,6 +67,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -153,7 +157,7 @@ NavMeshAgent:
   m_Speed: 0
   m_Acceleration: 0
   avoidancePriority: 50
-  m_AngularSpeed: 60
+  m_AngularSpeed: 180
   m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -174,16 +178,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33d12a0084be3cc4cba23b95ef3c4ac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initState: 0
-  currentState: 0
-  listenRadius: 10
-  listenThreshold: 0.5
-  lookRadius: 25
-  lookAngle: 55
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 8
   player: {fileID: 0}
+  startSinkTime: 2
+  sinkSpeed: 0.01
+  destroyTime: 5
+--- !u!114 &1561135359032034021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4091392008899898400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e706049fb16490f4096d04855514ddb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listenRadius: 10
+  movementThreshold: 6
+--- !u!114 &3338928757763786659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4091392008899898400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60aa81b3797cf44cb2c71409d8a8c91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookRadius: 30
+  lookAngle: 35
 --- !u!114 &1123144206393337153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae0d5a7d81c8504c9e6cd341ab32317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTargetPosition: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
   patrolSpeed: 3
   patrolPoints:
   - {fileID: 0}
@@ -204,7 +230,6 @@ MonoBehaviour:
   currentPatrolIndex: 0
   minReachPatrolDistance: 2
   questionSpeed: 4
-  playerLastHeardPosition: {x: 0, y: 0, z: 0}
   chaseSpeed: 5
 --- !u!114 &5289317697801729558
 MonoBehaviour:
@@ -219,10 +244,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCD: 2
-  minAttackDistance: 1.5
   attackReach: 1.5
   canAttack: 0
-  cameraExplosionForce: 3
 --- !u!1 &4215319272827469063
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +305,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
