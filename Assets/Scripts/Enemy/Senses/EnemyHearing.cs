@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyHearing : MonoBehaviour
 {
+    [Header("References")]
+    public EnemyData data;
     GameObject player;
     PlayerMovement playerMovement;
 
-    [Header("Listen Settings")]
-    public float listenRadius;
-    public float movementThreshold;
-    public bool PlayerHeard;
+    [Header("Detection")]
+    public bool PlayerHeard { get ; private set; }
     public Vector3 PlayerLastHeardLocation { get; private set; }
 
     void Start() {
@@ -27,8 +27,8 @@ public class EnemyHearing : MonoBehaviour
         }
 
         // Check if player is within distance and moving
-        if (Vector3.SqrMagnitude(player.transform.position - transform.position) <= Mathf.Pow(listenRadius, 2)
-        && playerMovement.GetMoveVelocity().magnitude >= movementThreshold) {
+        if (Vector3.SqrMagnitude(player.transform.position - transform.position) <= Mathf.Pow(data.listenRadius, 2)
+        && playerMovement.GetMoveVelocity().magnitude >= data.movementThreshold) {
 
             PlayerHeard = true;
             PlayerLastHeardLocation = player.transform.position;
@@ -41,6 +41,6 @@ public class EnemyHearing : MonoBehaviour
 
     void OnDrawGizmos() {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, listenRadius);
+        Gizmos.DrawWireSphere(transform.position, data.listenRadius);
     }
 }

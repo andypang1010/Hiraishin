@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyMelee : MonoBehaviour
 {
-    [Header("Melee Settings")]
-    public float attackCD;
-    public float attackReach;
-    public bool canAttack;
-
+    [Header("References")]
+    public EnemyData data;
     GameObject player;
     EnemyVision vision;
+
+    bool canAttack;
+
 
     void Start()
     {
@@ -21,8 +21,8 @@ public class EnemyMelee : MonoBehaviour
     }
 
     void Update() {
-        if (vision.PlayerSeen 
-        && vision.PlayerDistance <= attackReach * 1.5f
+        if (vision.playerSeen 
+        && vision.PlayerDistance <= data.attackReach * 1.5f
         && canAttack) {
             Attack();
         }
@@ -35,7 +35,7 @@ public class EnemyMelee : MonoBehaviour
             transform.position, 
             (player.transform.position - transform.position).normalized, 
             out RaycastHit hit, 
-            attackReach)
+            data.attackReach)
             
             && hit.transform.gameObject == player) {
 
@@ -50,7 +50,7 @@ public class EnemyMelee : MonoBehaviour
 
         // Start attack CD
         canAttack = false;
-        Invoke(nameof(ResetAttack), attackCD);
+        Invoke(nameof(ResetAttack), data.attackCD);
     }
 
     void ResetAttack() {

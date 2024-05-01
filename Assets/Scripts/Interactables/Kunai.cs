@@ -9,6 +9,9 @@ public class Kunai : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
+
+        Invoke(nameof(UseGravity), 0.1f);
     }
     
     // Update is called once per frame
@@ -16,5 +19,11 @@ public class Kunai : MonoBehaviour
         Destroy(rb);
         transform.SetParent(other.transform);
         
+    }
+
+    void UseGravity() {
+        if (rb != null) {
+            rb.useGravity = true;
+        }
     }
 }

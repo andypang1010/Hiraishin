@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class EnemyVision : MonoBehaviour
 {
+    [Header("References")]
+    public EnemyData data;
     GameObject player;
 
-    [Header("Vision Settings")]
-    public float lookRadius;
-    [Range(0, 180)] public float lookAngle;
-
     [Header("Detection")]
-    public bool PlayerSeen { get; private set; }
+    public bool playerSeen;
     public float PlayerDistance { get; private set; }
 
     void Start()
     {
-        PlayerSeen = false;
+        playerSeen = false;
         PlayerDistance = int.MaxValue;
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -28,12 +26,12 @@ public class EnemyVision : MonoBehaviour
         PlayerDistance = playerDirection.magnitude;
 
         // Check if player is within viewing distance, angle, and not obstructed
-        if (PlayerDistance <= lookRadius
-        && Vector3.Angle(transform.forward, playerDirection) <= lookAngle / 2
-        && Physics.Raycast(transform.position, playerDirection.normalized, out RaycastHit hit, lookRadius)
+        if (PlayerDistance <= data.lookRadius
+        && Vector3.Angle(transform.forward, playerDirection) <= data.lookAngle / 2
+        && Physics.Raycast(transform.position, playerDirection.normalized, out RaycastHit hit, data.lookRadius)
         && hit.transform.gameObject == player) {
 
-            PlayerSeen = true;
+            playerSeen = true;
         }
     }
 
@@ -124,6 +122,6 @@ public class EnemyVision : MonoBehaviour
             }
         }
 
-        DrawArc(-lookAngle, lookAngle, transform.position, Quaternion.LookRotation(-transform.right), lookRadius, Color.red, false, true);
+        DrawArc(-data.lookAngle, data.lookAngle, transform.position, Quaternion.LookRotation(-transform.right), data.lookRadius, Color.red, false, true);
     }
 }
