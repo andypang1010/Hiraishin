@@ -28,3 +28,6 @@ MonoBehaviour:
   evadeSpeed: 0
   startEvadeDistance: 0
   evadeSafeDistance: 0
+  alertRadius: 25
+  attackCD: 0
+  attackReach: 0

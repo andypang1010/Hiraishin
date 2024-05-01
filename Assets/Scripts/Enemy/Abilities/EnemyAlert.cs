@@ -6,21 +6,22 @@ using UnityEngine;
 public class EnemyAlert : MonoBehaviour
 {
     public EnemyData data;
-    public float alertRadius;
-    public EnemyVision vision;
-    // Start is called before the first frame update
+    EnemyVision vision;
+    EnemyHearing hearing;
+
     void Start()
     {
-        
+        vision = GetComponent<EnemyVision>();
+        hearing = GetComponent<EnemyHearing>();
     }
 
     void Update()
     {
-        if (vision.playerSeen) {
+        if (vision.playerSeen || hearing.PlayerHeard) {
 
             // Find all nearby enemies
-            GameObject[] nearbyEnemies = Physics.OverlapSphere(transform.position, alertRadius).
-            Select(collider => collider.gameObject.tag == "Enemy" ? collider.gameObject : null)
+            GameObject[] nearbyEnemies = Physics.OverlapSphere(transform.position, data.alertRadius).
+            Select(collider => collider.gameObject.CompareTag("Enemy") ? collider.gameObject : null)
             .ToArray();
 
             // Alert them of player's position

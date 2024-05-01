@@ -24,3 +24,10 @@ MonoBehaviour:
   searchDuration: 0
   chaseEnabled: 0
   chaseSpeed: 0
+  evadeEnabled: 0
+  evadeSpeed: 0
+  startEvadeDistance: 0
+  evadeSafeDistance: 0
+  alertRadius: 0
+  attackCD: 3
+  attackReach: 20

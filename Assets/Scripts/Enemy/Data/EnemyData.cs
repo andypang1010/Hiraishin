@@ -33,6 +33,9 @@ public class EnemyData : ScriptableObject
     public float startEvadeDistance;
     public float evadeSafeDistance;
 
+    [Header("Alert Settings")]
+    public float alertRadius;
+
     [Header("Attack Settings")]
     public float attackCD;
     public float attackReach; 
