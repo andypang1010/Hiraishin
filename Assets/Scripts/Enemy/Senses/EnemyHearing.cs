@@ -10,7 +10,7 @@ public class EnemyHearing : MonoBehaviour
     [Header("Listen Settings")]
     public float listenRadius;
     public float movementThreshold;
-    public bool PlayerHeard { get; private set; }
+    public bool PlayerHeard;
     public Vector3 PlayerLastHeardLocation { get; private set; }
 
     void Start() {

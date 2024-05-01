@@ -8,9 +8,16 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    public enum States {
+        PATROL,
+        QUESTION,
+        CHASE
+    }
     [Header("References")]
     public GameObject player;
 
+    [Header("States")]
+    public States[] states;
     
     [Header("Sinking")]
     public float startSinkTime;

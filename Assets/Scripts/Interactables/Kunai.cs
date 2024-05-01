@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Kunai : MonoBehaviour
 {
-    bool collided;
     Rigidbody rb;
 
     void Start()
@@ -14,15 +13,7 @@ public class Kunai : MonoBehaviour
     
     // Update is called once per frame
     void OnCollisionEnter(Collision other) {
-        if (!collided && rb != null) {
-            rb.isKinematic = true;
-            collided = true;
-        }
-        
-        else {
-            Destroy(rb);
-        }
-            
+        Destroy(rb);
         transform.SetParent(other.transform);
         
     }

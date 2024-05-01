@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1179024759603418604}
   - component: {fileID: 3619084923954345995}
   - component: {fileID: 8183518252507792555}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Throwable
   m_TagString: Throwable
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
@@ -60,6 +60,8 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -114,7 +116,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8482224217175907956}
   serializedVersion: 4
-  m_Mass: 3
+  m_Mass: 0.3
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
