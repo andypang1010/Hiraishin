@@ -58,35 +58,35 @@ public class EnemyController : MonoBehaviour
         collider.convex = true;
 
         rb.AddExplosionForce(attackForce, slicedObject.transform.position, 1);
-        StartCoroutine(Sink(slicedObject));
+        // StartCoroutine(Sink(slicedObject));
     }
 
-    IEnumerator Sink(GameObject target)
-    {
-        yield return new WaitForSeconds(startSinkTime);
-        target.GetComponent<MeshCollider>().enabled = false;
-        target.GetComponent<Rigidbody>().isKinematic = true;
+    // IEnumerator Sink(GameObject target)
+    // {
+    //     yield return new WaitForSeconds(startSinkTime);
+    //     target.GetComponent<MeshCollider>().enabled = false;
+    //     target.GetComponent<Rigidbody>().isKinematic = true;
 
-        // Destroy all kunais on the target
-        foreach (Kunai kunai in target.GetComponentsInChildren<Kunai>()) {
-            Destroy(kunai.gameObject);
-        }
-        player.GetComponent<PlayerThrow>().AddKunaiCount(target.GetComponentsInChildren<Kunai>().Length);
+    //     // Destroy all kunais on the target
+    //     foreach (Kunai kunai in target.GetComponentsInChildren<Kunai>()) {
+    //         Destroy(kunai.gameObject);
+    //     }
+    //     player.GetComponent<PlayerThrow>().AddKunaiCount(target.GetComponentsInChildren<Kunai>().Length);
 
-        // Start sinking
-        float time = 0;
-        while (time < destroyTime)
-        {
-            target.transform.position = new Vector3(
-                target.transform.position.x, 
-                target.transform.position.y - sinkSpeed, 
-                target.transform.position.z
-            );
+    //     // Start sinking
+    //     float time = 0;
+    //     while (time < destroyTime)
+    //     {
+    //         target.transform.position = new Vector3(
+    //             target.transform.position.x, 
+    //             target.transform.position.y - sinkSpeed, 
+    //             target.transform.position.z
+    //         );
 
-            time += Time.fixedDeltaTime;
-            yield return null;
-        }
+    //         time += Time.fixedDeltaTime;
+    //         yield return null;
+    //     }
 
-        Destroy(target);
-    }
+    //     Destroy(target);
+    // }
 }

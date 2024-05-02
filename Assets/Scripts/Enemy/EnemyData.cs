@@ -14,21 +14,17 @@ public class EnemyData : ScriptableObject
     [Range(0, 180)] public float lookAngle;
 
     [Header("Patrol Settings")]
-    public bool patrolEnabled;
     public float patrolSpeed;
-    public float minReachPatrolDistance;
+    public float minTargetDistance;
 
     [Header("Search Settings")]
-    public bool searchEnabled;
     public float searchSpeed;
     public float searchDuration;
 
     [Header("Chase Settings")]
-    public bool chaseEnabled;
     public float chaseSpeed;
 
     [Header("Evade Settings")]
-    public bool evadeEnabled;
     public float evadeSpeed;
     public float startEvadeDistance;
     public float evadeSafeDistance;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMelee : MonoBehaviour
+public class MeleeAttack : MonoBehaviour
 {
     [Header("References")]
     public EnemyData data;

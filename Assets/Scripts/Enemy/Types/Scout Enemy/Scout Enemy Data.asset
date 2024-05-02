@@ -10,23 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: beb0c98d244abfd4890c95f6eadde4d6, type: 3}
-  m_Name: Melee Enemy Data
+  m_Name: Scout Enemy Data
   m_EditorClassIdentifier: 
-  listenRadius: 7
-  movementThreshold: 5
-  lookRadius: 13
-  lookAngle: 35
+  listenRadius: 15
+  movementThreshold: 4
+  lookRadius: 30
+  lookAngle: 50
   patrolEnabled: 1
-  patrolSpeed: 4
+  patrolSpeed: 3
   minReachPatrolDistance: 2
-  searchEnabled: 1
-  searchSpeed: 5
-  searchDuration: 5
-  chaseEnabled: 1
-  chaseSpeed: 7.5
-  evadeEnabled: 0
-  evadeSpeed: 0
-  startEvadeDistance: 0
-  evadeSafeDistance: 0
-  attackCD: 2
-  attackReach: 1.5
+  searchEnabled: 0
+  searchSpeed: 0
+  searchDuration: 0
+  chaseEnabled: 0
+  chaseSpeed: 0
+  evadeEnabled: 1
+  evadeSpeed: 6
+  startEvadeDistance: 5
+  evadeSafeDistance: 30
+  alertRadius: 25
+  attackCD: 0
+  attackReach: 0

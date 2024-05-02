@@ -6,11 +6,13 @@ using UnityEngine;
 public class EnemyAlert : MonoBehaviour
 {
     public EnemyData data;
+    GameObject player;
     EnemyVision vision;
     EnemyHearing hearing;
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         vision = GetComponent<EnemyVision>();
         hearing = GetComponent<EnemyHearing>();
     }
@@ -18,6 +20,9 @@ public class EnemyAlert : MonoBehaviour
     void Update()
     {
         if (vision.playerSeen || hearing.PlayerHeard) {
+
+            // Look at player
+            transform.rotation = Quaternion.LookRotation((player.transform.position - transform.position).normalized, transform.up);
 
             // Find all nearby enemies
             GameObject[] nearbyEnemies = Physics.OverlapSphere(transform.position, data.alertRadius).

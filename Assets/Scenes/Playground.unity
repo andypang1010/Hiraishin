@@ -4324,10 +4324,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: MELEE ENEMY
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2474391708190903226, guid: 7eb1fa7fdcd92554eacec53b2b5c418e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5532945511587252792, guid: 7eb1fa7fdcd92554eacec53b2b5c418e,
+        type: 3}
+      insertIndex: 6
+      addedObject: {fileID: 8594894064529436359}
     - targetCorrespondingSourceObject: {fileID: 5532945511587252792, guid: 7eb1fa7fdcd92554eacec53b2b5c418e,
         type: 3}
       insertIndex: 9
@@ -5745,6 +5750,22 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8594894064529436359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3534486414442714437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211997f0693754e4bb50edc5ff1dc9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 239e43afa36ad474dbb57d7e6287d51c, type: 2}
+  patrolPoints:
+  - {fileID: 1758097698}
+  - {fileID: 1361136214}
 --- !u!23 &8696441240134589362
 MeshRenderer:
   m_ObjectHideFlags: 0

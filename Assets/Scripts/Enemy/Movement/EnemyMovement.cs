@@ -6,27 +6,27 @@ using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovement : MonoBehaviour
+public abstract class EnemyMovement : MonoBehaviour
 {    
     [Header("References")]
     public EnemyData data;
-    EnemyVision vision;
-    EnemyHearing hearing;
+    protected EnemyVision vision;
+    protected EnemyHearing hearing;
 
     [Header("Navigation")]
-    Vector3 targetPosition;
-    NavMeshAgent agent;
-    GameObject player;
+    protected Vector3 targetPosition;
+    protected NavMeshAgent agent;
+    protected GameObject player;
 
     [Header("Patrol Settings")]
     public List<Transform> patrolPoints;
-    int currentPatrolIndex;
+    protected int currentPatrolIndex;
 
     [Header("Detection")]
-    bool playerWasHeard;
-    float currentSearchTime;
+    protected bool playerWasHeard;
+    protected float currentSearchTime;
 
-    void Start()
+    protected void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
@@ -39,83 +39,83 @@ public class EnemyMovement : MonoBehaviour
         patrolPoints.Insert(0, patrolPoint0.transform);
     }
 
-    void Update() {
+    // void Update() {
 
-        if (vision.playerSeen && data.chaseEnabled) {
-            agent.isStopped = false;
-            Chase();
-        }
+    //     if (vision.playerSeen && data.chaseEnabled) {
+    //         agent.isStopped = false;
+    //         Chase();
+    //     }
 
-        else if (data.evadeEnabled && vision.PlayerDistance <= data.startEvadeDistance) {
-            agent.isStopped = false;
-            Evade();
-        }
+    //     else if (data.evadeEnabled && vision.PlayerDistance <= data.startEvadeDistance) {
+    //         agent.isStopped = false;
+    //         Evade();
+    //     }
 
-        else if ((hearing.PlayerHeard || playerWasHeard) && data.searchEnabled) {
-            playerWasHeard = true;
+    //     else if ((hearing.PlayerHeard || playerWasHeard) && data.searchEnabled) {
+    //         playerWasHeard = true;
 
-            if (Vector3.SqrMagnitude(transform.position - hearing.PlayerLastHeardLocation) <= Mathf.Pow(3f, 2)) {
+    //         if (Vector3.SqrMagnitude(transform.position - hearing.PlayerLastHeardLocation) <= Mathf.Pow(3f, 2)) {
 
-                if (currentSearchTime >= data.searchDuration)
-                {
-                    playerWasHeard = false;
-                    currentSearchTime = 0;
+    //             if (currentSearchTime >= data.searchDuration)
+    //             {
+    //                 playerWasHeard = false;
+    //                 currentSearchTime = 0;
 
-                    FindNearestPatrolPoint();
+    //                 FindNearestPatrolPoint();
 
-                    return;
-                }
+    //                 return;
+    //             }
 
-                else {
-                    agent.isStopped = true;
-                    LookAround();
-                    currentSearchTime += Time.deltaTime;
-                }
-            }
+    //             else {
+    //                 agent.isStopped = true;
+    //                 LookAround();
+    //                 currentSearchTime += Time.deltaTime;
+    //             }
+    //         }
 
-            else {
-                agent.isStopped = false;
-                Search();
-            }
+    //         else {
+    //             agent.isStopped = false;
+    //             Search();
+    //         }
             
-        }
+    //     }
 
-        else if (data.patrolEnabled) {
-            agent.isStopped = false;
-            Patrol();
-        }
+    //     else if (data.patrolEnabled && !data.evadeEnabled) {
+    //         agent.isStopped = false;
+    //         Patrol();
+    //     }
         
-        agent.SetDestination(targetPosition);
-    }
+    //     agent.SetDestination(targetPosition);
+    // }
 
 
-    void Patrol() {
+    protected void Patrol() {
         agent.speed = data.patrolSpeed;
         agent.acceleration = data.patrolSpeed * 1.5f;
 
         // If enemy is within minReachPatrolDistance of the patrol point, go to the next patrol point
-        if (Vector3.SqrMagnitude(targetPosition - transform.position) <= Mathf.Pow(data.minReachPatrolDistance, 2)) {
+        if (Vector3.SqrMagnitude(targetPosition - transform.position) <= Mathf.Pow(data.minTargetDistance, 2)) {
             currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Count;
         }
 
         targetPosition = patrolPoints[currentPatrolIndex].position;
     }
 
-    void Search() {
+    protected void Search() {
         agent.speed = data.searchSpeed;
         agent.acceleration = data.searchSpeed * 1.5f;
 
         targetPosition = hearing.PlayerLastHeardLocation;
     }
 
-    void Chase() {
+    protected void Chase() {
         agent.speed = data.chaseSpeed;
         agent.acceleration = data.chaseSpeed * 1.5f;
 
         targetPosition = player.transform.position;
     }
 
-    void LookAround() {
+    protected void LookAround() {
         transform.rotation.Set(
             transform.rotation.x, 
             transform.rotation.y + 10 * Time.deltaTime, 
@@ -124,15 +124,20 @@ public class EnemyMovement : MonoBehaviour
         );
     }
 
-    void Evade() {
+    protected void Evade() {
         agent.speed = data.evadeSpeed;
         agent.acceleration = data.evadeSpeed * 1.5f;
 
         Vector3 targetDirection = (transform.position - player.transform.position).normalized;
+
         targetPosition = transform.position + targetDirection * data.evadeSafeDistance;
+
+        if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, agent.height * 5f, NavMesh.AllAreas)) {
+            targetPosition = hit.position;
+        }
     }
 
-    void FindNearestPatrolPoint()
+    protected void FindNearestPatrolPoint()
     {
         Transform closestPatrolPos = null;
         float closestDistance = float.MaxValue;
