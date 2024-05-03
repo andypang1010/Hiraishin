@@ -23,7 +23,7 @@ public abstract class EnemyMovement : MonoBehaviour
     protected int currentPatrolIndex;
 
     [Header("Detection")]
-    protected bool playerWasHeard;
+    protected bool playerDetected;
     protected float currentSearchTime;
 
     protected void Start()

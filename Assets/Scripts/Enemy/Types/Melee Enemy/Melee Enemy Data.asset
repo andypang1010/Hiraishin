@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb0c98d244abfd4890c95f6eadde4d6, type: 3}
   m_Name: Melee Enemy Data
   m_EditorClassIdentifier: 
-  listenRadius: 7
-  movementThreshold: 5
+  listenRadius: 4
+  movementThreshold: 4
   lookRadius: 13
   lookAngle: 35
   patrolSpeed: 4

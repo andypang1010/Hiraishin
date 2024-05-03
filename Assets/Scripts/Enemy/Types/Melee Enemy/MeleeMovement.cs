@@ -8,20 +8,17 @@ public class MeleeMovement : EnemyMovement
     void Update() {
 
         if (vision.playerSeen) {
-            print("CHASING");
-            agent.isStopped = false;
             Chase();
         }
 
-        else if (hearing.PlayerHeard || playerWasHeard) {
-            print("SEARCHING");
-            playerWasHeard = true;
+        else if (hearing.PlayerHeard || playerDetected) {
+            playerDetected = true;
 
             if (Vector3.SqrMagnitude(transform.position - hearing.PlayerLastHeardLocation) <= Mathf.Pow(data.minTargetDistance, 2)) {
 
                 if (currentSearchTime >= data.searchDuration)
                 {
-                    playerWasHeard = false;
+                    playerDetected = false;
                     currentSearchTime = 0;
 
                     FindNearestPatrolPoint();
@@ -30,26 +27,21 @@ public class MeleeMovement : EnemyMovement
                 }
 
                 else {
-                    agent.isStopped = true;
                     LookAround();
                     currentSearchTime += Time.deltaTime;
                 }
             }
 
             else {
-                agent.isStopped = false;
                 Search();
             }
             
         }
 
         else {
-            print("PATROLLING");
-            agent.isStopped = false;
             Patrol();
         }
         
         agent.SetDestination(targetPosition);
-        print(targetPosition);
     }
 }

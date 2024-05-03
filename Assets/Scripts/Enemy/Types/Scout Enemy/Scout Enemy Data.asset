@@ -12,22 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb0c98d244abfd4890c95f6eadde4d6, type: 3}
   m_Name: Scout Enemy Data
   m_EditorClassIdentifier: 
-  listenRadius: 15
+  listenRadius: 10
   movementThreshold: 4
-  lookRadius: 30
+  lookRadius: 25
   lookAngle: 50
-  patrolEnabled: 1
-  patrolSpeed: 3
-  minReachPatrolDistance: 2
-  searchEnabled: 0
+  patrolSpeed: 4
+  minTargetDistance: 2
   searchSpeed: 0
   searchDuration: 0
-  chaseEnabled: 0
   chaseSpeed: 0
-  evadeEnabled: 1
   evadeSpeed: 6
   startEvadeDistance: 5
   evadeSafeDistance: 30
-  alertRadius: 25
+  alertRadius: 15
   attackCD: 0
   attackReach: 0

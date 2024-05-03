@@ -6,6 +6,7 @@ public class EnemyVision : MonoBehaviour
 {
     [Header("References")]
     public EnemyData data;
+    public Transform eyeTransform;
     GameObject player;
 
     [Header("Detection")]
@@ -22,13 +23,13 @@ public class EnemyVision : MonoBehaviour
 
     void Update()
     {
-        Vector3 playerDirection = player.transform.position - transform.position;
+        Vector3 playerDirection = player.transform.position - eyeTransform.position;
         PlayerDistance = playerDirection.magnitude;
 
         // Check if player is within viewing distance, angle, and not obstructed
         if (PlayerDistance <= data.lookRadius
-        && Vector3.Angle(transform.forward, playerDirection) <= data.lookAngle / 2
-        && Physics.Raycast(transform.position, playerDirection.normalized, out RaycastHit hit, data.lookRadius)
+        && Vector3.Angle(transform.forward, playerDirection.normalized) <= data.lookAngle / 2
+        && Physics.Raycast(eyeTransform.position, playerDirection.normalized, out RaycastHit hit, data.lookRadius)
         && hit.transform.gameObject == player) {
 
             playerSeen = true;
@@ -75,12 +76,12 @@ public class EnemyVision : MonoBehaviour
                 stepEnd = angleStep * (i + 1) + stepOffset;
         
                 lineStart.x = Mathf.Cos(stepStart);
-                lineStart.z = Mathf.Sin(stepStart);
                 lineStart.y = 0.0f;
+                lineStart.z = Mathf.Sin(stepStart);
         
                 lineEnd.x = Mathf.Cos(stepEnd);
-                lineEnd.z = Mathf.Sin(stepEnd);
                 lineEnd.y = 0.0f;
+                lineEnd.z = Mathf.Sin(stepEnd);
         
                 // Results are multiplied so they match the desired radius
                 lineStart *= radius;
@@ -122,6 +123,6 @@ public class EnemyVision : MonoBehaviour
             }
         }
 
-        DrawArc(-data.lookAngle, data.lookAngle, transform.position, Quaternion.LookRotation(-transform.right), data.lookRadius, Color.red, false, true);
+        DrawArc(-data.lookAngle, data.lookAngle, eyeTransform.position, Quaternion.LookRotation(-transform.right), data.lookRadius, Color.red, false, true);
     }
 }
