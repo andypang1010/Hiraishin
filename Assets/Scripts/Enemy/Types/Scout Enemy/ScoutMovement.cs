@@ -4,27 +4,24 @@ using UnityEngine;
 
 public class ScoutMovement : EnemyMovement
 {
-
     bool isEvading;
 
     void Update() {
 
-        if (vision.playerSeen && !playerDetected) {
-            playerDetected = true;
-        }
-
+        // Start evading when player is too close and haven't started evading
         if (vision.PlayerDistance <= data.startEvadeDistance && !isEvading) {
 
             isEvading = true;
-            Evade();
         }
 
         else if (isEvading) {
-            Evade();
 
             if (vision.PlayerDistance >= data.evadeSafeDistance) {
                 isEvading = false;
+                return;
             }
+
+            Evade();
         }
 
         else if (vision.playerSeen) {

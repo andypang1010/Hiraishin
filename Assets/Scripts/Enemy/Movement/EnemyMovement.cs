@@ -35,7 +35,9 @@ public abstract class EnemyMovement : MonoBehaviour
         hearing = GetComponent<EnemyHearing>();
 
         // Copy start point and set as first patrol point
-        GameObject patrolPoint0 = Instantiate(new GameObject("Patrol Point 0"), transform.position, transform.rotation);
+        GameObject patrolPoint0 = new GameObject("Patrol Point 0");
+        patrolPoint0.transform.position = transform.position;
+        patrolPoint0.transform.rotation = transform.rotation;
         patrolPoints.Insert(0, patrolPoint0.transform);
     }
 
@@ -114,16 +116,7 @@ public abstract class EnemyMovement : MonoBehaviour
 
         targetPosition = player.transform.position;
     }
-
-    protected void LookAround() {
-        transform.rotation.Set(
-            transform.rotation.x, 
-            transform.rotation.y + 10 * Time.deltaTime, 
-            transform.rotation.z, 
-            transform.rotation.w
-        );
-    }
-
+    
     protected void Evade() {
         agent.speed = data.evadeSpeed;
         agent.acceleration = data.evadeSpeed * 1.5f;

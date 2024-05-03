@@ -16,7 +16,7 @@ MonoBehaviour:
   movementThreshold: 4
   lookRadius: 25
   lookAngle: 50
-  patrolSpeed: 4
+  patrolSpeed: 2.5
   minTargetDistance: 2
   searchSpeed: 0
   searchDuration: 0

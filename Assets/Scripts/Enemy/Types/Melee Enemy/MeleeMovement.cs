@@ -27,7 +27,6 @@ public class MeleeMovement : EnemyMovement
                 }
 
                 else {
-                    LookAround();
                     currentSearchTime += Time.deltaTime;
                 }
             }
