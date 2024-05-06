@@ -12,6 +12,7 @@ public class EnemyVision : MonoBehaviour
     [Header("Detection")]
     public bool playerSeen;
     public float PlayerDistance { get; private set; }
+    public Vector3 PlayerSeenLocation { get; private set; }
 
     void Start()
     {
@@ -34,9 +35,13 @@ public class EnemyVision : MonoBehaviour
 
             playerSeen = true;
         }
+
+        if (playerSeen) {
+            PlayerSeenLocation = player.transform.position;
+        }
     }
 
-    private void OnDrawGizmos() {
+    void OnDrawGizmos() {
         void DrawArc(float startAngle, float endAngle, 
         Vector3 position, Quaternion orientation, float radius, 
         Color color, bool drawChord = false, bool drawSector = false, 
@@ -123,6 +128,10 @@ public class EnemyVision : MonoBehaviour
             }
         }
 
-        DrawArc(-data.lookAngle, data.lookAngle, eyeTransform.position, Quaternion.LookRotation(-transform.right), data.lookRadius, Color.red, false, true);
+        DrawArc(-data.lookAngle / 2, data.lookAngle / 2, eyeTransform.position, Quaternion.LookRotation(-transform.right), data.lookRadius, Color.red, false, true);
+    }
+
+    public bool WithinAttackRadius() {
+        return playerSeen && PlayerDistance <= data.attackReach * 1.1f;
     }
 }

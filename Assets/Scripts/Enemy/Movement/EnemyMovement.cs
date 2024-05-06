@@ -93,7 +93,6 @@ public abstract class EnemyMovement : MonoBehaviour
 
     protected void Patrol() {
         agent.speed = data.patrolSpeed;
-        agent.acceleration = data.patrolSpeed * 1.5f;
 
         // If enemy is within minReachPatrolDistance of the patrol point, go to the next patrol point
         if (Vector3.SqrMagnitude(targetPosition - transform.position) <= Mathf.Pow(data.minTargetDistance, 2)) {
@@ -105,21 +104,18 @@ public abstract class EnemyMovement : MonoBehaviour
 
     protected void Search() {
         agent.speed = data.searchSpeed;
-        agent.acceleration = data.searchSpeed * 1.5f;
 
         targetPosition = hearing.PlayerLastHeardLocation;
     }
 
     protected void Chase() {
         agent.speed = data.chaseSpeed;
-        agent.acceleration = data.chaseSpeed * 1.5f;
 
-        targetPosition = player.transform.position;
+        targetPosition = vision.PlayerSeenLocation;
     }
     
     protected void Evade() {
         agent.speed = data.evadeSpeed;
-        agent.acceleration = data.evadeSpeed * 1.5f;
 
         Vector3 targetDirection = (transform.position - player.transform.position).normalized;
 

@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MeleeAttack : MonoBehaviour
 {
     [Header("References")]
     public EnemyData data;
-    GameObject player;
+    PlayerController player;
     EnemyVision vision;
+    NavMeshAgent agent;
 
     bool canAttack;
 
@@ -16,37 +18,39 @@ public class MeleeAttack : MonoBehaviour
     {
         canAttack = true;
         
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         vision = GetComponent<EnemyVision>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     void Update() {
-        if (vision.playerSeen 
-        && vision.PlayerDistance <= data.attackReach * 1.5f
+        if (vision.WithinAttackRadius()
         && canAttack) {
+            
             Attack();
         }
+
+        Debug.DrawLine(transform.position, transform.position + data.attackReach * transform.forward, Color.green);
     }
 
     public void Attack() {
 
-        // Check if player is within attack range
+        // Check if player is hit
         if (Physics.Raycast(
             transform.position, 
             (player.transform.position - transform.position).normalized, 
             out RaycastHit hit, 
             data.attackReach)
             
-            && hit.transform.gameObject == player) {
+            && hit.transform.gameObject == player.gameObject) {
 
             print(gameObject.name + " HIT PLAYER");
-            hit.transform.gameObject.GetComponent<PlayerController>().Die();
+            player.Die();
         }
 
         else {
             print(gameObject.name + " MISSED");
         }
-
 
         // Start attack CD
         canAttack = false;

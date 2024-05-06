@@ -22,13 +22,11 @@ public class EnemyHearing : MonoBehaviour
 
     void Update()
     {
-        if (playerMovement.movementState == PlayerMovement.MovementState.CROUCH) {
-            return;
-        }
 
-        // Check if player is within distance and moving
+        // Check if player is within distance and moving or not crouching
         if (Vector3.SqrMagnitude(player.transform.position - transform.position) <= Mathf.Pow(data.listenRadius, 2)
-        && playerMovement.GetMoveVelocity().magnitude >= data.movementThreshold) {
+        && playerMovement.GetMoveVelocity().magnitude >= data.movementThreshold
+        && playerMovement.movementState != PlayerMovement.MovementState.CROUCH) {
 
             PlayerHeard = true;
             PlayerLastHeardLocation = player.transform.position;
