@@ -239,6 +239,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public Vector3 GetMoveVelocity() {
+        if (rb == null) {
+            return Vector3.zero;
+        }
+        
         return new Vector3(rb.velocity.x, 0, rb.velocity.z);
     }
     

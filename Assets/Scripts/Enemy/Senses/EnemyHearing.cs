@@ -22,6 +22,9 @@ public class EnemyHearing : MonoBehaviour
 
     void Update()
     {
+        if (player == null) {
+            return;
+        }
 
         // Check if player is within distance and moving or not crouching
         if (Vector3.SqrMagnitude(player.transform.position - transform.position) <= Mathf.Pow(data.listenRadius, 2)

@@ -33,6 +33,10 @@ public class MeleeAttack : MonoBehaviour
 
     public void Attack() {
 
+        if (player == null) {
+            return;
+        }
+
         // Check if player is hit
         if (Physics.Raycast(
             transform.position, 

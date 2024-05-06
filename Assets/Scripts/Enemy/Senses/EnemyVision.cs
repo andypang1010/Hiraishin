@@ -24,6 +24,10 @@ public class EnemyVision : MonoBehaviour
 
     void Update()
     {
+        if (player == null) {
+            return;
+        }
+
         Vector3 playerDirection = player.transform.position - eyeTransform.position;
         PlayerDistance = playerDirection.magnitude;
 
