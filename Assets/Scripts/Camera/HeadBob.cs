@@ -67,7 +67,7 @@ public class HeadBob : MonoBehaviour
 
     void PlayMotion() {
         // Head bob only if is grounded
-        if (!playerMovement.isGrounded()) return;
+        if (!playerMovement.Grounded) return;
 
         // Offset camera position by head bob
         playerCamera.localPosition += FootStepMotion() * Time.deltaTime;

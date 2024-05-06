@@ -5490,6 +5490,16 @@ PrefabInstance:
       objectReference: {fileID: 21635186}
     - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
+      propertyPath: detectedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: detectedColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
       propertyPath: teleportCrosshair
       value: 
       objectReference: {fileID: 1694458867}

@@ -35,7 +35,7 @@ public class EnemyAlert : MonoBehaviour
     }
 
     private void OnDrawGizmos() {
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.green;
 
         Gizmos.DrawWireSphere(transform.position, data.alertRadius);
     }

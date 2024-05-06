@@ -35,9 +35,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Slope Check")]
     public float maxSlopeAngle;
+    public bool Grounded { get; private set; }
     RaycastHit slopeHit;
     float playerHeight = 2;
-    bool grounded;
     bool exitingSlope;
 
     [Header("Step Check")]
@@ -64,8 +64,8 @@ public class PlayerMovement : MonoBehaviour
     {
         
         // Check if is grounded
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f);
-        exitingSlope = !grounded;
+        Grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f);
+        exitingSlope = !Grounded;
 
         GetInput();
         SpeedControl();
@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = movement.y;
 
         // Coyote time check
-        if (grounded) {
+        if (Grounded) {
             coyoteTimeCounter = coyoteTime;
         }
         else {
@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
             jumpBufferCounter -= Time.deltaTime;
         }
         
-        if (grounded) {
+        if (Grounded) {
             if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f
             && movementState != MovementState.CROUCH) {
                 Jump();
@@ -118,18 +118,18 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (InputController.Instance.GetCrouchUp() || !grounded) {
+        if (InputController.Instance.GetCrouchUp() || !Grounded) {
             transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
         }
     }
 
     void HandleMovementState() {
-        if (!grounded) {
+        if (!Grounded) {
             movementState = MovementState.AIR;
         }
 
         else {
-            if (InputController.Instance.GetCrouchHold() && grounded) {
+            if (InputController.Instance.GetCrouchHold() && Grounded) {
                 movementState = MovementState.CROUCH;
                 moveSpeed = crouchSpeed;
             }
@@ -161,12 +161,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Move in direction
-        else if (grounded) {
+        else if (Grounded) {
             rb.AddForce(10 * moveSpeed * moveDirection, ForceMode.Force);
         }
 
         // Move in direction but slower in air
-        else if (!grounded) {
+        else if (!Grounded) {
             rb.AddForce(10 * moveSpeed * moveDirection * airMultiplier, ForceMode.Force);
         }
 
@@ -177,7 +177,7 @@ public class PlayerMovement : MonoBehaviour
     
     void SetDrag()
     {
-        if (grounded)
+        if (Grounded)
         {
             rb.drag = groundDrag;
         }
@@ -246,10 +246,6 @@ public class PlayerMovement : MonoBehaviour
         return new Vector3(rb.velocity.x, 0, rb.velocity.z);
     }
     
-    public bool isGrounded() {
-        return grounded;
-    }
-
     public MovementState GetMovementState() {
         return movementState;
     }
