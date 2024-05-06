@@ -29,8 +29,6 @@ public class MeleeAttack : MonoBehaviour
             
             Attack();
         }
-
-        Debug.DrawLine(transform.position, transform.position + data.attackReach * transform.forward, Color.green);
     }
 
     public void Attack() {

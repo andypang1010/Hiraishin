@@ -41,8 +41,6 @@ public class PlayerTeleport : MonoBehaviour
 
     void Update()
     {
-        Debug.DrawLine(Camera.main.transform.position, Camera.main.transform.position + Camera.main.transform.forward * detectionDistance, Color.red);
-
         // Calculate the radius crosshair and centerpoint of the screen
         detectionRadius = crosshairRectTransform.rect.height / 2f * (Screen.height / canvasScaler.referenceResolution.y);
         centerPoint = new Vector2(Screen.width / 2, Screen.height / 2);
