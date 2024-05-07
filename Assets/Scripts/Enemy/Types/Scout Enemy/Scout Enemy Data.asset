@@ -15,14 +15,14 @@ MonoBehaviour:
   listenRadius: 10
   movementThreshold: 4
   lookRadius: 25
-  lookAngle: 100
+  lookAngle: 110
   patrolSpeed: 2.5
   minTargetDistance: 2
   searchSpeed: 0
   searchDuration: 0
   chaseSpeed: 0
-  evadeSpeed: 6
-  startEvadeDistance: 5
+  evadeSpeed: 8.5
+  startEvadeDistance: 10
   evadeSafeDistance: 30
   alertRadius: 15
   attackCD: 0

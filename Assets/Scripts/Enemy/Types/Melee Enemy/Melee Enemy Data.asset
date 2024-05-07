@@ -26,4 +26,4 @@ MonoBehaviour:
   evadeSafeDistance: 0
   alertRadius: 0
   attackCD: 2
-  attackReach: 1.5
+  attackReach: 1

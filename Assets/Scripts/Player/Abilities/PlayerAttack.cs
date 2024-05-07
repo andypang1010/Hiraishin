@@ -14,6 +14,8 @@ public class PlayerAttack : MonoBehaviour
     public float attackForce;
     [HideInInspector] public bool attackReady { get; private set; }
 
+    float[] attackAngles = {45, 90, 135};
+
     void Start() {
         attackReady = true;
         attackPoint.localScale = new Vector3(attackReach, attackDistance, 0.1f);
@@ -32,7 +34,7 @@ public class PlayerAttack : MonoBehaviour
     void Attack() {
 
         // Set up attack rotation
-        attackPoint.rotation = Quaternion.Euler(Random.Range(45, 135), 90, 0);
+        attackPoint.rotation = Quaternion.Euler(attackAngles[Random.Range(0, attackAngles.Length)], 90, 0);
 
         // Get all targets in range
         GameObject[] targetsInRange = Physics.BoxCastAll(

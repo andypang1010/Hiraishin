@@ -109,19 +109,33 @@ public class PlayerTeleport : MonoBehaviour
 
     void TeleportObjects(GameObject source, GameObject target) {
 
-        Rigidbody sourceRB = source.GetComponent<Rigidbody>();
+        if (source.TryGetComponent(out Rigidbody sourceRB)) {
+            sourceRB.MovePosition(target.transform.position);
 
-        // Inherit the velocity of moving objects
-        if (target.TryGetComponent(out Rigidbody targetRB)) {
-            sourceRB.GetComponent<Rigidbody>().velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z) / targetRB.mass;
+            if (target.TryGetComponent(out Rigidbody targetRB)) {
+                sourceRB.velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z) / targetRB.mass;
+            }
         }
 
-        if (source.TryGetComponent(out NavMeshAgent agent)) {
+        else if (source.TryGetComponent(out NavMeshAgent agent)) {
             agent.Warp(target.transform.position);
         }
-        else {
-            sourceRB.MovePosition(target.transform.position);
-        }
+
+        
+        
+        // Inherit the velocity of moving objects
+        // if (target.TryGetComponent(out Rigidbody targetRB) 
+        // && source.TryGetComponent(out Rigidbody sourceRB)) {
+        //     sourceRB.velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z) / targetRB.mass;
+        // }
+
+        // else if (source.TryGetComponent(out NavMeshAgent agent)) {
+        //     agent.Warp(target.transform.position);
+        // }
+
+        // else {
+        //     source.GetComponent<Rigidbody>().MovePosition(target.transform.position);
+        // }
     }
 
     void UpdateRotation(GameObject target) {

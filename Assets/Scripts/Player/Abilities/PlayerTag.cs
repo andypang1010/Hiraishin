@@ -35,7 +35,7 @@ public class PlayerTag : MonoBehaviour
 
                 if (holdTime >= minTagTime) {
                     hit.collider.gameObject.layer = LayerMask.NameToLayer("Tagged");
-                    hit.collider.gameObject.GetComponent<Renderer>().material = taggedMaterial;
+                    // hit.collider.gameObject.GetComponent<Renderer>().material = taggedMaterial;
                     PlayerTeleport.teleportables.Add(hit.collider.gameObject);
                     targetObject = null;
                 }
