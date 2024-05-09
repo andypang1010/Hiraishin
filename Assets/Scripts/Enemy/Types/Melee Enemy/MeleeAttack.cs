@@ -3,35 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MeleeAttack : MonoBehaviour
+public class MeleeAttack : EnemyAttack
 {
-    [Header("References")]
-    public EnemyData data;
-    PlayerController player;
-    EnemyVision vision;
-    NavMeshAgent agent;
-
-    bool canAttack;
-
-
-    void Start()
-    {
-        canAttack = true;
-        
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        vision = GetComponent<EnemyVision>();
-        agent = GetComponent<NavMeshAgent>();
-    }
-
-    void Update() {
-        if (vision.WithinAttackRadius()
-        && canAttack) {
-            
-            Attack();
-        }
-    }
-
-    public void Attack() {
+    protected override void Attack() {
 
         if (player == null) {
             return;
@@ -47,7 +21,7 @@ public class MeleeAttack : MonoBehaviour
             && hit.transform.gameObject == player.gameObject) {
 
             print(gameObject.name + " HIT PLAYER");
-            player.Die();
+            player.Decapacitate();
         }
 
         else {
@@ -57,9 +31,5 @@ public class MeleeAttack : MonoBehaviour
         // Start attack CD
         canAttack = false;
         Invoke(nameof(ResetAttack), data.attackCD);
-    }
-
-    void ResetAttack() {
-        canAttack = true;
     }
 }

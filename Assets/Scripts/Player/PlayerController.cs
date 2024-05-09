@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main.transform.parent.gameObject;
     }
 
-    public void Die() {
+    public void Decapacitate() {
 
         // Remove HeadBob and MoveCamera
         cam.GetComponent<HeadBob>().enabled = false;
@@ -27,5 +27,9 @@ public class PlayerController : MonoBehaviour
 
         // Destroy player gameObject
         Destroy(gameObject);
+    }
+
+    public void Shot() {
+        
     }
 }
