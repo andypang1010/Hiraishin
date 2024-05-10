@@ -30,6 +30,6 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Shot() {
-        
+        // TODO
     }
 }

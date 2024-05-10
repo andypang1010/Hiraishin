@@ -12,22 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb0c98d244abfd4890c95f6eadde4d6, type: 3}
   m_Name: Shooter Enemy Data
   m_EditorClassIdentifier: 
-  listenRadius: 0
+  listenRadius: 7
   movementThreshold: 0
   lookRadius: 20
-  lookAngle: 40
-  patrolEnabled: 0
+  lookAngle: 80
   patrolSpeed: 0
-  minReachPatrolDistance: 0
-  searchEnabled: 0
+  minTargetDistance: 0
   searchSpeed: 0
   searchDuration: 0
-  chaseEnabled: 1
   chaseSpeed: 0
-  evadeEnabled: 0
   evadeSpeed: 0
   startEvadeDistance: 0
   evadeSafeDistance: 0
   alertRadius: 0
   attackCD: 3
-  attackReach: 25
+  attackReach: 20

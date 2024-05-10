@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb0c98d244abfd4890c95f6eadde4d6, type: 3}
   m_Name: Scout Enemy Data
   m_EditorClassIdentifier: 
-  listenRadius: 10
+  listenRadius: 15
   movementThreshold: 4
   lookRadius: 25
   lookAngle: 110

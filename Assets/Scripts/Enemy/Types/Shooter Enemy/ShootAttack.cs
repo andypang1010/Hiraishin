@@ -7,7 +7,19 @@ public class ShootAttack : EnemyAttack
 {
 
     [Header("References")]
-    public GameObject bullet;
+    public GameObject bulletRef;
+    public Transform shootPoint;
+    public float shootForce, shootUpwardForce;
+
+    protected override void Update() {
+        if (vision.WithinAttackRadius()
+        && Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, data.attackReach)
+        && hit.transform.gameObject.CompareTag("Player")
+        && canAttack) {
+            
+            Attack();
+        }
+    }
 
     protected override void Attack() {
 
@@ -15,16 +27,9 @@ public class ShootAttack : EnemyAttack
             return;
         }
 
-        // TODO: Shoot projectile
-        GameObject kunai = Instantiate(gameObject, transform.position, transform.rotation);
-        PlayerTeleport.teleportables.Add(kunai);
-
-        Rigidbody rb = kunai.GetComponent<Rigidbody>();
-
-        // TODO: Calculate direction
-
         // Propel projectile towards force direction
-        rb.AddForce(kunaiThrowForce * forceDirection + kunaiUpwardForce * transform.up, ForceMode.Impulse);
+        Rigidbody bulletRB = Instantiate(bulletRef, shootPoint.position, shootPoint.rotation).GetComponent<Rigidbody>();
+        bulletRB.AddForce(shootForce * shootPoint.forward + shootUpwardForce * shootPoint.up, ForceMode.Impulse);
 
 
         // Start attack CD

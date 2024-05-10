@@ -20,7 +20,7 @@ public class EnemyAttack : MonoBehaviour
         vision = GetComponent<EnemyVision>();
     }
 
-    protected void Update() {
+    protected virtual void Update() {
         if (vision.WithinAttackRadius()
         && canAttack) {
             

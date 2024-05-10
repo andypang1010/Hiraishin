@@ -11,23 +11,21 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
 
-        Invoke(nameof(UseGravity), 0.15f);
+        Invoke(nameof(DestroyBullet), 5f);
     }
     
     // Update is called once per frame
     void OnCollisionEnter(Collision other) {
         if (other.transform.gameObject.TryGetComponent(out PlayerController playerController)) {
-            playerController.Shot();
+            // playerController.Shot();
+            playerController.Decapacitate();
         }
 
-        Destroy(rb);
-        transform.SetParent(other.transform);
+        Destroy(gameObject);
         
     }
 
-    void UseGravity() {
-        if (rb != null) {
-            rb.useGravity = true;
-        }
+    void DestroyBullet() {
+        Destroy(gameObject);
     }
 }
