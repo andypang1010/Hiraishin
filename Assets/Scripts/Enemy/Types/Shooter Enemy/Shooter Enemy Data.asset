@@ -15,7 +15,7 @@ MonoBehaviour:
   listenRadius: 7
   movementThreshold: 0
   lookRadius: 20
-  lookAngle: 80
+  lookAngle: 30
   patrolSpeed: 0
   minTargetDistance: 0
   searchSpeed: 0
