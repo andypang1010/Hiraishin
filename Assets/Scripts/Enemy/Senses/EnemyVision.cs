@@ -25,6 +25,7 @@ public class EnemyVision : MonoBehaviour
     void Update()
     {
         if (player == null) {
+            playerSeen = false;
             return;
         }
 

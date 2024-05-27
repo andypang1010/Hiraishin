@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAlert : MonoBehaviour
 {
@@ -9,27 +10,51 @@ public class EnemyAlert : MonoBehaviour
     EnemyVision vision;
     EnemyHearing hearing;
 
+    NavMeshAgent agent;
+    bool alertPlayed;
+    Animator animator;
+    int alertHash;
+
     void Start()
     {
         vision = GetComponent<EnemyVision>();
         hearing = GetComponent<EnemyHearing>();
+
+        agent = GetComponent<NavMeshAgent>();
+        alertPlayed = false;
+
+        animator = GetComponent<Animator>();
+        alertHash = Animator.StringToHash("Alert");
     }
 
     void Update()
     {
-        if (vision.playerSeen || hearing.PlayerHeard) {
+        if ((vision.playerSeen || hearing.PlayerHeard) && !alertPlayed) {
 
-            // Find all nearby enemies
-            GameObject[] nearbyEnemies = Physics.OverlapSphere(transform.position, data.alertRadius).
-            Select(collider => collider.transform.gameObject.CompareTag("Enemy") ? collider.transform.gameObject : null)
-            .ToArray();
+            animator.Play(alertHash);
+            alertPlayed = true;
+        }
+    }
 
-            // Alert them of player's position
-            foreach (GameObject enemy in nearbyEnemies) {
-                
-                if (enemy != null && enemy.TryGetComponent(out EnemyVision vision)) {
-                    vision.playerSeen = true;
-                }
+    public void StartAlert() {
+        agent.isStopped = true;
+    }
+
+    public void EndAlert() {
+        agent.isStopped = false;
+    }
+
+    public void Alert() {
+        // Find all nearby enemies
+        GameObject[] nearbyEnemies = Physics.OverlapSphere(transform.position, data.alertRadius).
+        Select(collider => collider.transform.gameObject.CompareTag("Enemy") ? collider.transform.gameObject : null)
+        .ToArray();
+
+        // Alert them of player's position
+        foreach (GameObject enemy in nearbyEnemies) {
+            
+            if (enemy != null && enemy.TryGetComponent(out EnemyVision vision)) {
+                vision.playerSeen = true;
             }
         }
     }

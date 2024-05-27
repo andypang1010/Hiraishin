@@ -23,6 +23,7 @@ public class EnemyHearing : MonoBehaviour
     void Update()
     {
         if (player == null) {
+            PlayerHeard = false;
             return;
         }
 

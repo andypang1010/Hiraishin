@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAttack : MonoBehaviour
 {
@@ -11,6 +12,14 @@ public class EnemyAttack : MonoBehaviour
 
     protected bool canAttack;
 
+    protected bool canPlayAttack;
+
+    protected NavMeshAgent agent;
+
+    protected Animator animator;
+
+    protected int attackHash;
+
 
     protected void Start()
     {
@@ -18,14 +27,15 @@ public class EnemyAttack : MonoBehaviour
         
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         vision = GetComponent<EnemyVision>();
+
+        agent = GetComponent<NavMeshAgent>();
+
+        animator = GetComponent<Animator>();
+        attackHash = Animator.StringToHash("Attack");
     }
 
     protected virtual void Update() {
-        if (vision.WithinAttackRadius()
-        && canAttack) {
-            
-            Attack();
-        }
+        
     }
 
     protected virtual void Attack() {

@@ -16,16 +16,12 @@ public class ScoutMovement : EnemyMovement
 
         else if (isEvading) {
 
-            if (vision.PlayerDistance >= data.evadeSafeDistance) {
-                isEvading = false;
-                return;
-            }
+            // if (vision.PlayerDistance >= data.evadeSafeDistance) {
+            //     isEvading = false;
+            //     return;
+            // }
 
             Evade();
-        }
-
-        else if (vision.playerSeen) {
-            transform.rotation = Quaternion.LookRotation(player.transform.position - transform.position, transform.up);
         }
 
         else {

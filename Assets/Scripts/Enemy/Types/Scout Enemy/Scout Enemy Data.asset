@@ -22,8 +22,9 @@ MonoBehaviour:
   searchDuration: 0
   chaseSpeed: 0
   evadeSpeed: 8.5
-  startEvadeDistance: 10
+  startEvadeDistance: 25
   evadeSafeDistance: 30
   alertRadius: 15
+  alertCD: 0
   attackCD: 0
   attackReach: 0

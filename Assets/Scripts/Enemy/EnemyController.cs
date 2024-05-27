@@ -15,14 +15,14 @@ public class EnemyController : MonoBehaviour
     }
     [Header("References")]
     public GameObject player;
-
-    [Header("States")]
-    public States[] states;
     
     [Header("Sinking")]
     public float startSinkTime;
     public float sinkSpeed;
     public float destroyTime;
+
+    Animator animator;
+    float velX, velZ;
 
     void Start()
     {

@@ -31,6 +31,7 @@ public class EnemyData : ScriptableObject
 
     [Header("Alert Settings")]
     public float alertRadius;
+    public float alertCD;
 
     [Header("Attack Settings")]
     public float attackCD;

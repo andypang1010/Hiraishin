@@ -5,31 +5,36 @@ using UnityEngine.AI;
 
 public class MeleeAttack : EnemyAttack
 {
-    protected override void Attack() {
-
-        if (player == null) {
-            return;
+    public BoxCollider machete;
+    protected override void Update() {
+        if (vision.WithinAttackRadius()
+        && canAttack) {
+            animator.Play(attackHash);
         }
 
-        // Check if player is hit
-        if (Physics.Raycast(
-            transform.position, 
-            (player.transform.position - transform.position).normalized, 
-            out RaycastHit hit, 
-            data.attackReach)
-            
-            && hit.transform.gameObject == player.gameObject) {
-
-            print(gameObject.name + " HIT PLAYER");
-            player.Decapacitate();
+        if (canPlayAttack) {
+            machete.enabled = true;
         }
 
         else {
-            print(gameObject.name + " MISSED");
+            machete.enabled = false;
         }
+    }
 
-        // Start attack CD
-        canAttack = false;
-        Invoke(nameof(ResetAttack), data.attackCD);
+    
+    protected void StartAttackAnim() {
+        agent.isStopped = true;
+    }
+
+    protected void EndAttackAnim() {
+        agent.isStopped = false;
+    }
+
+    protected void StartAttack() {
+        canPlayAttack = true;
+    }
+
+    protected void EndAttack() {
+        canPlayAttack = false;
     }
 }

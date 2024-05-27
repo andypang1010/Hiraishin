@@ -26,6 +26,10 @@ public abstract class EnemyMovement : MonoBehaviour
     protected bool playerDetected;
     protected float currentSearchTime;
 
+    Animator animator;
+    // int velXHash, velZHash;
+    int isPatrolHash, isSearchHash, isChaseHash, isEvadeHash;
+
     protected void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -34,6 +38,13 @@ public abstract class EnemyMovement : MonoBehaviour
         vision = GetComponent<EnemyVision>();
         hearing = GetComponent<EnemyHearing>();
 
+        animator = GetComponent<Animator>();
+
+        isPatrolHash = Animator.StringToHash("isPatrol");
+        isSearchHash = Animator.StringToHash("isSearch");
+        isChaseHash = Animator.StringToHash("isChase");
+        isEvadeHash = Animator.StringToHash("isEvade");
+
         // Copy start point and set as first patrol point
         GameObject patrolPoint0 = new GameObject("Patrol Point 0");
         patrolPoint0.transform.position = transform.position;
@@ -41,57 +52,8 @@ public abstract class EnemyMovement : MonoBehaviour
         patrolPoints.Insert(0, patrolPoint0.transform);
     }
 
-    // void Update() {
-
-    //     if (vision.playerSeen && data.chaseEnabled) {
-    //         agent.isStopped = false;
-    //         Chase();
-    //     }
-
-    //     else if (data.evadeEnabled && vision.PlayerDistance <= data.startEvadeDistance) {
-    //         agent.isStopped = false;
-    //         Evade();
-    //     }
-
-    //     else if ((hearing.PlayerHeard || playerWasHeard) && data.searchEnabled) {
-    //         playerWasHeard = true;
-
-    //         if (Vector3.SqrMagnitude(transform.position - hearing.PlayerLastHeardLocation) <= Mathf.Pow(3f, 2)) {
-
-    //             if (currentSearchTime >= data.searchDuration)
-    //             {
-    //                 playerWasHeard = false;
-    //                 currentSearchTime = 0;
-
-    //                 FindNearestPatrolPoint();
-
-    //                 return;
-    //             }
-
-    //             else {
-    //                 agent.isStopped = true;
-    //                 LookAround();
-    //                 currentSearchTime += Time.deltaTime;
-    //             }
-    //         }
-
-    //         else {
-    //             agent.isStopped = false;
-    //             Search();
-    //         }
-            
-    //     }
-
-    //     else if (data.patrolEnabled && !data.evadeEnabled) {
-    //         agent.isStopped = false;
-    //         Patrol();
-    //     }
-        
-    //     agent.SetDestination(targetPosition);
-    // }
-
-
     protected void Patrol() {
+
         agent.speed = data.patrolSpeed;
 
         // If enemy is within minReachPatrolDistance of the patrol point, go to the next patrol point
@@ -100,21 +62,59 @@ public abstract class EnemyMovement : MonoBehaviour
         }
 
         targetPosition = patrolPoints[currentPatrolIndex].position;
+
+        animator.SetBool(isPatrolHash, true);
+        animator.SetBool(isSearchHash, false);
+        animator.SetBool(isChaseHash, false);
+        animator.SetBool(isEvadeHash, false);
     }
 
     protected void Search() {
+
         agent.speed = data.searchSpeed;
 
         targetPosition = hearing.PlayerLastHeardLocation;
+
+        // if (agent.isStopped)
+
+        print(agent.velocity.magnitude);
+
+        if (!agent.isStopped) {
+            animator.SetBool(isPatrolHash, true);
+            animator.SetBool(isSearchHash, false);
+            animator.SetBool(isChaseHash, false);
+            animator.SetBool(isEvadeHash, false);
+        }
+
+        else {
+            animator.SetBool(isPatrolHash, false);
+            animator.SetBool(isSearchHash, true);
+            animator.SetBool(isChaseHash, false);
+            animator.SetBool(isEvadeHash, false);
+        }
     }
 
     protected void Chase() {
+
         agent.speed = data.chaseSpeed;
 
         targetPosition = vision.PlayerSeenLocation;
+
+        // TODO: Stop when within certain distance of player to allow for enemy attack
+
+        animator.SetBool(isPatrolHash, false);
+        animator.SetBool(isSearchHash, false);
+        animator.SetBool(isChaseHash, true);
+        animator.SetBool(isEvadeHash, false);
     }
     
     protected void Evade() {
+
+        animator.SetBool(isPatrolHash, false);
+        animator.SetBool(isSearchHash, false);
+        animator.SetBool(isChaseHash, false);
+        animator.SetBool(isEvadeHash, true);
+
         agent.speed = data.evadeSpeed;
 
         Vector3 targetDirection = (transform.position - player.transform.position).normalized;

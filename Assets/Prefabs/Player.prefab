@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3250425301268630895}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -394,7 +394,7 @@ MonoBehaviour:
   detectionDistance: 50
   defaultColor: {r: 1, g: 1, b: 1, a: 0.39215687}
   detectedColor: {r: 1, g: 0, b: 0, a: 0.39215687}
-  maxLensDistortion: 0.6
+  maxLensDistortion: 0.7
   distortionSpeed: 5
 --- !u!114 &5084041552704671043
 MonoBehaviour:
@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 0}
-  attackReach: 1.5
+  attackReach: 2
   attackDistance: 2
   attackCD: 1
   attackForce: 500

@@ -8,10 +8,11 @@ public class MeleeMovement : EnemyMovement
     void Update() {
 
         if (vision.playerSeen) {
+            print("In CHASE!");
             Chase();
         }
 
-        else if (hearing.PlayerHeard || playerDetected) {
+        else if ((hearing.PlayerHeard || playerDetected) && player != null) {
             playerDetected = true;
 
             if (Vector3.SqrMagnitude(transform.position - hearing.PlayerLastHeardLocation) <= Mathf.Pow(data.minTargetDistance, 2)) {
@@ -38,6 +39,7 @@ public class MeleeMovement : EnemyMovement
         }
 
         else {
+                        print("In PATROL!");
             Patrol();
         }
         
