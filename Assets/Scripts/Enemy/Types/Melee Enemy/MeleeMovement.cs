@@ -8,7 +8,6 @@ public class MeleeMovement : EnemyMovement
     void Update() {
 
         if (vision.playerSeen) {
-            print("In CHASE!");
             Chase();
         }
 
@@ -39,7 +38,6 @@ public class MeleeMovement : EnemyMovement
         }
 
         else {
-                        print("In PATROL!");
             Patrol();
         }
         

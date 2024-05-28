@@ -8,19 +8,16 @@ public class ScoutMovement : EnemyMovement
 
     void Update() {
 
+        if (player == null) {
+            return;
+        }
+
         // Start evading when player is too close and haven't started evading
         if (vision.PlayerDistance <= data.startEvadeDistance && !isEvading) {
-
             isEvading = true;
         }
 
         else if (isEvading) {
-
-            // if (vision.PlayerDistance >= data.evadeSafeDistance) {
-            //     isEvading = false;
-            //     return;
-            // }
-
             Evade();
         }
 

@@ -13,14 +13,9 @@ public class ShootAttack : EnemyAttack
 
     protected override void Update() {
         if (vision.WithinAttackRadius()
-        // && Physics.Raycast(shootPoint.position, shootPoint.forward, out RaycastHit hit, data.attackReach)
-        // && hit.transform.gameObject.CompareTag("Player")
         && canAttack) {
 
             animator.Play(attackHash);
-            
-            // Attack();
-            print("SHOOTER ATTACK!");
         }
     }
 
