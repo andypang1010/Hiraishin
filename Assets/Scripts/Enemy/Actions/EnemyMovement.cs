@@ -26,8 +26,8 @@ public abstract class EnemyMovement : MonoBehaviour
     protected bool playerDetected;
     protected float currentSearchTime;
 
-    Animator animator;
-    // int velXHash, velZHash;
+
+    protected Animator animator;
     int isPatrolHash, isSearchHash, isChaseHash, isEvadeHash;
 
     protected void Start()

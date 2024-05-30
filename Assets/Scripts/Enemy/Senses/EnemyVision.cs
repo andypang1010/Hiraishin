@@ -34,7 +34,7 @@ public class EnemyVision : MonoBehaviour
 
         // Check if player is within viewing distance, angle, and not obstructed
         if (PlayerDistance <= data.lookRadius
-        && Vector3.Angle(transform.forward, playerDirection.normalized) <= data.lookAngle / 2
+        && Vector3.Angle(eyeTransform.forward, playerDirection.normalized) <= data.lookAngle / 2
         && Physics.Raycast(eyeTransform.position, playerDirection.normalized, out RaycastHit hit, data.lookRadius)
         && hit.transform.gameObject == player) {
 

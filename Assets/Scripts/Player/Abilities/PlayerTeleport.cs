@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -65,14 +66,6 @@ public class PlayerTeleport : MonoBehaviour
             || target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, detectionDistance))
             {
 
-                // if (target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, detectionDistance)) {
-                //     print("Raycast found");
-                // }
-
-                // else {
-                //     print("ScreenPoint found");
-                // }
-
                 if (closestTarget == null) {
                     closestTarget = target;
                 }
@@ -92,7 +85,7 @@ public class PlayerTeleport : MonoBehaviour
             if (InputController.Instance.GetTeleportDown()) {
 
                 if (closestTarget.layer == LayerMask.NameToLayer("Kunai")) {
-                        StartCoroutine(Teleport(closestTarget));
+                    StartCoroutine(Teleport(closestTarget));
                 }
 
                 else if (closestTarget.layer == LayerMask.NameToLayer("Tagged")) {
@@ -110,7 +103,18 @@ public class PlayerTeleport : MonoBehaviour
     void TeleportObjects(GameObject source, GameObject target) {
 
         if (source.TryGetComponent(out Rigidbody sourceRB)) {
-            sourceRB.MovePosition(target.transform.position);
+
+            if (target.CompareTag("Enemy")) {
+                sourceRB.MovePosition(target.transform.position + Vector3.up);
+            }
+            
+            else if (target.CompareTag("Player")) {
+                sourceRB.MovePosition(target.transform.position + Vector3.down);
+            }
+
+            else {
+                sourceRB.MovePosition(target.transform.position);
+            }
 
             if (target.TryGetComponent(out Rigidbody targetRB)) {
                 sourceRB.velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z) / targetRB.mass;
@@ -120,22 +124,6 @@ public class PlayerTeleport : MonoBehaviour
         else if (source.TryGetComponent(out NavMeshAgent agent)) {
             agent.Warp(target.transform.position);
         }
-
-        
-        
-        // Inherit the velocity of moving objects
-        // if (target.TryGetComponent(out Rigidbody targetRB) 
-        // && source.TryGetComponent(out Rigidbody sourceRB)) {
-        //     sourceRB.velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z) / targetRB.mass;
-        // }
-
-        // else if (source.TryGetComponent(out NavMeshAgent agent)) {
-        //     agent.Warp(target.transform.position);
-        // }
-
-        // else {
-        //     source.GetComponent<Rigidbody>().MovePosition(target.transform.position);
-        // }
     }
 
     void UpdateRotation(GameObject target) {
@@ -163,12 +151,10 @@ public class PlayerTeleport : MonoBehaviour
         teleportables.Remove(closestTarget);
         Destroy(closestTarget);
 
-        if (lensDistortion.intensity.value > maxLensDistortion) {
-            while (lensDistortion.intensity.value > 0) {
-                lensDistortion.intensity.value -= Time.deltaTime / Time.timeScale * distortionSpeed;
-                yield return null;
-            } 
-        }
+        while (lensDistortion.intensity.value > 0) {
+            lensDistortion.intensity.value -= Time.deltaTime / Time.timeScale * distortionSpeed;
+            yield return null;
+        } 
     }
 
     IEnumerator SwapLocations(GameObject closestTarget, GameObject temp) {
@@ -183,11 +169,13 @@ public class PlayerTeleport : MonoBehaviour
 
         Destroy(temp);
 
-        // if (lensDistortion.intensity.value > maxLensDistortion) {
-            while (lensDistortion.intensity.value > 0) {
-                lensDistortion.intensity.value -= Time.deltaTime / Time.timeScale * distortionSpeed;
-                yield return null;
-            } 
-        // }
+        while (lensDistortion.intensity.value > 0) {
+            lensDistortion.intensity.value -= Time.deltaTime / Time.timeScale * distortionSpeed;
+            yield return null;
+        } 
+    }
+
+    void OnDestroy() {
+        lensDistortion.intensity.value = 0;
     }
 }

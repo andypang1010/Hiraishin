@@ -34,8 +34,25 @@ public class PlayerTag : MonoBehaviour
                 holdTime += Time.deltaTime;
 
                 if (holdTime >= minTagTime) {
-                    hit.collider.gameObject.layer = LayerMask.NameToLayer("Tagged");
-                    // hit.collider.gameObject.GetComponent<Renderer>().material = taggedMaterial;
+                    hit.transform.gameObject.layer = LayerMask.NameToLayer("Tagged");
+
+                    foreach (Transform t in hit.transform) 
+                    {
+                        t.gameObject.layer = LayerMask.NameToLayer("Tagged");
+                    }
+
+                    if (hit.collider.gameObject.TryGetComponent(out Renderer renderer)) {
+                        renderer.material = taggedMaterial;
+                    }
+
+                    else {
+                        Renderer[] renderers = hit.collider.gameObject.GetComponentsInChildren<Renderer>();
+                        foreach (Renderer r in renderers)
+                        {
+                            r.material = taggedMaterial;
+                        }
+                    }
+                    
                     PlayerTeleport.teleportables.Add(hit.collider.gameObject);
                     targetObject = null;
                 }
