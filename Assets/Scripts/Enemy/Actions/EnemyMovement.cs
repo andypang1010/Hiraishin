@@ -75,10 +75,6 @@ public abstract class EnemyMovement : MonoBehaviour
 
         targetPosition = hearing.PlayerLastHeardLocation;
 
-        // if (agent.isStopped)
-
-        print(agent.velocity.magnitude);
-
         if (!agent.isStopped) {
             animator.SetBool(isPatrolHash, true);
             animator.SetBool(isSearchHash, false);
@@ -99,8 +95,6 @@ public abstract class EnemyMovement : MonoBehaviour
         agent.speed = data.chaseSpeed;
 
         targetPosition = vision.PlayerSeenLocation;
-
-        // TODO: Stop when within certain distance of player to allow for enemy attack
 
         animator.SetBool(isPatrolHash, false);
         animator.SetBool(isSearchHash, false);

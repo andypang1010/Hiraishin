@@ -15,51 +15,86 @@ public class EnemyController : MonoBehaviour
     }
     [Header("References")]
     public GameObject player;
+    public CapsuleCollider capsuleCollider;
+    Animator animator;
+    List<Rigidbody> ragdollRBs;
     
     [Header("Sinking")]
     public float startSinkTime;
     public float sinkSpeed;
     public float destroyTime;
 
-    Animator animator;
-    float velX, velZ;
-
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        capsuleCollider = GetComponent<CapsuleCollider>();
+        animator = GetComponent<Animator>();
+        ragdollRBs = new List<Rigidbody>(transform.GetComponentsInChildren<Rigidbody>());
+
+        DeactivateRagdoll();
     }
 
-    public void Slice(Transform slicePlane, float attackForce) {
-        SlicedHull hull = gameObject.Slice(slicePlane.position, slicePlane.up, gameObject.GetComponent<Renderer>().material);
+    // public void Slice(Transform slicePlane, float attackForce) {
+    //     ActivateRagdoll();
+    //     SlicedHull hull = gameObject.Slice(slicePlane.position, slicePlane.up, gameObject.GetComponent<Renderer>().material);
 
-        if (hull != null) {
+    //     if (hull != null) {
 
-            // Create upper and lower hulls
-            GameObject upperHull = hull.CreateUpperHull(gameObject);
-            GameObject lowerHull = hull.CreateLowerHull(gameObject);
-            SetupComponent(upperHull, attackForce);
-            SetupComponent(lowerHull, attackForce);
+    //         // Create upper and lower hulls
+    //         GameObject upperHull = hull.CreateUpperHull(gameObject);
+    //         GameObject lowerHull = hull.CreateLowerHull(gameObject);
+    //         SetupComponent(upperHull, attackForce);
+    //         SetupComponent(lowerHull, attackForce);
             
-            // Automatically collects all kunais on the target
-            player.GetComponent<PlayerThrow>().AddKunaiCount(gameObject.GetComponentsInChildren<Kunai>().Length);
+    //         // Automatically collects all kunais on the target
+    //         player.GetComponent<PlayerThrow>().AddKunaiCount(gameObject.GetComponentsInChildren<Kunai>().Length);
 
-            // Remove target from teleportables list
-            PlayerTeleport.teleportables.Remove(gameObject);
-            Destroy(gameObject);
+    //         // Remove target from teleportables list
+    //         PlayerTeleport.teleportables.Remove(gameObject);
+    //         Destroy(gameObject);
+    //     }
+    // }
+
+    public void Die() {
+
+        ActivateRagdoll();
+    }
+
+    void ActivateRagdoll() {
+        foreach (Rigidbody rb in ragdollRBs) {
+            rb.useGravity = true;
+            rb.isKinematic = false;
         }
 
+        foreach (var component in GetComponents<Component>()) {
+            if (component.GetType() == typeof(EnemyController)
+            || component.GetType() == typeof(Transform)) {
+                continue;
+            }
+
+            else {
+                Destroy(component);
+            }
+        }
     }
 
-    void SetupComponent(GameObject slicedObject, float attackForce) {
-
-        // Adding rigidBody and meshCollider to slicedObject
-        Rigidbody rb = slicedObject.AddComponent<Rigidbody>();
-        MeshCollider collider = slicedObject.AddComponent<MeshCollider>();
-        collider.convex = true;
-
-        rb.AddExplosionForce(attackForce, slicedObject.transform.position, 1);
-        // StartCoroutine(Sink(slicedObject));
+    void DeactivateRagdoll() {
+        foreach (Rigidbody rb in ragdollRBs) {
+            rb.useGravity = false;
+            rb.isKinematic = true;
+        }
     }
+
+    // void SetupComponent(GameObject slicedObject, float attackForce) {
+
+    //     // Adding rigidBody and meshCollider to slicedObject
+    //     Rigidbody rb = slicedObject.AddComponent<Rigidbody>();
+    //     MeshCollider collider = slicedObject.AddComponent<MeshCollider>();
+    //     collider.convex = true;
+
+    //     rb.AddExplosionForce(attackForce, slicedObject.transform.position, 1);
+    //     // StartCoroutine(Sink(slicedObject));
+    // }
 
     // IEnumerator Sink(GameObject target)
     // {

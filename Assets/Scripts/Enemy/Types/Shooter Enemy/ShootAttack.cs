@@ -32,6 +32,5 @@ public class ShootAttack : EnemyAttack
 
         // Start attack CD
         canAttack = false;
-        Invoke(nameof(ResetAttack), data.attackCD);
     }
 }

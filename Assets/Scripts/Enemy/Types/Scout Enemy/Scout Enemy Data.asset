@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listenRadius: 14
   movementThreshold: 4
-  lookRadius: 25
+  lookRadius: 20
   lookAngle: 110
   patrolSpeed: 2.5
   minTargetDistance: 2
@@ -22,7 +22,7 @@ MonoBehaviour:
   searchDuration: 0
   chaseSpeed: 0
   evadeSpeed: 8.5
-  startEvadeDistance: 25
+  startEvadeDistance: 20
   evadeSafeDistance: 30
   alertRadius: 15
   alertCD: 0

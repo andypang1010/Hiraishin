@@ -45,25 +45,33 @@ public class PlayerAttack : MonoBehaviour
             1)
             .Select(hit => hit.collider.gameObject).ToArray();
             
-        GameObject closestTarget = null;
-        float distance = Mathf.Infinity;
+        // GameObject closestTarget = null;
+        // float distance = Mathf.Infinity;
 
-        // Find closest target
-        foreach (GameObject target in targetsInRange) {
-            if (!target.CompareTag("Enemy")) continue;
+        // // Find closest target
+        // foreach (GameObject target in targetsInRange) {
+        //     if (!target.CompareTag("Enemy")) continue;
 
-            if (Vector3.SqrMagnitude(target.transform.position - gameObject.transform.position) < distance) {
-                closestTarget = target;
-                distance = Vector3.SqrMagnitude(target.transform.position - gameObject.transform.position);
-            }
-        }
+        //     if (Vector3.SqrMagnitude(target.transform.position - gameObject.transform.position) < distance) {
+        //         closestTarget = target;
+        //         distance = Vector3.SqrMagnitude(target.transform.position - gameObject.transform.position);
+        //     }
+        // }
 
         // Slice if closest target is not obstructed
-        if (closestTarget != null
-            && Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, attackReach)
-            && hit.collider.gameObject == closestTarget) {
+        // if (closestTarget != null
+        //     && Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, attackReach)
+        //     && hit.transform.gameObject == closestTarget) {
 
-            closestTarget.GetComponent<EnemyController>().Slice(attackPoint, attackForce);
+        //     closestTarget.GetComponent<EnemyController>().Kill(hit.collider.gameObject);
+        //     print(hit.collider.gameObject);
+        // }
+
+        foreach (GameObject target in targetsInRange)
+        {
+            if (target.TryGetComponent(out Limb limb)) {
+                limb.Dismember();
+            }
         }
     }
 

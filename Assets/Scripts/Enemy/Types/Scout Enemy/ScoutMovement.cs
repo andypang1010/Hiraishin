@@ -13,7 +13,7 @@ public class ScoutMovement : EnemyMovement
         }
 
         // Start evading when player is too close and haven't started evading
-        if (vision.PlayerDistance <= data.startEvadeDistance && !isEvading) {
+        if (vision.PlayerDistance <= data.startEvadeDistance && !isEvading && vision.playerSeen) {
             isEvading = true;
         }
 
