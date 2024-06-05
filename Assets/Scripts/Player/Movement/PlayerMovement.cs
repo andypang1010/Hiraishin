@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     bool exitingSlope;
 
     [Header("Step Check")]
+    public bool stepClimbEnabled;
     public GameObject rayLower;
     public GameObject rayUpper;
     public float stepHeight;
@@ -75,7 +76,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate() {
         Move();
-        StepClimb();
+
+        if (stepClimbEnabled) {
+            StepClimb();
+        }
     }
 
     void GetInput() {
