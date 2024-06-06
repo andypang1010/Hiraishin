@@ -1309,8 +1309,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.11
-  m_Center: {x: 0, y: 0.093804, z: 0}
+  m_Radius: 0.14
+  m_Center: {x: 0, y: 0.09, z: 0.02}
 --- !u!54 &3229410292870419220
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2636,7 +2636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7656897928040867518
 Transform:
   m_ObjectHideFlags: 0

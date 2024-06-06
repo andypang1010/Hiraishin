@@ -55,6 +55,7 @@ public class PlayerCamera : MonoBehaviour
 
         // Update camera rotation
         Camera.main.transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+        GameObject.Find("UI Camera").transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
         
         // Update player rotation
         transform.rotation = Quaternion.Euler(0, rotationY, 0);

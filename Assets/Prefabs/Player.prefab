@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3250425301268630895}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -208,7 +208,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5348520432481598321}
@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraExplosionForce: 2
+  volume: {fileID: 0}
 --- !u!114 &5983896709886268956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,6 +320,7 @@ MonoBehaviour:
   crouchSpeed: 2
   crouchScale: 0.5
   maxSlopeAngle: 35
+  stepClimbEnabled: 0
   rayLower: {fileID: 5645119896051830516}
   rayUpper: {fileID: 7116412392107224735}
   stepHeight: 0.3
@@ -335,9 +337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e744c38fadcea94baa40fcd772b6e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTagDistance: 3
-  minTagTime: 5
-  taggedMaterial: {fileID: 2100000, guid: f865be2c3c1853e4292d465855dea3bb, type: 2}
+  maxTagDistance: 2
+  minTagTime: 0.5
+  taggedMaterial: {fileID: 2100000, guid: 4530fb07261447347a9ffb7a214ea7e1, type: 2}
 --- !u!114 &8306225624746193754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,8 +426,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 0}
-  attackReach: 2
-  attackDistance: 2
+  attackReach: 1
+  attackDistance: 0.5
   attackCD: 1
   attackForce: 500
 --- !u!1 &7116412392107224735
