@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listenRadius: 14
   movementThreshold: 4
+  peripheralRadius: 1
   lookRadius: 20
   lookAngle: 110
   patrolSpeed: 2.5

@@ -33,10 +33,11 @@ public class EnemyVision : MonoBehaviour
         PlayerDistance = playerDirection.magnitude;
 
         // Check if player is within viewing distance, angle, and not obstructed
-        if (PlayerDistance <= data.lookRadius
+        if ((PlayerDistance <= data.lookRadius
         && Vector3.Angle(eyeTransform.forward, playerDirection.normalized) <= data.lookAngle / 2
         && Physics.Raycast(eyeTransform.position, playerDirection.normalized, out RaycastHit hit, data.lookRadius)
-        && hit.transform.gameObject == player) {
+        && hit.transform.gameObject == player)
+        || PlayerDistance <= data.peripheralRadius) {
 
             playerSeen = true;
         }
@@ -47,6 +48,8 @@ public class EnemyVision : MonoBehaviour
     }
 
     void OnDrawGizmos() {
+        Gizmos.DrawWireSphere(eyeTransform.position, data.peripheralRadius);
+
         void DrawArc(float startAngle, float endAngle, 
         Vector3 position, Quaternion orientation, float radius, 
         Color color, bool drawChord = false, bool drawSector = false, 
@@ -137,6 +140,6 @@ public class EnemyVision : MonoBehaviour
     }
 
     public bool WithinAttackRadius() {
-        return playerSeen && PlayerDistance <= data.attackReach * 1.1f;
+        return playerSeen && PlayerDistance <= data.attackReach * 1.5f;
     }
 }

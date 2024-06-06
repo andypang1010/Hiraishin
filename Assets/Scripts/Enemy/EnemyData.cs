@@ -10,6 +10,7 @@ public class EnemyData : ScriptableObject
     public float movementThreshold;
 
     [Header("Vision Settings")]
+    public float peripheralRadius;
     public float lookRadius;
     [Range(0, 180)] public float lookAngle;
 
