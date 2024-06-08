@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EzySlice;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -12,13 +13,15 @@ public class PlayerAttack : MonoBehaviour
     public float attackDistance;
     public float attackCD;
     public float attackForce;
+    public VisualEffect sliceVFX;
     [HideInInspector] public bool attackReady { get; private set; }
 
-    float[] attackAngles = {45, 90, 135};
+    readonly float[] attackAngles = {0, 45, 90, 135};
 
     void Start() {
         attackReady = true;
-        attackPoint.localScale = new Vector3(attackReach, attackDistance, 0.1f);
+        attackPoint.localScale = new Vector3(attackDistance, 0.1f, attackReach);
+        attackPoint.rotation = Quaternion.Euler(attackPoint.rotation.eulerAngles.x, attackPoint.rotation.eulerAngles.y, attackAngles[Random.Range(0, attackAngles.Length)]);
     }
 
     void Update()
@@ -33,8 +36,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack() {
 
-        // Set up attack rotation
-        attackPoint.rotation = Quaternion.Euler(attackAngles[Random.Range(0, attackAngles.Length)], 90, 0);
+        sliceVFX.Play();
 
         // Get all targets in range
         GameObject[] targetsInRange = Physics.BoxCastAll(
@@ -73,6 +75,11 @@ public class PlayerAttack : MonoBehaviour
                 limb.Dismember();
             }
         }
+
+        // Set up next attack rotation
+        attackPoint.rotation = Quaternion.Euler(attackPoint.rotation.eulerAngles.x, attackPoint.rotation.eulerAngles.y, attackAngles[Random.Range(0, attackAngles.Length)]);
+        print("Calculated angle: " + new Vector3(attackPoint.rotation.eulerAngles.x, attackPoint.rotation.eulerAngles.y, attackAngles[Random.Range(0, attackAngles.Length)]));
+        print("Actual angle: " + attackPoint.rotation.eulerAngles);
     }
 
     void ResetAttackReady() {

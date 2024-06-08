@@ -2622,7 +2622,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7656897928040867518}
-  - component: {fileID: 7454861866043408337}
   - component: {fileID: 7170023278703372790}
   - component: {fileID: 4520458893792306328}
   - component: {fileID: 3568352336935563412}
@@ -2655,29 +2654,6 @@ Transform:
   - {fileID: 7759686386502757812}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!136 &7454861866043408337
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6208600800726150636}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.25
-  m_Height: 1.85
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!95 &7170023278703372790
 Animator:
   serializedVersion: 7
@@ -2735,7 +2711,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  capsuleCollider: {fileID: 7454861866043408337}
+  capsuleCollider: {fileID: 0}
   startSinkTime: 2
   sinkSpeed: 0.01
   destroyTime: 5
