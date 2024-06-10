@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class WorldSpaceCanvasUIManager : MonoBehaviour
 {
-    public Transform target;
+    Transform target;
     GameObject worldSpaceCanvas;
 
     void Start () 
     {
         worldSpaceCanvas = GameObject.Find("WORLD SPACE CANVAS");
+        target = transform.root;
     }
 
     void Update()

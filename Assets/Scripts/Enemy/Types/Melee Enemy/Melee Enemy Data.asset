@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Melee Enemy Data
   m_EditorClassIdentifier: 
   listenRadius: 5
-  movementThreshold: 4
   peripheralRadius: 1
+  movementThreshold: 1.5
   lookRadius: 13
-  lookAngle: 60
+  lookAngle: 55
   patrolSpeed: 4
   minTargetDistance: 2
   searchSpeed: 5

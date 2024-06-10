@@ -20,6 +20,9 @@ public class PlayerCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        currentSensX = sensX;
+        currentSensY = sensY;
+
         // Disable HeadBob first to ensure camera is working correctly
         // headBob.enabled = false;
 

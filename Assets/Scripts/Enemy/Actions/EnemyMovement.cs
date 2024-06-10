@@ -28,7 +28,7 @@ public abstract class EnemyMovement : MonoBehaviour
 
 
     protected Animator animator;
-    int isPatrolHash, isSearchHash, isChaseHash, isEvadeHash;
+    protected int isPatrolHash, isSearchHash, isChaseHash, isEvadeHash;
 
     protected void Start()
     {
@@ -62,11 +62,6 @@ public abstract class EnemyMovement : MonoBehaviour
         }
 
         targetPosition = patrolPoints[currentPatrolIndex].position;
-
-        animator.SetBool(isPatrolHash, true);
-        animator.SetBool(isSearchHash, false);
-        animator.SetBool(isChaseHash, false);
-        animator.SetBool(isEvadeHash, false);
     }
 
     protected void Search() {
@@ -74,20 +69,6 @@ public abstract class EnemyMovement : MonoBehaviour
         agent.speed = data.searchSpeed;
 
         targetPosition = hearing.PlayerLastHeardLocation;
-
-        if (!agent.isStopped) {
-            animator.SetBool(isPatrolHash, true);
-            animator.SetBool(isSearchHash, false);
-            animator.SetBool(isChaseHash, false);
-            animator.SetBool(isEvadeHash, false);
-        }
-
-        else {
-            animator.SetBool(isPatrolHash, false);
-            animator.SetBool(isSearchHash, true);
-            animator.SetBool(isChaseHash, false);
-            animator.SetBool(isEvadeHash, false);
-        }
     }
 
     protected void Chase() {
@@ -95,19 +76,9 @@ public abstract class EnemyMovement : MonoBehaviour
         agent.speed = data.chaseSpeed;
 
         targetPosition = vision.PlayerSeenLocation;
-
-        animator.SetBool(isPatrolHash, false);
-        animator.SetBool(isSearchHash, false);
-        animator.SetBool(isChaseHash, true);
-        animator.SetBool(isEvadeHash, false);
     }
     
     protected void Evade() {
-
-        animator.SetBool(isPatrolHash, false);
-        animator.SetBool(isSearchHash, false);
-        animator.SetBool(isChaseHash, false);
-        animator.SetBool(isEvadeHash, true);
 
         agent.speed = data.evadeSpeed;
 
@@ -115,7 +86,7 @@ public abstract class EnemyMovement : MonoBehaviour
 
         targetPosition = transform.position + targetDirection * data.evadeSafeDistance;
 
-        if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, agent.height * 5f, NavMesh.AllAreas)) {
+        if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, agent.height * 10f, NavMesh.AllAreas)) {
             targetPosition = hit.position;
         }
     }

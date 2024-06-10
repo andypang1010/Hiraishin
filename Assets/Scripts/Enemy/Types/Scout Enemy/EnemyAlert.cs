@@ -52,6 +52,8 @@ public class EnemyAlert : MonoBehaviour
 
         // Alert them of player's position
         foreach (GameObject enemy in nearbyEnemies) {
+
+            print(enemy);
             
             if (enemy != null && enemy.TryGetComponent(out EnemyVision vision)) {
                 vision.playerSeen = true;

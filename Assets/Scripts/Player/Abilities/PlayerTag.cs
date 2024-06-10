@@ -16,12 +16,12 @@ public class PlayerTag : MonoBehaviour
     {
         if (InputController.Instance.GetTagDown()
             && Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out hit, maxTagDistance) 
-            && (hit.collider.gameObject.CompareTag("Throwable")
-            || hit.collider.gameObject.CompareTag("Enemy"))
+            && (hit.transform.root.gameObject.CompareTag("Throwable")
+            || hit.transform.root.gameObject.CompareTag("Enemy"))
             && hit.collider.gameObject.layer != LayerMask.NameToLayer("Tagged")) {
                 holdTime = 0;
 
-                targetObject = hit.collider.gameObject;
+                targetObject = hit.transform.root.gameObject;
             }
 
         if (InputController.Instance.GetTagUp()) {
@@ -30,30 +30,30 @@ public class PlayerTag : MonoBehaviour
    
         if (InputController.Instance.GetTagHold()) {
             if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out hit, maxTagDistance)
-            && hit.collider.gameObject == targetObject) {
+            && hit.transform.root.gameObject == targetObject) {
                 holdTime += Time.deltaTime;
 
                 if (holdTime >= minTagTime) {
                     hit.transform.gameObject.layer = LayerMask.NameToLayer("Tagged");
 
-                    foreach (Transform t in hit.transform) 
+                    foreach (Transform t in targetObject.transform) 
                     {
                         t.gameObject.layer = LayerMask.NameToLayer("Tagged");
                     }
 
-                    if (hit.collider.gameObject.TryGetComponent(out Renderer renderer)) {
-                        renderer.material = taggedMaterial;
-                    }
+                    // if (targetObject.TryGetComponent(out Renderer renderer)) {
+                    //     renderer.material = taggedMaterial;
+                    // }
 
-                    else {
-                        Renderer[] renderers = hit.collider.gameObject.GetComponentsInChildren<Renderer>();
-                        foreach (Renderer r in renderers)
-                        {
-                            r.material = taggedMaterial;
-                        }
-                    }
+                    // else {
+                    //     Renderer[] renderers = targetObject.GetComponentsInChildren<Renderer>();
+                    //     foreach (Renderer r in renderers)
+                    //     {
+                    //         r.material = taggedMaterial;
+                    //     }
+                    // }
                     
-                    PlayerTeleport.teleportables.Add(hit.collider.gameObject);
+                    PlayerTeleport.teleportables.Add(targetObject);
                     targetObject = null;
                 }
             }

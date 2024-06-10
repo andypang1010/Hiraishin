@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Scout Enemy Data
   m_EditorClassIdentifier: 
   listenRadius: 14
-  movementThreshold: 4
   peripheralRadius: 1
+  movementThreshold: 1.5
   lookRadius: 20
-  lookAngle: 110
+  lookAngle: 75
   patrolSpeed: 2.5
   minTargetDistance: 2
   searchSpeed: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
   evadeSpeed: 8.5
   startEvadeDistance: 20
   evadeSafeDistance: 30
-  alertRadius: 15
+  alertRadius: 16
   alertCD: 0
   attackCD: 0
   attackReach: 0
