@@ -34,7 +34,7 @@ public class PlayerTag : MonoBehaviour
                 holdTime += Time.deltaTime;
 
                 if (holdTime >= minTagTime) {
-                    hit.transform.gameObject.layer = LayerMask.NameToLayer("Tagged");
+                    targetObject.layer = LayerMask.NameToLayer("Tagged");
 
                     foreach (Transform t in targetObject.transform) 
                     {

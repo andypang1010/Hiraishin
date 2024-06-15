@@ -15,11 +15,15 @@ public class ShootAttack : EnemyAttack
         if (vision.WithinAttackRadius()
         && canAttack) {
 
+            canAttack = false;
+
             animator.Play(attackHash);
         }
     }
 
     protected override void Attack() {
+
+        print("Attacked");
 
         if (player == null) {
             return;
@@ -28,9 +32,5 @@ public class ShootAttack : EnemyAttack
         // Propel projectile towards force direction
         Rigidbody bulletRB = Instantiate(bulletRef, shootPoint.position, shootPoint.rotation).GetComponent<Rigidbody>();
         bulletRB.AddForce(shootForce * shootPoint.forward + shootUpwardForce * shootPoint.up, ForceMode.Impulse);
-
-
-        // Start attack CD
-        canAttack = false;
     }
 }

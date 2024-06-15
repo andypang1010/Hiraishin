@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -63,11 +64,14 @@ public class PlayerTeleport : MonoBehaviour
             && Vector3.SqrMagnitude(target.transform.position - transform.position) <= Mathf.Pow(detectionDistance, 2))
 
             // Alternate check for larger objects/close proximity
-            || target.GetComponent<Collider>().Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, detectionDistance))
+            || target.GetComponentsInChildren<Collider>().
+            Aggregate(false, (bool sum, Collider collider) => collider.Raycast(new Ray(Camera.main.transform.position, Camera.main.transform.forward), out _, detectionDistance) || sum))
             {
 
                 if (closestTarget == null) {
                     closestTarget = target;
+
+                    print(target);
                 }
 
                 // If the new target is closer 
@@ -102,6 +106,7 @@ public class PlayerTeleport : MonoBehaviour
 
     void TeleportObjects(GameObject source, GameObject target) {
 
+        // If the source object has a rigidbody (player, other interactables)
         if (source.TryGetComponent(out Rigidbody sourceRB)) {
 
             if (target.CompareTag("Enemy")) {
@@ -121,8 +126,12 @@ public class PlayerTeleport : MonoBehaviour
             }
         }
 
+        // If the source object is an enemy
         else if (source.TryGetComponent(out NavMeshAgent agent)) {
-            agent.Warp(target.transform.position);
+            // agent.Warp(target.transform.position);
+            agent.enabled = false;
+            source.transform.position = target.transform.position;
+            agent.enabled = true;
         }
     }
 

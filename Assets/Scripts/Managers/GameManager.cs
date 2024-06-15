@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             PlayerTeleport.teleportables = new List<GameObject>();
             Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02f;
         }
     }
 }

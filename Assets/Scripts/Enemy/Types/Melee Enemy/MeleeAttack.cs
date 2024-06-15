@@ -9,6 +9,9 @@ public class MeleeAttack : EnemyAttack
     protected override void Update() {
         if (vision.WithinAttackRadius()
         && canAttack) {
+
+            canAttack = false;
+
             animator.Play(attackHash);
         }
 

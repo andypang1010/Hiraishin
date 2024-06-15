@@ -15,7 +15,6 @@ public class EnemyController : MonoBehaviour
     }
     [Header("References")]
     public GameObject player;
-    public CapsuleCollider capsuleCollider;
     // List<Rigidbody> ragdollRBs;
     
     [Header("Sinking")]
@@ -26,7 +25,6 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        capsuleCollider = GetComponent<CapsuleCollider>();
 
         DeactivateRagdoll();
     }
@@ -59,6 +57,13 @@ public class EnemyController : MonoBehaviour
         foreach (Rigidbody rb in new List<Rigidbody>(transform.GetComponentsInChildren<Rigidbody>())) {
             rb.useGravity = false;
             rb.isKinematic = true;
+        }
+    }
+
+    void Update() {
+        if (TryGetComponent(out NavMeshAgent agent)
+        && !agent.isOnNavMesh) {
+            ActivateRagdoll();
         }
     }
 }

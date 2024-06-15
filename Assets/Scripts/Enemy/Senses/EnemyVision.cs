@@ -133,7 +133,7 @@ public class EnemyVision : MonoBehaviour
             }
         }
 
-        DrawArc(-data.lookAngle / 2, data.lookAngle / 2, eyeTransform.position, Quaternion.LookRotation(-transform.right), data.lookRadius, Color.red, false, true);
+        DrawArc(-data.lookAngle, data.lookAngle, eyeTransform.position, Quaternion.LookRotation(-eyeTransform.right), data.lookRadius, Color.red, false, true);
     }
 
     public bool WithinAttackRadius() {

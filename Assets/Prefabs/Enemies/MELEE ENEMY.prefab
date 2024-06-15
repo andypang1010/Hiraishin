@@ -1051,8 +1051,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6734551, y: 7.2527924, z: 34.71}
-  m_Center: {x: -0.0000076293945, y: 0.000030517578, z: 5}
+  m_Size: {x: 1.6734551, y: 11.73, z: 34.71}
+  m_Center: {x: -0.0000076293945, y: -2.13, z: 5}
 --- !u!54 &6860532446660093997
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2883,7 +2883,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  capsuleCollider: {fileID: 0}
   startSinkTime: 2
   sinkSpeed: 0.01
   destroyTime: 5
@@ -2894,7 +2893,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5988743936799938297}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 211997f0693754e4bb50edc5ff1dc9b2, type: 3}
   m_Name: 
