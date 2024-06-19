@@ -47,6 +47,10 @@ public class EnemyController : MonoBehaviour
                 continue;
             }
 
+            else if (component.GetType() == typeof(Animator)) {
+                (component as Animator).enabled = false;
+            }
+            
             else {
                 Destroy(component);
             }

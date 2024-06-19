@@ -2801,6 +2801,7 @@ GameObject:
   - component: {fileID: 1408974913717976212}
   - component: {fileID: 1362209783436016451}
   - component: {fileID: 6145572344610758493}
+  - component: {fileID: 2912396947103811133}
   m_Layer: 9
   m_Name: MELEE ENEMY
   m_TagString: Enemy
@@ -2893,7 +2894,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5988743936799938297}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 211997f0693754e4bb50edc5ff1dc9b2, type: 3}
   m_Name: 
@@ -2944,6 +2945,89 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 239e43afa36ad474dbb57d7e6287d51c, type: 2}
   machete: {fileID: 8622287876283768076}
+--- !u!114 &2912396947103811133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5988743936799938297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boneShape: 1
+  drawBones: 1
+  drawTripods: 0
+  boneSize: 3.58
+  tripodSize: 1
+  boneColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_Transforms:
+  - {fileID: 3072951762917859656}
+  - {fileID: 1466894216036208540}
+  - {fileID: 44105432493543163}
+  - {fileID: 1670156539377283111}
+  - {fileID: 1043278039443964200}
+  - {fileID: 2793185474939926994}
+  - {fileID: 6965985652517562054}
+  - {fileID: 7681861574964039461}
+  - {fileID: 7948554427859933585}
+  - {fileID: 7556083178678889094}
+  - {fileID: 477217860685783730}
+  - {fileID: 5828518853671746499}
+  - {fileID: 205216443184642877}
+  - {fileID: 6959451509132238970}
+  - {fileID: 4124982117343393740}
+  - {fileID: 8718096292407887783}
+  - {fileID: 5032181935773448978}
+  - {fileID: 4753279897904830629}
+  - {fileID: 5280780926755875258}
+  - {fileID: 8483148888161941763}
+  - {fileID: 5032103851563260434}
+  - {fileID: 7889376328913005391}
+  - {fileID: 9051113137870940638}
+  - {fileID: 6609211588444980636}
+  - {fileID: 5004335841055544867}
+  - {fileID: 8282610369190023244}
+  - {fileID: 702459573501299081}
+  - {fileID: 61485561354646297}
+  - {fileID: 6358432388733946479}
+  - {fileID: 7598931607505628026}
+  - {fileID: 1599473238828074600}
+  - {fileID: 1363684827433723923}
+  - {fileID: 8023064857118316258}
+  - {fileID: 9039031540546915329}
+  - {fileID: 3428610039937539351}
+  - {fileID: 6187788869969433938}
+  - {fileID: 367485156415287917}
+  - {fileID: 303313942155854685}
+  - {fileID: 2536142760145766967}
+  - {fileID: 3136996308999194033}
+  - {fileID: 6135811548867342690}
+  - {fileID: 2447520497099145873}
+  - {fileID: 2874456363386245426}
+  - {fileID: 5722979108965279219}
+  - {fileID: 4706104563326672909}
+  - {fileID: 6408076324642484847}
+  - {fileID: 5670689489526632760}
+  - {fileID: 6247727029601457726}
+  - {fileID: 8881960823690173319}
+  - {fileID: 4688483956421938647}
+  - {fileID: 8834841201412343986}
+  - {fileID: 246577817051722608}
+  - {fileID: 5955507912233728808}
+  - {fileID: 2761533473487322761}
+  - {fileID: 8766881771140999823}
+  - {fileID: 3948022833788048669}
+  - {fileID: 5219073174441040057}
+  - {fileID: 8357542151218196513}
+  - {fileID: 1360617330072116009}
+  - {fileID: 3960812632233365246}
+  - {fileID: 3747150525485772565}
+  - {fileID: 4720551325913649951}
+  - {fileID: 5396187636589665098}
+  - {fileID: 4350231981439184506}
 --- !u!1 &6071171537286865074
 GameObject:
   m_ObjectHideFlags: 0

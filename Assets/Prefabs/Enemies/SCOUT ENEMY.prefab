@@ -2629,13 +2629,14 @@ GameObject:
   - component: {fileID: 3679051956246111910}
   - component: {fileID: 6601602265341164742}
   - component: {fileID: 5848369149248846868}
+  - component: {fileID: 3736705737891740927}
   m_Layer: 9
   m_Name: SCOUT ENEMY
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7656897928040867518
 Transform:
   m_ObjectHideFlags: 0
@@ -2771,6 +2772,89 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 52fe753e4a3574b4892dd3173b220e4f, type: 2}
+--- !u!114 &3736705737891740927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6208600800726150636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boneShape: 1
+  drawBones: 1
+  drawTripods: 0
+  boneSize: 3.58
+  tripodSize: 1
+  boneColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_Transforms:
+  - {fileID: 7759686386502757812}
+  - {fileID: 8773050879512884038}
+  - {fileID: 3634658906062633737}
+  - {fileID: 6060709522916730166}
+  - {fileID: 1004802449400477688}
+  - {fileID: 7080049120213979758}
+  - {fileID: 6616001370726330444}
+  - {fileID: 9203741890691460183}
+  - {fileID: 9012188835852139665}
+  - {fileID: 3460911509865911179}
+  - {fileID: 5122503868112773015}
+  - {fileID: 1537187177549492408}
+  - {fileID: 7742351311197039500}
+  - {fileID: 4505314070936091281}
+  - {fileID: 1917584194745578266}
+  - {fileID: 711017112404444681}
+  - {fileID: 7387973917281443442}
+  - {fileID: 1303160919528867597}
+  - {fileID: 597213285374807226}
+  - {fileID: 8927831515175094700}
+  - {fileID: 7410938605589349883}
+  - {fileID: 3324424300852472939}
+  - {fileID: 7360764441717147481}
+  - {fileID: 5918322512391013797}
+  - {fileID: 8804052473940361492}
+  - {fileID: 6989490821615931444}
+  - {fileID: 2424375262247660676}
+  - {fileID: 4298277677990901562}
+  - {fileID: 2498822814773431617}
+  - {fileID: 6814095139425322427}
+  - {fileID: 7480483435222618385}
+  - {fileID: 362530046451516736}
+  - {fileID: 39304472112470439}
+  - {fileID: 6998152017575724939}
+  - {fileID: 5692918823663686640}
+  - {fileID: 3424185063011603769}
+  - {fileID: 8602512001423779188}
+  - {fileID: 7001921836548331012}
+  - {fileID: 7376419647953160175}
+  - {fileID: 3888802653667147398}
+  - {fileID: 3778825377705083143}
+  - {fileID: 8814247931482855039}
+  - {fileID: 5226262739056180996}
+  - {fileID: 8332676637762759087}
+  - {fileID: 8622890420522660013}
+  - {fileID: 3543490859289450233}
+  - {fileID: 2886998416065665894}
+  - {fileID: 8200536987803644677}
+  - {fileID: 5349424709304647563}
+  - {fileID: 8100298421044482910}
+  - {fileID: 5630304277865838609}
+  - {fileID: 5141194376384202561}
+  - {fileID: 4753837420952629779}
+  - {fileID: 4718996087485552742}
+  - {fileID: 4542053758245714363}
+  - {fileID: 368619795410179001}
+  - {fileID: 8227649530071884027}
+  - {fileID: 3156344172705164227}
+  - {fileID: 7615223865638161734}
+  - {fileID: 313988251544266198}
+  - {fileID: 2640874445876689441}
+  - {fileID: 7239455529849886936}
+  - {fileID: 5737735375950267249}
+  - {fileID: 6504225133324257470}
 --- !u!1 &6212561419579175199
 GameObject:
   m_ObjectHideFlags: 0

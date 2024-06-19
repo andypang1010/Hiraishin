@@ -70,8 +70,6 @@ public class PlayerTeleport : MonoBehaviour
 
                 if (closestTarget == null) {
                     closestTarget = target;
-
-                    print(target);
                 }
 
                 // If the new target is closer 

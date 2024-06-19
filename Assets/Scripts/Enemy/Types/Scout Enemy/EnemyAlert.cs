@@ -45,19 +45,18 @@ public class EnemyAlert : MonoBehaviour
     }
 
     public void Alert() {
+
         // Find all nearby enemies
-        GameObject[] nearbyEnemies = Physics.OverlapSphere(transform.position, data.alertRadius).
-        Select(collider => collider.transform.gameObject.CompareTag("Enemy") ? collider.transform.gameObject : null)
-        .ToArray();
+        List<EnemyVision> nearbyEnemies = Physics.OverlapSphere(transform.position, data.alertRadius)
+            .Where(collider => collider.transform.root.TryGetComponent(out EnemyVision _))
+            .Select(collider => collider.transform.root.GetComponent<EnemyVision>())
+            .ToArray().Distinct().ToList();
+
+        nearbyEnemies.Remove(GetComponent<EnemyVision>());
 
         // Alert them of player's position
-        foreach (GameObject enemy in nearbyEnemies) {
-
-            print(enemy);
-            
-            if (enemy != null && enemy.TryGetComponent(out EnemyVision vision)) {
-                vision.playerSeen = true;
-            }
+        foreach (EnemyVision vision in nearbyEnemies) {
+            vision.playerSeen = true;
         }
     }
 

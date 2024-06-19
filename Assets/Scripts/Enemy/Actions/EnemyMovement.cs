@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
-using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -89,6 +87,35 @@ public abstract class EnemyMovement : MonoBehaviour
         if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, agent.height * 10f, NavMesh.AllAreas)) {
             targetPosition = hit.position;
         }
+
+        else
+        {
+            // Retry mechanism to find an arbitrary valid position on the NavMesh
+            bool validPositionFound = false;
+            for (int i = 0; i < 10; i++)
+            {
+                // Generate a random angle and direction
+                float randomAngle = UnityEngine.Random.Range(0f, 360f);
+                Vector3 randomDirection = new Vector3(Mathf.Cos(randomAngle * Mathf.Deg2Rad), 0, Mathf.Sin(randomAngle * Mathf.Deg2Rad));
+
+                // Calculate a new target position based on the random direction
+                Vector3 retryPosition = player.transform.position + randomDirection * data.evadeSafeDistance;
+
+                // Validate the new target position on the NavMesh
+                if (NavMesh.SamplePosition(retryPosition, out hit, agent.height * 10f, NavMesh.AllAreas))
+                {
+                    targetPosition = hit.position;
+                    validPositionFound = true;
+                    break;
+                }
+            }
+
+            if (!validPositionFound)
+            {
+                targetPosition = patrolPoints[0].position;
+            }
+        }
+
     }
 
     protected void FindNearestPatrolPoint()
@@ -122,5 +149,10 @@ public abstract class EnemyMovement : MonoBehaviour
 
         // Go to closest patrol point
         currentPatrolIndex = patrolPoints.IndexOf(closestPatrolPos);
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawCube(targetPosition, 1 * Vector3.one);
     }
 }
