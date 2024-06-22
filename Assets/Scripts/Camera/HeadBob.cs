@@ -17,16 +17,19 @@ public class HeadBob : MonoBehaviour
     public float stablizedOffset;
 
     PlayerMovement playerMovement;
-    Transform playerCamera, cameraHolder;
+    Transform cameraHolder;
+    List<Transform> cameras = new List<Transform>();
     Vector3 startPosition;
     float amplitude;
     float frequency;
 
     void Start() {
         cameraHolder = transform;
-        playerCamera = cameraHolder.GetChild(0);
+        foreach (Transform camera in cameraHolder) {
+            cameras.Add(camera);
+        }
 
-        startPosition = playerCamera.localPosition;
+        startPosition = cameras[0].localPosition;
 
         playerMovement = player.GetComponent<PlayerMovement>();
     }
@@ -57,20 +60,20 @@ public class HeadBob : MonoBehaviour
                     break;
             }
         }
-    // }
 
-    // private void FixedUpdate() {
-        PlayMotion();
-        ResetPosition();
-        playerCamera.LookAt(StablizedTarget());
+        foreach (Transform camera in cameras) {
+            PlayMotion(camera);
+            ResetPosition(camera);
+            camera.LookAt(StablizedTarget(camera));
+        }
     }
 
-    void PlayMotion() {
+    void PlayMotion(Transform camera) {
         // Head bob only if is grounded
         if (!playerMovement.Grounded) return;
 
         // Offset camera position by head bob
-        playerCamera.localPosition += FootStepMotion() * Time.deltaTime;
+        camera.localPosition += FootStepMotion() * Time.deltaTime;
     }
 
     Vector3 FootStepMotion() {
@@ -83,18 +86,18 @@ public class HeadBob : MonoBehaviour
         return pos;
     }
 
-    void ResetPosition() {
-        if (playerCamera.localPosition == startPosition) return;
+    void ResetPosition(Transform camera) {
+        if (camera.localPosition == startPosition) return;
 
         // Slowly move back to start position
-        playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, startPosition, 1 * Time.deltaTime);
+        camera.localPosition = Vector3.Lerp(camera.localPosition, startPosition, 1 * Time.deltaTime);
     }
 
-    Vector3 StablizedTarget() {
+    Vector3 StablizedTarget(Transform camera) {
 
         // Focuses at a position in front
         Vector3 pos = new Vector3(player.transform.position.x, player.transform.position.y + cameraHolder.localPosition.y, player.transform.position.z);
-        pos += playerCamera.forward * stablizedOffset;
+        pos += camera.forward * stablizedOffset;
 
         return pos;
     }

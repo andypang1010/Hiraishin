@@ -11,7 +11,7 @@ public class Kunai : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false;
 
-        Invoke(nameof(UseGravity), 0.1f);
+        // Invoke(nameof(UseGravity), 0.1f);
     }
     
     // Update is called once per frame
