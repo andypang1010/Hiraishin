@@ -118,7 +118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1766246671688960151
 Transform:
   m_ObjectHideFlags: 0
@@ -257,6 +257,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: d7026b33af1a33b47928162581eb212b, type: 2}
   patrolPoints: []
+  maxRotationSpeed: 180
+  playerTracking: {fileID: 3205348271283424450}
 --- !u!114 &3042668898752867992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2908,7 +2910,7 @@ MonoBehaviour:
       m_Item7:
         transform: {fileID: 0}
         weight: 0
-    m_Offset: {x: 0, y: 0, z: 0}
+    m_Offset: {x: -1.75, y: 0, z: 0}
     m_MinLimit: -50
     m_MaxLimit: 50
     m_AimAxis: 4
