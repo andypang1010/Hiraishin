@@ -148,14 +148,15 @@ public class PlayerTeleport : MonoBehaviour
         // If the source object is an enemy
         else if (source.TryGetComponent(out NavMeshAgent agent)) {
 
-            print(target);
-            print(target.transform.position);
-
             agent.enabled = false;
-            source.transform.position = target.transform.position + 2 * Vector3.down;
+            source.transform.position = target.transform.position + Vector3.down;
 
-            if (NavMesh.SamplePosition(source.transform.position, out _, 0.5f, NavMesh.AllAreas)) {
+            if (NavMesh.SamplePosition(source.transform.position, out _, 1f, NavMesh.AllAreas)) {
                 agent.enabled = true;
+            }
+            else {
+                teleportables.Remove(source);
+                source.layer = LayerMask.NameToLayer("Enemy");
             }
         }
     }
