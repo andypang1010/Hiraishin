@@ -1386,6 +1386,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1362209783436016451, guid: aee318f6908510649b8876c4959a1912,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1408974913717976212, guid: aee318f6908510649b8876c4959a1912,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4308874138405888993, guid: aee318f6908510649b8876c4959a1912,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3839,6 +3849,11 @@ PrefabInstance:
       propertyPath: volume
       value: 
       objectReference: {fileID: 832575518}
+    - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: teleportCD
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: canvasScaler

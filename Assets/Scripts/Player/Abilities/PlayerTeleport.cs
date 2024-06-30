@@ -27,6 +27,8 @@ public class PlayerTeleport : MonoBehaviour
     public Color detectedColor;
     public float maxLensDistortion;
     public float distortionSpeed;
+    public float teleportCD;
+    public bool teleportReady;
     [HideInInspector] public static List<GameObject> teleportables = new List<GameObject>();
     PlayerPickup playerPickup;
 
@@ -39,6 +41,8 @@ public class PlayerTeleport : MonoBehaviour
         if (!volume.profile.TryGet(out lensDistortion)) {
             Debug.LogWarning("No Lens Distortion component found on Global Volume");
         }
+
+        teleportReady = true;
     }
 
     void Update()
@@ -84,16 +88,25 @@ public class PlayerTeleport : MonoBehaviour
             crosshairImage.color = detectedColor;
 
             // When player wants to teleport
-            if (InputController.Instance.GetTeleportDown()) {
+            if (InputController.Instance.GetTeleportDown() && teleportReady) {
+
+                teleportReady = false;
 
                 if (closestTarget.layer == LayerMask.NameToLayer("Kunai")) {
                     StartCoroutine(Teleport(closestTarget));
                 }
 
                 else if (closestTarget.layer == LayerMask.NameToLayer("Tagged")) {
-                    GameObject temp = Instantiate(gameObject);
+                    GameObject temp = new GameObject();
+
+                    temp.transform.position = gameObject.transform.position;
+                    temp.transform.rotation = gameObject.transform.rotation;
+                    temp.transform.localScale = gameObject.transform.localScale;
+
                     StartCoroutine(SwapLocations(closestTarget, temp));
                 }
+
+                Invoke(nameof(ResetTeleport), teleportCD);
             }
         }
 
@@ -103,7 +116,6 @@ public class PlayerTeleport : MonoBehaviour
     }
 
     void TeleportObjects(GameObject source, GameObject target) {
-
         // If the source object has a rigidbody (player, other interactables)
         if (source.TryGetComponent(out Rigidbody sourceRB)) {
 
@@ -111,7 +123,7 @@ public class PlayerTeleport : MonoBehaviour
                 sourceRB.MovePosition(target.transform.position + Vector3.up);
             }
             
-            else if (target.CompareTag("Player")) {
+            else if (target.CompareTag("Player") && !source.CompareTag("Player")) {
                 sourceRB.MovePosition(target.transform.position + Vector3.down);
             }
 
@@ -127,6 +139,7 @@ public class PlayerTeleport : MonoBehaviour
                 sourceRB.MovePosition(target.transform.position);
             }
 
+            // Inherit target object velocity
             if (target.TryGetComponent(out Rigidbody targetRB)) {
                 sourceRB.velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z) / targetRB.mass;
             }
@@ -134,10 +147,16 @@ public class PlayerTeleport : MonoBehaviour
 
         // If the source object is an enemy
         else if (source.TryGetComponent(out NavMeshAgent agent)) {
-            // agent.Warp(target.transform.position);
+
+            print(target);
+            print(target.transform.position);
+
             agent.enabled = false;
-            source.transform.position = target.transform.position;
-            agent.enabled = true;
+            source.transform.position = target.transform.position + 2 * Vector3.down;
+
+            if (NavMesh.SamplePosition(source.transform.position, out _, 0.5f, NavMesh.AllAreas)) {
+                agent.enabled = true;
+            }
         }
     }
 
@@ -187,10 +206,14 @@ public class PlayerTeleport : MonoBehaviour
         while (lensDistortion.intensity.value > 0) {
             lensDistortion.intensity.value -= Time.deltaTime / Time.timeScale * distortionSpeed;
             yield return null;
-        } 
+        }
     }
 
     void OnDestroy() {
         lensDistortion.intensity.value = 0;
+    }
+
+    void ResetTeleport() {
+        teleportReady = true;
     }
 }

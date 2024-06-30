@@ -13,10 +13,7 @@ public class EnemyController : MonoBehaviour
         QUESTION,
         CHASE
     }
-    [Header("References")]
-    public GameObject player;
-    // List<Rigidbody> ragdollRBs;
-    
+
     [Header("Sinking")]
     public float startSinkTime;
     public float sinkSpeed;
@@ -24,8 +21,6 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-
         DeactivateRagdoll();
     }
 
