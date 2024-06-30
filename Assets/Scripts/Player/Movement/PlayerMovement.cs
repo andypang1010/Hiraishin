@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxSlopeAngle;
     public bool Grounded { get; private set; }
     RaycastHit slopeHit;
-    float playerHeight = 2;
+    public float playerHeight { get; private set; } = 1.8f;
     bool exitingSlope;
 
     [Header("Step Check")]
@@ -110,19 +110,19 @@ public class PlayerMovement : MonoBehaviour
 
                 // Reset jump buffer to prevent jumping again
                 jumpBufferCounter = 0f;
+                return;
             }
 
-            if (InputController.Instance.GetCrouchDown()) {
-                
-                // Shrink to crouch size
-                transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
-                
-                // Apply downward force so doesn't float
-                rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+            if (InputController.Instance.GetCrouchDown())
+            {
+                Crouch();
+                return;
             }
         }
 
-        if (InputController.Instance.GetCrouchUp() || !Grounded) {
+        if ((!InputController.Instance.GetCrouchHold()
+        || !Grounded)
+        && !Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.5f)) {
             transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
         }
     }
@@ -133,7 +133,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         else {
-            if (InputController.Instance.GetCrouchHold() && Grounded) {
+            if ((InputController.Instance.GetCrouchHold() && Grounded)
+            || (movementState == MovementState.CROUCH && !InputController.Instance.GetCrouchHold() && Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.5f))) {
                 movementState = MovementState.CROUCH;
                 moveSpeed = crouchSpeed;
             }
@@ -208,6 +209,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    
+    public void Crouch()
+    {
+        // Shrink to crouch size
+        transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
+
+        // Apply downward force so doesn't float
+        rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+    }
+
 
     void Jump() {
         exitingSlope = true;
