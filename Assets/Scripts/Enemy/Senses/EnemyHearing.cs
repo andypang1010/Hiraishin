@@ -49,5 +49,8 @@ public class EnemyHearing : MonoBehaviour
     void OnDrawGizmos() {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, data.listenRadius);
+
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawCube(PlayerLastHeardLocation, Vector3.one);
     }
 }

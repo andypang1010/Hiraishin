@@ -74,6 +74,8 @@ public abstract class EnemyMovement : MonoBehaviour
         agent.speed = data.chaseSpeed;
 
         targetPosition = vision.PlayerSeenLocation;
+
+        print("Has Path?: " + agent.hasPath);
     }
     
     protected void Evade() {
@@ -151,8 +153,8 @@ public abstract class EnemyMovement : MonoBehaviour
         currentPatrolIndex = patrolPoints.IndexOf(closestPatrolPos);
     }
 
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawCube(targetPosition, 1 * Vector3.one);
-    }
+    // private void OnDrawGizmos() {
+    //     Gizmos.color = Color.magenta;
+    //     Gizmos.DrawCube(targetPosition, 1 * Vector3.one);
+    // }
 }

@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MeleeMovement : EnemyMovement
 {
 
     void Update() {
-
         if (vision.playerSeen) {
+            agent.isStopped = false;
             Chase();
 
             animator.SetBool(isPatrolHash, false);
@@ -19,11 +20,13 @@ public class MeleeMovement : EnemyMovement
             playerDetected = true;
 
             if (Vector3.SqrMagnitude(transform.position - hearing.PlayerLastHeardLocation) <= Mathf.Pow(data.minTargetDistance, 2)) {
+                agent.isStopped = true;
 
                 if (currentSearchTime >= data.searchDuration)
                 {
                     playerDetected = false;
                     currentSearchTime = 0;
+                    agent.isStopped = false;
 
                     FindNearestPatrolPoint();
 
@@ -35,25 +38,23 @@ public class MeleeMovement : EnemyMovement
                 }
             }
 
-            else {
-                Search();
+            Search();
 
-                if (!agent.isStopped) {
-                    animator.SetBool(isPatrolHash, true);
-                    animator.SetBool(isSearchHash, false);
-                    animator.SetBool(isChaseHash, false);
-                }
-
-                else {
-                    animator.SetBool(isPatrolHash, false);
-                    animator.SetBool(isSearchHash, true);
-                    animator.SetBool(isChaseHash, false);
-                }
+            if (!agent.isStopped) {
+                animator.SetBool(isPatrolHash, true);
+                animator.SetBool(isSearchHash, false);
+                animator.SetBool(isChaseHash, false);
             }
-            
+
+            else {
+                animator.SetBool(isPatrolHash, false);
+                animator.SetBool(isSearchHash, true);
+                animator.SetBool(isChaseHash, false);
+            }
         }
 
         else {
+            agent.isStopped = false;
             Patrol();
 
             animator.SetBool(isPatrolHash, true);

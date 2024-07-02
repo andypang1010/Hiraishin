@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
 
         if ((!InputController.Instance.GetCrouchHold()
         || !Grounded)
-        && !Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.5f)) {
+        && !Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.2f)) {
             transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
         }
     }
@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
             if ((InputController.Instance.GetCrouchHold() && Grounded)
             || (movementState == MovementState.CROUCH 
             && !InputController.Instance.GetCrouchHold()
-            && Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.5f))) {
+            && Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.2f))) {
             // && Physics.CapsuleCast(transform.position + GetComponentInChildren<CapsuleCollider>().bounds.center + Vector3.down * playerHeight * 0.5f, transform.position + GetComponentInChildren<CapsuleCollider>().bounds.center + Vector3.up * playerHeight * 0.5f, 0.5f, Vector3.up, 0.5f))) {
                 movementState = MovementState.CROUCH;
                 moveSpeed = crouchSpeed;
@@ -164,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
 
             // Apply downward force to keep player on slope
             if (rb.velocity.y > 0) {
-                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+                rb.AddForce(Vector3.down * (movementState == MovementState.CROUCH ? 40f : 80f), ForceMode.Force);
             }
         }
 
@@ -235,10 +235,10 @@ public class PlayerMovement : MonoBehaviour
 
     void StepClimb() {
         Debug.DrawRay(rayLower.transform.position, rayLower.transform.forward * 0.1f, Color.red);
-        Debug.DrawRay(rayUpper.transform.position, rayUpper.transform.forward * 0.2f, Color.green);
+        Debug.DrawRay(rayUpper.transform.position, rayUpper.transform.forward * 0.2f, Color.red);
 
         if (Physics.Raycast(rayLower.transform.position, rayLower.transform.forward, out _, 0.15f)
-        && !Physics.Raycast(rayUpper.transform.position, rayUpper.transform.forward, out _, 0.2f)) {
+        && !Physics.Raycast(rayUpper.transform.position, rayUpper.transform.forward, out _, 0.3f)) {
             rb.position += new Vector3(0f , stepSmoothing, 0f);
         }
     }
