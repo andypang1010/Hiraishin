@@ -100,7 +100,7 @@ GameObject:
   m_Layer: 7
   m_Name: Kunai
   m_TagString: Kunai
-  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -168,7 +168,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.15566929, y: 0.07661187, z: 0.20990267}
-  m_Center: {x: 0, y: 0, z: 0.08}
+  m_Center: {x: 0, y: 0, z: 0.16}
 --- !u!114 &1947464949002922023
 MonoBehaviour:
   m_ObjectHideFlags: 0

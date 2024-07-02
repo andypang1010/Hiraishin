@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1179024759603418604}
   - component: {fileID: 3619084923954345995}
   - component: {fileID: 8183518252507792555}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Throwable
   m_TagString: Throwable
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}

@@ -39,5 +39,6 @@ public class MeleeAttack : EnemyAttack
 
     protected void EndAttack() {
         canPlayAttack = false;
+        ResetAttack();
     }
 }
