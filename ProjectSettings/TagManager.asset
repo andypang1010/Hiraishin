@@ -8,6 +8,8 @@ TagManager:
   - Kunai
   - Throwable
   - Enemy
+  - Interactable
+  - Ability
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,8 @@ TagManager:
   - Kunai
   - Tagged
   - Enemy
-  - 
-  - 
+  - Unwalkable
+  - Death Zone
   - 
   - 
   - 

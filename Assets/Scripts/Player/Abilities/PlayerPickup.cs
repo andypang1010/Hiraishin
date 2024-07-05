@@ -22,10 +22,20 @@ public class PlayerPickup : MonoBehaviour
             }
 
             // If throwable found within range
-            if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxDistance) 
-                && hit.collider.gameObject.CompareTag("Throwable")) {
-
-                PickUpObject(hit.collider.gameObject);
+            if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxDistance))
+            {
+                switch (hit.collider.gameObject.tag) {
+                    case "Throwable":
+                        PickUpObject(hit.collider.gameObject);
+                        break;
+                    case "Interactable":
+                        print("Trying to interact with " + hit.collider.gameObject);
+                        hit.collider.gameObject.GetComponent<Interactables>().OnInteract();
+                        break;
+                    default:
+                        Debug.LogWarning("Trying to pick up " + hit.collider.gameObject + ", of tag " + hit.collider.gameObject.tag);
+                        break;
+                }
             }
 
         }
