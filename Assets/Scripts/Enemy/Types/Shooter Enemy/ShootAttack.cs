@@ -25,7 +25,7 @@ public class ShootAttack : EnemyAttack
 
         print("Attacked");
 
-        if (player == null) {
+        if (player.GetComponent<PlayerController>().isDead) {
             return;
         }
 

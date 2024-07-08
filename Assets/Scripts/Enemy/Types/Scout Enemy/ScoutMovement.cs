@@ -10,7 +10,7 @@ public class ScoutMovement : EnemyMovement
 
     protected void Update() 
     {
-        if (player == null) 
+        if (player.GetComponent<PlayerController>().isDead) 
         {
             return;
         }

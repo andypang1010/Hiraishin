@@ -22,7 +22,7 @@ public class EnemyHearing : MonoBehaviour
 
     void Update()
     {
-        if (player == null) {
+        if (player.GetComponent<PlayerController>().isDead) {
             PlayerHeard = false;
             return;
         }

@@ -24,7 +24,7 @@ public class EnemyVision : MonoBehaviour
 
     void Update()
     {
-        if (player == null) {
+        if (player.GetComponent<PlayerController>().isDead) {
             playerSeen = false;
             return;
         }

@@ -26,10 +26,14 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = frameRate;
 
         if (Input.GetKeyDown(KeyCode.R)) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            PlayerTeleport.teleportables = new List<GameObject>();
-            Time.timeScale = 1f;
-            Time.fixedDeltaTime = 0.02f;
+            RestartLevel();
         }
+    }
+
+    public void RestartLevel() {
+        // PlayerTeleport.teleportables = new List<GameObject>();
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

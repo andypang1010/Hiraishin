@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public float cameraExplosionForce;
+    public bool isDead;
     public Volume volume;
     ChromaticAberration chromaticAberration;
     GameObject cam;
@@ -23,7 +25,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Decapacitate() {
+    public IEnumerator Die()
+    {
+        isDead = true;
         chromaticAberration.intensity.value = 1f;
 
         // Remove HeadBob and MoveCamera
@@ -37,11 +41,39 @@ public class PlayerController : MonoBehaviour
 
         Camera.main.gameObject.AddComponent<SphereCollider>();
 
-        // Destroy player gameObject
-        Destroy(gameObject);
+        DestroyPlayer();
+
+        yield return new WaitForSeconds(3);
+
+        GameManager.Instance.RestartLevel();
     }
 
-    public void Shot() {
-        // TODO
+    private void DestroyPlayer()
+    {
+        foreach (Component component in GetComponents(typeof(Component)))
+        {
+            if (component == this
+            || component.GetType() == typeof(Transform))
+            {
+                continue;
+            }
+
+            else
+            {
+                Destroy(component);
+            }
+        }
+
+        for (int i = 0; i < transform.childCount; i++) {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+
+        Destroy(GameObject.Find("UI Camera"));
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Death Zone")) {
+            StartCoroutine(Die());
+        }
     }
 }

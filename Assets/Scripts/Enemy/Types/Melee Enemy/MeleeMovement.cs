@@ -16,7 +16,7 @@ public class MeleeMovement : EnemyMovement
             animator.SetBool(isChaseHash, true);
         }
 
-        else if ((hearing.PlayerHeard || playerDetected) && player != null) {
+        else if ((hearing.PlayerHeard || playerDetected) && !player.GetComponent<PlayerController>().isDead) {
             playerDetected = true;
 
             if (Vector3.SqrMagnitude(transform.position - hearing.PlayerLastHeardLocation) <= Mathf.Pow(data.minTargetDistance, 2)) {

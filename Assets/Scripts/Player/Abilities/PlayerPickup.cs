@@ -29,7 +29,6 @@ public class PlayerPickup : MonoBehaviour
                         PickUpObject(hit.collider.gameObject);
                         break;
                     case "Interactable":
-                        print("Trying to interact with " + hit.collider.gameObject);
                         hit.collider.gameObject.GetComponent<Interactables>().OnInteract();
                         break;
                     default:

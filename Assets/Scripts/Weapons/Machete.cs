@@ -6,7 +6,7 @@ public class Machete : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other) {
         if (other.transform.parent.gameObject.CompareTag("Player")) {
-            other.transform.parent.gameObject.GetComponent<PlayerController>().Decapacitate();
+            StartCoroutine(other.transform.parent.gameObject.GetComponent<PlayerController>().Die());
         }
     }
 }

@@ -9,7 +9,6 @@ TagManager:
   - Throwable
   - Enemy
   - Interactable
-  - Ability
   layers:
   - Default
   - TransparentFX

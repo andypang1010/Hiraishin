@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
     void OnCollisionEnter(Collision other) {
         if (other.transform.gameObject.TryGetComponent(out PlayerController playerController)) {
             // playerController.Shot();
-            playerController.Decapacitate();
+            StartCoroutine(playerController.Die());
         }
 
         Destroy(gameObject);
