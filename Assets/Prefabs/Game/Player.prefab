@@ -191,6 +191,7 @@ GameObject:
   - component: {fileID: 1446793639409962404}
   - component: {fileID: 5084041552704671043}
   - component: {fileID: 8438454574634364125}
+  - component: {fileID: 8829033511877724202}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -257,6 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraExplosionForce: 2
+  isDead: 0
   volume: {fileID: 0}
 --- !u!114 &5983896709886268956
 MonoBehaviour:
@@ -311,9 +313,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprintSpeed: 7
   walkSpeed: 4
+  wallRunSpeed: 0
   groundDrag: 5
+  wallRunning: 0
   movementState: 0
-  jumpForce: 11
+  jumpForce: 12
   airMultiplier: 0.4
   coyoteTime: 0.2
   jumpBuffer: 0.2
@@ -376,6 +380,7 @@ MonoBehaviour:
   throwableThrowForce: 5
   throwableUpwardForce: 1.5
   maxAccurateDistance: 30
+  kunaiAvailable: 0
   totalKunai: 7
   throwCD: 0.2
 --- !u!114 &1446793639409962404
@@ -398,7 +403,7 @@ MonoBehaviour:
   detectedColor: {r: 1, g: 0, b: 0, a: 0.39215687}
   maxLensDistortion: 0.7
   distortionSpeed: 5
-  teleportCD: 0
+  teleportCD: 0.75
   teleportReady: 0
 --- !u!114 &5084041552704671043
 MonoBehaviour:
@@ -433,6 +438,28 @@ MonoBehaviour:
   attackCD: 0.75
   attackForce: 100
   sliceVFX: {fileID: 0}
+--- !u!114 &8829033511877724202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6710756512186343302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddcf19c1b18a824fada037ffc9e6764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 2112
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  wallRunForce: 500
+  maxWallRunTime: 10
+  wallCheckDistance: 0.5
+  minJumpHeight: 1
 --- !u!1 &7116412392107224735
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,13 +12,11 @@ public class PlayerWallRun : MonoBehaviour
 
     [Header("Settings")]
     public float wallRunForce;
-    public float maxWallRunTime;
     public float wallCheckDistance;
     public float minJumpHeight;
 
     private RaycastHit leftHit, rightHit;
     private bool hasLeft, hasRight;
-    private float wallRunTimer;
 
 
 
@@ -55,7 +53,8 @@ public class PlayerWallRun : MonoBehaviour
     }
 
     bool AboveGround() {
-        return !Physics.Raycast(transform.position, Vector3.down, minJumpHeight, groundLayer);
+        print("true");
+        return !Physics.Raycast(transform.position, Vector3.down, minJumpHeight, groundLayer) && !playerMovement.Grounded;
     }
 
     void StartWallRun() {
@@ -80,6 +79,7 @@ public class PlayerWallRun : MonoBehaviour
         }
 
         rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
+        print("adding force");
 
         // Curved surface wall run
         if (!(hasLeft && InputController.Instance.GetWalkDirection().x > 0) 
@@ -89,7 +89,7 @@ public class PlayerWallRun : MonoBehaviour
     }
 
     void StopWallRun() {
-        rb.useGravity = true;
+        // rb.useGravity = true;
         playerMovement.wallRunning = false;
     }
 }
