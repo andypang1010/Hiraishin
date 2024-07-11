@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public enum MovementState {
         WALK,
         SPRINT,
+        WALLRUN,
         CROUCH,
         AIR
     }
@@ -16,7 +17,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float sprintSpeed;
     public float walkSpeed;
+    public float wallRunSpeed;
     public float groundDrag;
+    public bool wallRunning;
     [HideInInspector] public MovementState movementState;
     private float moveSpeed;
 
@@ -129,7 +132,14 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleMovementState() {
         if (!Grounded) {
-            movementState = MovementState.AIR;
+            if (wallRunning) {
+                movementState = MovementState.WALLRUN;
+                moveSpeed = wallRunSpeed;
+            }
+
+            else {
+                movementState = MovementState.AIR;
+            }
         }
 
         else {

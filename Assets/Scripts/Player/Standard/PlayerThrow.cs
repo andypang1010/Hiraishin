@@ -18,6 +18,7 @@ public class PlayerThrow : MonoBehaviour
     bool readyToThrow;
 
     [Header("Settings")]
+    public bool kunaiAvailable;
     public int totalKunai;
     public float throwCD;
     [HideInInspector] public int kunaiRemaining { get; private set; }
@@ -43,7 +44,7 @@ public class PlayerThrow : MonoBehaviour
             }
 
             // Throw kunai
-            else {
+            else if (kunaiAvailable) {
                 Throw(kunai);
             }
         }

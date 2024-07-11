@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class WorldSpaceCanvasUIManager : MonoBehaviour
 {
-    Transform target;
+    GameObject target;
     GameObject worldSpaceCanvas;
 
     void Start () 
     {
         worldSpaceCanvas = GameObject.Find("WORLD SPACE CANVAS");
-        target = transform.root;
+        target = transform.root.gameObject;
     }
 
     void Update()
     {
+        print(target);
         if (target == null) {
             Destroy(gameObject);
         }
 
         else {
-            transform.position = target.position;
+            transform.position = target.transform.position;
         }
 
         transform.LookAt(Camera.main.transform, Vector3.up);
