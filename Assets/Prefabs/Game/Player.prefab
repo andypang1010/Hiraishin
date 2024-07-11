@@ -185,13 +185,13 @@ GameObject:
   - component: {fileID: 5983896709886268956}
   - component: {fileID: 4101843119388299001}
   - component: {fileID: 4045358576660379515}
-  - component: {fileID: 6341653193507387703}
+  - component: {fileID: 8829033511877724202}
   - component: {fileID: 8306225624746193754}
   - component: {fileID: 2320831910497088472}
-  - component: {fileID: 1446793639409962404}
-  - component: {fileID: 5084041552704671043}
   - component: {fileID: 8438454574634364125}
-  - component: {fileID: 8829033511877724202}
+  - component: {fileID: 1446793639409962404}
+  - component: {fileID: 6341653193507387703}
+  - component: {fileID: 5084041552704671043}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -332,7 +332,7 @@ MonoBehaviour:
   rayUpper: {fileID: 7116412392107224735}
   stepHeight: 0.35
   stepSmoothing: 0.2
---- !u!114 &6341653193507387703
+--- !u!114 &8829033511877724202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -341,12 +341,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 6710756512186343302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e744c38fadcea94baa40fcd772b6e37, type: 3}
+  m_Script: {fileID: 11500000, guid: fddcf19c1b18a824fada037ffc9e6764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTagDistance: 2
-  minTagTime: 0.5
-  taggedMaterial: {fileID: 2100000, guid: 4530fb07261447347a9ffb7a214ea7e1, type: 2}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 3136
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  headBob: {fileID: 0}
+  wallJumpUpForce: 8
+  wallJumpSideForce: 30
+  wallCheckDistance: 0.6
+  minJumpHeight: 2
+  cameraTilt: 20
+  exitWallTime: 0.2
 --- !u!114 &8306225624746193754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,6 +396,24 @@ MonoBehaviour:
   kunaiAvailable: 1
   totalKunai: 7
   throwCD: 0.2
+--- !u!114 &8438454574634364125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6710756512186343302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e068d5413e6adf843bb73e2796fb4e54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoint: {fileID: 0}
+  attackReach: 0.25
+  attackDistance: 0.5
+  attackCD: 0.75
+  attackForce: 100
+  sliceVFX: {fileID: 0}
 --- !u!114 &1446793639409962404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,6 +436,21 @@ MonoBehaviour:
   distortionSpeed: 5
   teleportCD: 0.75
   teleportReady: 0
+--- !u!114 &6341653193507387703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6710756512186343302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e744c38fadcea94baa40fcd772b6e37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTagDistance: 2
+  minTagTime: 0.5
+  taggedMaterial: {fileID: 2100000, guid: 4530fb07261447347a9ffb7a214ea7e1, type: 2}
 --- !u!114 &5084041552704671043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,49 +466,6 @@ MonoBehaviour:
   dilutedTimeScale: 0.3
   bulletTimeDuration: 5
   bulletTimeCD: 15
---- !u!114 &8438454574634364125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6710756512186343302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e068d5413e6adf843bb73e2796fb4e54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackPoint: {fileID: 0}
-  attackReach: 0.25
-  attackDistance: 0.5
-  attackCD: 0.75
-  attackForce: 100
-  sliceVFX: {fileID: 0}
---- !u!114 &8829033511877724202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6710756512186343302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fddcf19c1b18a824fada037ffc9e6764, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 3136
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  headBob: {fileID: 0}
-  wallJumpUpForce: 8
-  wallJumpSideForce: 30
-  wallCheckDistance: 0.6
-  minJumpHeight: 2
-  cameraTilt: 20
-  exitWallTime: 0.2
 --- !u!1 &7116412392107224735
 GameObject:
   m_ObjectHideFlags: 0

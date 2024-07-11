@@ -41916,21 +41916,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2978212648165182635, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.01
-      objectReference: {fileID: 0}
     - target: {fileID: 3740142633238780010, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
       propertyPath: cameraPosition
       value: 
       objectReference: {fileID: 84367153}
-    - target: {fileID: 4446448150210315335, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.01
-      objectReference: {fileID: 0}
     - target: {fileID: 6062257456430369382, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
       propertyPath: m_Name
@@ -42270,7 +42260,7 @@ PrefabInstance:
     - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
@@ -42342,6 +42332,11 @@ PrefabInstance:
       propertyPath: throwPoint
       value: 
       objectReference: {fileID: 8371771913329375162}
+    - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: kunaiAvailable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3719922330760878221, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: volume
