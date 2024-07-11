@@ -7,13 +7,23 @@ public class PlayerWallRun : MonoBehaviour
     [Header("References")]
     public LayerMask groundLayer;
     public LayerMask wallLayer;
+    public HeadBob headBob;
     private PlayerMovement playerMovement;
+    private PlayerCamera playerCamera;
     private Rigidbody rb;
 
     [Header("Settings")]
-    public float wallRunForce;
+    public float wallJumpUpForce;
+    public float wallJumpSideForce;
     public float wallCheckDistance;
     public float minJumpHeight;
+    public float cameraTilt;
+
+    [Header("Exiting Wall")]
+    public float exitWallTime;
+    private bool exitingWall;
+    private float exitWallTimer;
+
 
     private RaycastHit leftHit, rightHit;
     private bool hasLeft, hasRight;
@@ -23,6 +33,7 @@ public class PlayerWallRun : MonoBehaviour
     void Start()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        playerCamera = GetComponent<PlayerCamera>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -30,12 +41,34 @@ public class PlayerWallRun : MonoBehaviour
     {
         CheckForWalls();
 
-        if ((hasLeft || hasRight) && InputController.Instance.GetWalkDirection().y > 0 && AboveGround()) {
+        // Wall run
+        if ((hasLeft || hasRight) && InputController.Instance.GetWalkDirection().y > 0 && InputController.Instance.GetSprint() && AboveGround() && !exitingWall) {
             if (!playerMovement.wallRunning) {
                 StartWallRun();
             }
+
+            // Wall jump
+            if (InputController.Instance.GetJumpDown()) {
+                WallJump();
+            }
         }
 
+        // Exit wall run when wall jumping
+        else if (exitingWall) {
+            if (playerMovement.wallRunning) {
+                StopWallRun();
+            }
+
+            if (exitWallTimer > 0) {
+                exitWallTimer -= Time.deltaTime / Time.timeScale;
+            }
+
+            if (exitWallTimer <= 0) {
+                exitingWall = false;
+            }
+        }
+
+        // Do nothing
         else {
             StopWallRun();
         }
@@ -53,12 +86,22 @@ public class PlayerWallRun : MonoBehaviour
     }
 
     bool AboveGround() {
-        print("true");
         return !Physics.Raycast(transform.position, Vector3.down, minJumpHeight, groundLayer) && !playerMovement.Grounded;
     }
 
     void StartWallRun() {
         playerMovement.wallRunning = true;
+        headBob.enabled = false;
+
+        playerCamera.DoFieldOfView(90f);
+
+        if (hasLeft) {
+            playerCamera.DoTilt(-cameraTilt);
+        }
+
+        if (hasRight) {
+            playerCamera.DoTilt(cameraTilt);
+        }
     }
 
     void ContinueWallRun() {
@@ -71,15 +114,6 @@ public class PlayerWallRun : MonoBehaviour
 
         // Calculate wall normal and forward vectors
         Vector3 wallNormal = hasRight ? rightHit.normal: leftHit.normal;
-        Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
-
-        // Reverse normal if facing away from the normal
-        if ((transform.forward - wallForward).magnitude > (transform.forward - -wallForward).magnitude) {
-            wallForward = -wallForward;
-        }
-
-        rb.AddForce(wallForward * wallRunForce, ForceMode.Force);
-        print("adding force");
 
         // Curved surface wall run
         if (!(hasLeft && InputController.Instance.GetWalkDirection().x > 0) 
@@ -89,7 +123,23 @@ public class PlayerWallRun : MonoBehaviour
     }
 
     void StopWallRun() {
-        // rb.useGravity = true;
+        rb.useGravity = true;
         playerMovement.wallRunning = false;
+
+        headBob.enabled = true;
+
+        playerCamera.DoFieldOfView(60f);
+        playerCamera.DoTilt(0f);
+    }
+
+    void WallJump() {
+        exitingWall = true;
+        exitWallTimer = exitWallTime;
+
+        Vector3 wallNormal = hasRight ? rightHit.normal: leftHit.normal;
+        Vector3 jumpForce = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce;
+
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(jumpForce, ForceMode.Impulse);
     }
 }

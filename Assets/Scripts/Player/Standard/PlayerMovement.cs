@@ -189,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Disable gravity while on slope to avoid slipping
-        rb.useGravity = !OnSlope();
+        rb.useGravity = !OnSlope() && !wallRunning;
     }
 
     

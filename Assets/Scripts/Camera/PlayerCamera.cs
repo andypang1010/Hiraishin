@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerCamera : MonoBehaviour
 {
     [Header("References")]
     public HeadBob headBob;
+    public Transform cameraHolder;
+    public Camera mainCamera, uiCamera;
 
     [Header("Sensitivity")]
     public float sensX;
@@ -22,6 +25,9 @@ public class PlayerCamera : MonoBehaviour
 
         currentSensX = sensX;
         currentSensY = sensY;
+
+        mainCamera = Camera.main;
+        uiCamera = GameObject.Find("UI Camera").GetComponent<Camera>();
 
         // Disable HeadBob first to ensure camera is working correctly
         // headBob.enabled = false;
@@ -57,8 +63,10 @@ public class PlayerCamera : MonoBehaviour
         rotationX = Math.Clamp(rotationX, -80f, 80f);
 
         // Update camera rotation
-        Camera.main.transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
-        GameObject.Find("UI Camera").transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+        // Camera.main.transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+        // GameObject.Find("UI Camera").transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+
+        cameraHolder.transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
         
         // Update player rotation
         transform.rotation = Quaternion.Euler(0, rotationY, 0);
@@ -69,5 +77,15 @@ public class PlayerCamera : MonoBehaviour
 
         yield return null;
         headBob.enabled = true;
+    }
+
+    public void DoFieldOfView(float endValue) {
+        mainCamera.DOFieldOfView(endValue, 0.25f);
+        uiCamera.GetComponent<Camera>().DOFieldOfView(endValue, 0.25f);
+    }
+
+    public void DoTilt(float zTilt) {
+        mainCamera.transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.25f);
+        uiCamera.transform.DOLocalRotate(new Vector3(0, 0, zTilt), 0.25f);
     }
 }

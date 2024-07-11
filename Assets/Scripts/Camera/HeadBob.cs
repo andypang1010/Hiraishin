@@ -53,6 +53,10 @@ public class HeadBob : MonoBehaviour
                     amplitude = crouchAmplitude;
                     frequency = crouchFrequency;
                     break;
+                case PlayerMovement.MovementState.WALLRUN:
+                    amplitude = 0f;
+                    frequency = 0f;
+                    break;
                 case PlayerMovement.MovementState.WALK:
                 default:
                     amplitude = walkAmplitude;
