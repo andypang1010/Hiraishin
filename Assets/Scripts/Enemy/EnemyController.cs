@@ -14,10 +14,7 @@ public class EnemyController : MonoBehaviour
         CHASE
     }
 
-    [Header("Sinking")]
-    public float startSinkTime;
-    public float sinkSpeed;
-    public float destroyTime;
+    public bool isDead;
 
     void Start()
     {
@@ -61,7 +58,9 @@ public class EnemyController : MonoBehaviour
 
     void Update() {
         if (TryGetComponent(out NavMeshAgent agent)
-        && !agent.isOnNavMesh) {
+        && !agent.isOnNavMesh
+        
+        || isDead) {
             ActivateRagdoll();
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAttack : MonoBehaviour
+public abstract class EnemyAttack : MonoBehaviour
 {
     [Header("References")]
     public EnemyData data;
@@ -21,7 +21,7 @@ public class EnemyAttack : MonoBehaviour
     protected int attackHash;
 
 
-    protected void Start()
+    protected virtual void Start()
     {
         canAttack = true;
         
@@ -34,13 +34,9 @@ public class EnemyAttack : MonoBehaviour
         attackHash = Animator.StringToHash("Attack");
     }
 
-    protected virtual void Update() {
-        
-    }
+    protected abstract void Update();
 
-    protected virtual void Attack() {
-
-    }
+    protected abstract void Attack();
 
     protected void ResetAttack() {
         canAttack = true;

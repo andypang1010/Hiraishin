@@ -1,15 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class Door : Interactables
 {
     public bool isOpen;
+    public Vector3 openValue;
+    public float openDuration;
 
     public override void OnInteract()
     {
+        if (!isActivated) return;
+
         isOpen = !isOpen;
+
+        if (isOpen) {
+            transform.DOMove(transform.position + openValue, openDuration);
+            isActivated = false;
+        }
 
         GameObject[] kunaisOnDoor = GetComponentsInChildren<Kunai>().Select(kunai => kunai.gameObject).ToArray();
 
@@ -22,10 +32,5 @@ public class Door : Interactables
         foreach (GameObject kunai in kunaisOnDoor) {
             Destroy(kunai);
         }
-    }
-
-    protected override void Update() {
-        base.Update();
-        gameObject.SetActive(!isOpen);
     }
 }

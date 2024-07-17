@@ -141,7 +141,7 @@ public class PlayerTeleport : MonoBehaviour
 
             // Inherit target object velocity
             if (target.TryGetComponent(out Rigidbody targetRB)) {
-                sourceRB.velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z) / targetRB.mass;
+                sourceRB.velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z);
             }
         }
 
@@ -211,7 +211,9 @@ public class PlayerTeleport : MonoBehaviour
     }
 
     void OnDestroy() {
-        lensDistortion.intensity.value = 0;
+        if (lensDistortion != null) {
+            lensDistortion.intensity.value = 0;
+        }
     }
 
     void ResetTeleport() {

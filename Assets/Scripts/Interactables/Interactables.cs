@@ -4,12 +4,14 @@ using UnityEngine;
 
 public abstract class Interactables : MonoBehaviour
 {
-    Vector3 startPos;
+    [Header("Activation")]
+    public bool isActivated;
 
     [Header("Floating")]
     public bool floatEnabled;
     public float amplitude;
     public float frequency;
+    Vector3 startPos;
 
     protected virtual void Start() {
         startPos = transform.position;

@@ -66,3 +66,10 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103633
+  packageName: Skybox Series Free
+  packageVersion: 4.3
+  assetPath: Assets/Imported/Environment/Skybox/FluffballDayTop.hdr
+  uploadId: 472193

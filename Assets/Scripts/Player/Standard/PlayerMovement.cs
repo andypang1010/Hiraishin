@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -32,9 +34,12 @@ public class PlayerMovement : MonoBehaviour
     private float jumpBufferCounter;
 
     [Header("Crouch")]
+    public Volume volume;
     public float crouchSpeed;
     public float crouchScale;
+    public float defaultVignette, crouchVignette;
     private float defaultScale;
+    private Vignette vignette;
 
     [Header("Slope Check")]
     public float maxSlopeAngle;
@@ -59,6 +64,9 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+        if (!volume.profile.TryGet(out vignette)) {
+            Debug.LogWarning("No Vignette component found on Global Volume");
+        }
 
         rayUpper.transform.position = rayLower.transform.position + stepHeight * Vector3.up;
         defaultScale = transform.localScale.y;
@@ -163,6 +171,14 @@ public class PlayerMovement : MonoBehaviour
                 moveSpeed = walkSpeed;
             }
         }
+
+        if (movementState == MovementState.CROUCH) {
+            vignette.intensity.value = crouchVignette;
+        }
+
+        else {
+            vignette.intensity.value = defaultVignette;
+        }
     }
 
     void Move() {
@@ -206,7 +222,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void SpeedControl() {
-
         // Prevents player from exceeding move speed on slopes
         if (OnSlope() && !exitingSlope && rb.velocity.magnitude > moveSpeed) {
             rb.velocity = rb.velocity.normalized * moveSpeed;

@@ -5,7 +5,19 @@ using UnityEngine.AI;
 
 public class MeleeAttack : EnemyAttack
 {
-    public BoxCollider machete;
+    public GameObject machete;
+    BoxCollider attackBox;
+
+    protected override void Start() {
+        base.Start();
+
+        foreach (BoxCollider boxCollider in machete.GetComponentsInChildren<BoxCollider>()) {
+            if (boxCollider.isTrigger) {
+                attackBox = boxCollider;
+                break;
+            }
+        }
+    }
     protected override void Update() {
         if (vision.WithinAttackRadius()
         && canAttack) {
@@ -16,13 +28,14 @@ public class MeleeAttack : EnemyAttack
         }
 
         if (canPlayAttack) {
-            machete.enabled = true;
+            attackBox.enabled = true;
         }
 
         else {
-            machete.enabled = false;
+            attackBox.enabled = false;
         }
     }
+
 
     
     protected void StartAttackAnim() {
@@ -40,5 +53,9 @@ public class MeleeAttack : EnemyAttack
     protected void EndAttack() {
         canPlayAttack = false;
         ResetAttack();
+    }
+
+    protected override void Attack() {
+        
     }
 }

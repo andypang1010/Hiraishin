@@ -91,4 +91,8 @@ public class PlayerPickup : MonoBehaviour
                 heldObj = null;
         }
     }
+
+    private void OnDestroy() {
+        DropObject();
+    }
 }
