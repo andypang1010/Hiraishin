@@ -1051,8 +1051,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6734551, y: 11.73, z: 34.71}
-  m_Center: {x: -0.0000076293945, y: -2.13, z: 5}
+  m_Size: {x: 9, y: 18.5, z: 37}
+  m_Center: {x: -0.0000076293945, y: -2.13, z: 7}
 --- !u!54 &6860532446660093997
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2897,9 +2897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 239e43afa36ad474dbb57d7e6287d51c, type: 2}
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  patrolPoints: []
 --- !u!114 &1408974913717976212
 MonoBehaviour:
   m_ObjectHideFlags: 0

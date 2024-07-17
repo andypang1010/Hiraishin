@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.8, y: 1, z: 0.8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2298481441888181636}
@@ -324,8 +324,11 @@ MonoBehaviour:
   airMultiplier: 0.4
   coyoteTime: 0.2
   jumpBuffer: 0.2
+  volume: {fileID: 0}
   crouchSpeed: 2
   crouchScale: 0.65
+  defaultVignette: 0
+  crouchVignette: 0
   maxSlopeAngle: 35
   stepClimbEnabled: 0
   rayLower: {fileID: 5645119896051830516}
@@ -387,14 +390,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwPoint: {fileID: 0}
+  kunaiAvailable: 1
   kunai: {fileID: 6179897952453435299, guid: a86ce1ff3dfabd440b44a8dadb496d70, type: 3}
+  totalKunai: 7
   kunaiThrowForce: 0.8
   kunaiUpwardForce: 0
   throwableThrowForce: 5
   throwableUpwardForce: 1.5
   maxAccurateDistance: 30
-  kunaiAvailable: 1
-  totalKunai: 7
   throwCD: 0.2
 --- !u!114 &8438454574634364125
 MonoBehaviour:
@@ -449,7 +452,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTagDistance: 2
-  minTagTime: 0.5
+  minTagTime: 0.1
   taggedMaterial: {fileID: 2100000, guid: 4530fb07261447347a9ffb7a214ea7e1, type: 2}
 --- !u!114 &5084041552704671043
 MonoBehaviour:

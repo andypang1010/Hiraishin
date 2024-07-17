@@ -80,7 +80,7 @@ public class PlayerPickup : MonoBehaviour
 
     public void DropObject() {
         // Drop settings
-        if (heldObj.TryGetComponent(out Rigidbody rb)) {
+        if (heldObj != null && heldObj.TryGetComponent(out Rigidbody rb)) {
                 rb.useGravity = true;
                 rb.freezeRotation = false;
                 rb.drag = 0f;

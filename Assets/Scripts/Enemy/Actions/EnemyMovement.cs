@@ -75,7 +75,7 @@ public abstract class EnemyMovement : MonoBehaviour
 
         targetPosition = vision.PlayerSeenLocation;
 
-        print("Has Path?: " + agent.hasPath);
+        // print("Has Path?: " + agent.hasPath);
     }
     
     protected void Evade() {

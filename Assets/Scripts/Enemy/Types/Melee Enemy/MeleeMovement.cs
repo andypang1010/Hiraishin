@@ -7,6 +7,8 @@ public class MeleeMovement : EnemyMovement
 {
 
     void Update() {
+        print("Agent isStopped?: " + agent.isStopped);
+
         if (vision.playerSeen) {
             agent.isStopped = false;
             Chase();
@@ -53,11 +55,19 @@ public class MeleeMovement : EnemyMovement
             }
         }
 
-        else {
+        else if (patrolPoints.Count > 1) {
             agent.isStopped = false;
             Patrol();
 
             animator.SetBool(isPatrolHash, true);
+            animator.SetBool(isSearchHash, false);
+            animator.SetBool(isChaseHash, false);
+        }
+
+        else {
+            agent.isStopped = true;
+            
+            animator.SetBool(isPatrolHash, false);
             animator.SetBool(isSearchHash, false);
             animator.SetBool(isChaseHash, false);
         }

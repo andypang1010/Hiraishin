@@ -6,10 +6,13 @@ using UnityEngine.AI;
 public class MeleeAttack : EnemyAttack
 {
     public GameObject machete;
+    MeleeMovement meleeMovement;
     BoxCollider attackBox;
 
     protected override void Start() {
         base.Start();
+
+        meleeMovement = GetComponent<MeleeMovement>();
 
         foreach (BoxCollider boxCollider in machete.GetComponentsInChildren<BoxCollider>()) {
             if (boxCollider.isTrigger) {
@@ -39,11 +42,12 @@ public class MeleeAttack : EnemyAttack
 
     
     protected void StartAttackAnim() {
-        agent.isStopped = true;
+        meleeMovement.enabled = false;
     }
 
     protected void EndAttackAnim() {
-        agent.isStopped = false;
+        meleeMovement.enabled = true;
+        ResetAttack();
     }
 
     protected void StartAttack() {
@@ -52,7 +56,6 @@ public class MeleeAttack : EnemyAttack
 
     protected void EndAttack() {
         canPlayAttack = false;
-        ResetAttack();
     }
 
     protected override void Attack() {

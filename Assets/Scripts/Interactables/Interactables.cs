@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Interactables : MonoBehaviour
@@ -14,7 +15,9 @@ public abstract class Interactables : MonoBehaviour
     Vector3 startPos;
 
     protected virtual void Start() {
-        startPos = transform.position;
+        if (floatEnabled) {
+            startPos = transform.position;
+        }
     }
 
     protected virtual void Update() {

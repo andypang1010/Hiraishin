@@ -137,6 +137,7 @@ public class EnemyVision : MonoBehaviour
     }
 
     public bool WithinAttackRadius() {
+        print("Within attack radius");
         return playerSeen && PlayerDistance <= data.attackReach * 1.5f;
     }
 }
