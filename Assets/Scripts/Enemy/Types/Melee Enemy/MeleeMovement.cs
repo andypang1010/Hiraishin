@@ -21,8 +21,14 @@ public class MeleeMovement : EnemyMovement
         else if ((hearing.PlayerHeard || playerDetected) && !player.GetComponent<PlayerController>().isDead) {
             playerDetected = true;
 
+            TurnToTarget(hearing.PlayerLastHeardLocation);
+
             if (Vector3.SqrMagnitude(transform.position - hearing.PlayerLastHeardLocation) <= Mathf.Pow(data.minTargetDistance, 2)) {
                 agent.isStopped = true;
+
+                animator.SetBool(isPatrolHash, false);
+                animator.SetBool(isSearchHash, true);
+                animator.SetBool(isChaseHash, false);
 
                 if (currentSearchTime >= data.searchDuration)
                 {
@@ -40,17 +46,12 @@ public class MeleeMovement : EnemyMovement
                 }
             }
 
-            Search();
-
-            if (!agent.isStopped) {
+            else {
+                agent.isStopped = false;
+                Search();
+                
                 animator.SetBool(isPatrolHash, true);
                 animator.SetBool(isSearchHash, false);
-                animator.SetBool(isChaseHash, false);
-            }
-
-            else {
-                animator.SetBool(isPatrolHash, false);
-                animator.SetBool(isSearchHash, true);
                 animator.SetBool(isChaseHash, false);
             }
         }

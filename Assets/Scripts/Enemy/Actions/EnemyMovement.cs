@@ -24,7 +24,6 @@ public abstract class EnemyMovement : MonoBehaviour
     protected bool playerDetected;
     protected float currentSearchTime;
 
-
     protected Animator animator;
     protected int isPatrolHash, isSearchHash, isChaseHash, isEvadeHash;
 
@@ -151,6 +150,19 @@ public abstract class EnemyMovement : MonoBehaviour
 
         // Go to closest patrol point
         currentPatrolIndex = patrolPoints.IndexOf(closestPatrolPos);
+    }
+
+    protected void TurnToTarget(Vector3 targetPos) {
+        // Calculate the angular distance between the current and target rotation
+            Vector3 targetDirection = targetPos - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
+            float angle = Quaternion.Angle(transform.rotation, targetRotation);
+
+            // Calculate the maximum possible rotation step for this frame
+            float maxRotationStep = data.maxRotationSpeed * Time.deltaTime;
+
+            // Interpolate between the current and target rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Mathf.Min(1f, maxRotationStep / angle));
     }
 
     // private void OnDrawGizmos() {

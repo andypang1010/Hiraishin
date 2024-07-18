@@ -91,7 +91,7 @@ public class PlayerWallRun : MonoBehaviour
 
     void StartWallRun() {
         playerMovement.wallRunning = true;
-        headBob.enabled = false;
+        // headBob.enabled = false;
 
         playerCamera.DoFieldOfView(90f);
 

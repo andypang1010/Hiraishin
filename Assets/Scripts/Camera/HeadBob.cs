@@ -46,16 +46,13 @@ public class HeadBob : MonoBehaviour
             // Change amplitude and frequency depending on movement state
             switch(movementState) {
                 case PlayerMovement.MovementState.SPRINT:
+                case PlayerMovement.MovementState.WALLRUN:
                     amplitude = sprintAmplitude;
                     frequency = sprintFrequency;
                     break;
                 case PlayerMovement.MovementState.CROUCH: 
                     amplitude = crouchAmplitude;
                     frequency = crouchFrequency;
-                    break;
-                case PlayerMovement.MovementState.WALLRUN:
-                    amplitude = 0f;
-                    frequency = 0f;
                     break;
                 case PlayerMovement.MovementState.WALK:
                 default:
@@ -68,13 +65,16 @@ public class HeadBob : MonoBehaviour
         foreach (Transform camera in cameras) {
             PlayMotion(camera);
             ResetPosition(camera);
-            camera.LookAt(StablizedTarget(camera));
+
+            if (movementState != PlayerMovement.MovementState.WALLRUN) {
+                camera.LookAt(StablizedTarget(camera));
+            }
         }
     }
 
     void PlayMotion(Transform camera) {
-        // Head bob only if is grounded
-        if (!playerMovement.Grounded) return;
+        // Head bob only if is not in air
+        if (playerMovement.movementState == PlayerMovement.MovementState.AIR) return;
 
         // Offset camera position by head bob
         camera.localPosition += FootStepMotion() * Time.deltaTime;

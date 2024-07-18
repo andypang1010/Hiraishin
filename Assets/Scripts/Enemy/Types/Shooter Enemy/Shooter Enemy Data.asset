@@ -19,6 +19,7 @@ MonoBehaviour:
   lookAngle: 50
   patrolSpeed: 0
   minTargetDistance: 0
+  maxRotationSpeed: 180
   searchSpeed: 0
   searchDuration: 0
   chaseSpeed: 0

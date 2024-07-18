@@ -19,6 +19,7 @@ public class EnemyData : ScriptableObject
     public float minTargetDistance;
 
     [Header("Search Settings")]
+    public float maxRotationSpeed;
     public float searchSpeed;
     public float searchDuration;
 
