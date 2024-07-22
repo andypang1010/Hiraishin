@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb0c98d244abfd4890c95f6eadde4d6, type: 3}
   m_Name: Melee Enemy Data
   m_EditorClassIdentifier: 
-  listenRadius: 5
-  peripheralRadius: 1
-  movementThreshold: 1.5
-  lookRadius: 13
+  listenWalkRadius: 7
+  listenSprintRadius: 13
+  peripheralRadius: 2
+  walkAcceptedStates: 010000000200000003000000
+  sprintAcceptedStates: 0200000003000000
+  lookRadius: 20
   lookAngle: 55
   patrolSpeed: 4
   minTargetDistance: 2
-  maxRotationSpeed: 270
+  maxRotationSpeed: 360
   searchSpeed: 5
   searchDuration: 5
-  chaseSpeed: 7.5
+  chaseSpeed: 8.5
   evadeSpeed: 0
   startEvadeDistance: 0
   evadeSafeDistance: 0

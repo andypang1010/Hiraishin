@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb0c98d244abfd4890c95f6eadde4d6, type: 3}
   m_Name: Shooter Enemy Data
   m_EditorClassIdentifier: 
-  listenRadius: 7
-  peripheralRadius: 1
-  movementThreshold: 1.5
-  lookRadius: 20
+  listenWalkRadius: 5
+  listenSprintRadius: 7
+  peripheralRadius: 2
+  walkAcceptedStates: 010000000200000003000000
+  sprintAcceptedStates: 0200000003000000
+  lookRadius: 35
   lookAngle: 50
   patrolSpeed: 0
   minTargetDistance: 0
-  maxRotationSpeed: 180
+  maxRotationSpeed: 360
   searchSpeed: 0
   searchDuration: 0
   chaseSpeed: 0

@@ -7,15 +7,27 @@ public class MeleeMovement : EnemyMovement
 {
 
     void Update() {
-        print("Agent isStopped?: " + agent.isStopped);
 
         if (vision.playerSeen) {
-            agent.isStopped = false;
-            Chase();
 
-            animator.SetBool(isPatrolHash, false);
-            animator.SetBool(isSearchHash, false);
-            animator.SetBool(isChaseHash, true);
+            Chase();
+            
+            if (agent.hasPath) {   
+                agent.isStopped = false;
+
+                animator.SetBool(isPatrolHash, false);
+                animator.SetBool(isSearchHash, false);
+                animator.SetBool(isChaseHash, true);
+            }
+
+            else {
+                agent.isStopped = true;
+
+                animator.SetBool(isPatrolHash, false);
+                animator.SetBool(isSearchHash, true);
+                animator.SetBool(isChaseHash, false);
+            }
+
         }
 
         else if ((hearing.PlayerHeard || playerDetected) && !player.GetComponent<PlayerController>().isDead) {

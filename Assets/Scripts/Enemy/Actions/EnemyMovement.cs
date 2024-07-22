@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.TextCore;
 
 public abstract class EnemyMovement : MonoBehaviour
 {    
@@ -72,9 +73,14 @@ public abstract class EnemyMovement : MonoBehaviour
 
         agent.speed = data.chaseSpeed;
 
-        targetPosition = vision.PlayerSeenLocation;
+        if (player.GetComponent<PlayerMovement>().isWallRunning 
+        && NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 2f, LayerMask.GetMask("Ground"))) {
+            targetPosition = hit.position;
+        }
 
-        // print("Has Path?: " + agent.hasPath);
+        else {
+            targetPosition = vision.PlayerSeenLocation;
+        }
     }
     
     protected void Evade() {

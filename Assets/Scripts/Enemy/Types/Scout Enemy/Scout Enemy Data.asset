@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb0c98d244abfd4890c95f6eadde4d6, type: 3}
   m_Name: Scout Enemy Data
   m_EditorClassIdentifier: 
-  listenRadius: 10
-  peripheralRadius: 1
-  movementThreshold: 1.5
-  lookRadius: 20
+  listenWalkRadius: 10
+  listenSprintRadius: 17
+  peripheralRadius: 4
+  walkAcceptedStates: 010000000200000003000000
+  sprintAcceptedStates: 0200000003000000
+  lookRadius: 45
   lookAngle: 75
   patrolSpeed: 2.5
   minTargetDistance: 2
+  maxRotationSpeed: 0
   searchSpeed: 0
   searchDuration: 0
   chaseSpeed: 0

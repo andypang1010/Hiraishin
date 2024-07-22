@@ -23,6 +23,8 @@ public class PlayerWallRun : MonoBehaviour
     public float exitWallTime;
     private bool exitingWall;
     private float exitWallTimer;
+    private float coyoteTimeCounter;
+    private float jumpBufferCounter;
 
 
     private RaycastHit leftHit, rightHit;
@@ -43,19 +45,21 @@ public class PlayerWallRun : MonoBehaviour
 
         // Wall run
         if ((hasLeft || hasRight) && InputController.Instance.GetWalkDirection().y > 0 && InputController.Instance.GetSprint() && AboveGround() && !exitingWall) {
-            if (!playerMovement.wallRunning) {
+            if (!playerMovement.isWallRunning) {
                 StartWallRun();
             }
 
+            PreJumpCheck();
+
             // Wall jump
-            if (InputController.Instance.GetJumpDown()) {
+            if (InputController.Instance.GetJumpDown() && coyoteTimeCounter > 0f && jumpBufferCounter > 0f) {
                 WallJump();
             }
         }
 
         // Exit wall run when wall jumping
         else if (exitingWall) {
-            if (playerMovement.wallRunning) {
+            if (playerMovement.isWallRunning) {
                 StopWallRun();
             }
 
@@ -75,7 +79,7 @@ public class PlayerWallRun : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (playerMovement.wallRunning) {
+        if (playerMovement.isWallRunning) {
             ContinueWallRun();
         }
     }
@@ -85,13 +89,35 @@ public class PlayerWallRun : MonoBehaviour
         hasRight = Physics.Raycast(transform.position, transform.right, out rightHit, wallCheckDistance, wallLayer);
     }
 
+    void PreJumpCheck()
+    {
+        // Coyote time check
+        if (playerMovement.isWallRunning)
+        {
+            coyoteTimeCounter = playerMovement.coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+
+        // Jump buffer check
+        if (InputController.Instance.GetJumpDown())
+        {
+            jumpBufferCounter = playerMovement.jumpBuffer;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+    }
+
     bool AboveGround() {
         return !Physics.Raycast(transform.position, Vector3.down, minJumpHeight, groundLayer) && !playerMovement.Grounded;
     }
 
     void StartWallRun() {
-        playerMovement.wallRunning = true;
-        // headBob.enabled = false;
+        playerMovement.isWallRunning = true;
 
         playerCamera.DoFieldOfView(90f);
 
@@ -110,7 +136,7 @@ public class PlayerWallRun : MonoBehaviour
         rb.useGravity = false;
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
-        playerMovement.wallRunning = true;
+        playerMovement.isWallRunning = true;
 
         // Calculate wall normal and forward vectors
         Vector3 wallNormal = hasRight ? rightHit.normal: leftHit.normal;
@@ -124,7 +150,7 @@ public class PlayerWallRun : MonoBehaviour
 
     void StopWallRun() {
         rb.useGravity = true;
-        playerMovement.wallRunning = false;
+        playerMovement.isWallRunning = false;
 
         headBob.enabled = true;
 

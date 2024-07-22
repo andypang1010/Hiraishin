@@ -9,6 +9,7 @@ using UnityEngine.Rendering.Universal;
 public class PlayerMovement : MonoBehaviour
 {
     public enum MovementState {
+        IDLE,
         WALK,
         SPRINT,
         WALLRUN,
@@ -21,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed;
     public float wallRunSpeed;
     public float groundDrag;
-    public bool wallRunning;
+    public bool isWallRunning;
     [HideInInspector] public MovementState movementState;
     private float moveSpeed;
 
@@ -93,30 +94,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void GetInput() {
+    void GetInput()
+    {
         Vector2 movement = InputController.Instance.GetWalkDirection();
         horizontalInput = movement.x;
         verticalInput = movement.y;
+        PreJumpCheck();
 
-        // Coyote time check
-        if (Grounded) {
-            coyoteTimeCounter = coyoteTime;
-        }
-        else {
-            coyoteTimeCounter -= Time.deltaTime;
-        }
-
-        // Jump buffer check
-        if (InputController.Instance.GetJumpDown()) {
-            jumpBufferCounter = jumpBuffer;
-        }
-        else {
-            jumpBufferCounter -= Time.deltaTime;
-        }
-        
-        if (Grounded) {
+        if (Grounded)
+        {
             if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f
-            && movementState != MovementState.CROUCH) {
+            && movementState != MovementState.CROUCH)
+            {
                 Jump();
 
                 // Reset jump buffer to prevent jumping again
@@ -133,14 +122,38 @@ public class PlayerMovement : MonoBehaviour
 
         if ((!InputController.Instance.GetCrouchHold()
         || !Grounded)
-        && !Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.2f)) {
+        && !Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.2f))
+        {
             transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
+        }
+    }
+
+    void PreJumpCheck()
+    {
+        // Coyote time check
+        if (Grounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+        }
+        else
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+
+        // Jump buffer check
+        if (InputController.Instance.GetJumpDown())
+        {
+            jumpBufferCounter = jumpBuffer;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
         }
     }
 
     void HandleMovementState() {
         if (!Grounded) {
-            if (wallRunning) {
+            if (isWallRunning) {
                 movementState = MovementState.WALLRUN;
                 moveSpeed = wallRunSpeed;
             }
@@ -166,9 +179,14 @@ public class PlayerMovement : MonoBehaviour
             }
 
 
-            else {
+            else if (InputController.Instance.GetWalkDirection().magnitude > 0) {
                 movementState = MovementState.WALK;
                 moveSpeed = walkSpeed;
+            }
+
+            else {
+                movementState = MovementState.IDLE;
+                moveSpeed = 0;
             }
         }
 
@@ -205,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Disable gravity while on slope to avoid slipping
-        rb.useGravity = !OnSlope() && !wallRunning;
+        rb.useGravity = !OnSlope() && !isWallRunning;
     }
 
     

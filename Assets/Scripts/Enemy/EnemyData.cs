@@ -6,9 +6,11 @@ using UnityEngine;
 public class EnemyData : ScriptableObject
 {
     [Header("Listen Settings")]
-    public float listenRadius;
+    public float listenWalkRadius;
+    public float listenSprintRadius;
     public float peripheralRadius;
-    public float movementThreshold;
+    public PlayerMovement.MovementState[] walkAcceptedStates;
+    public PlayerMovement.MovementState[] sprintAcceptedStates;
 
     [Header("Vision Settings")]
     public float lookRadius;
