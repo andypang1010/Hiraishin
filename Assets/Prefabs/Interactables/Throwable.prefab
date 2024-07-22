@@ -437,4 +437,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9885d44e261d9d0468200b7eafb0d32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distractRadius: 10
+  isActive: 0
+  deactivateTime: 5

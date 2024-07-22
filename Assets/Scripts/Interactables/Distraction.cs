@@ -10,10 +10,15 @@ public class Distraction : MonoBehaviour
     public float deactivateTime;
 
     private void OnCollisionEnter(Collision other) {
-        Invoke(nameof(Deactivate), deactivateTime);
+        Invoke(nameof(DeactivateDistraction), deactivateTime);
     }
 
-    void Deactivate() {
+    public void ActivateDistraction()
+    {
+        isActive = true;
+    }
+
+    void DeactivateDistraction() {
         isActive = false;
     }
 }

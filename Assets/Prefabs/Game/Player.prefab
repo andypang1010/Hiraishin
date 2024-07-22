@@ -316,9 +316,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprintSpeed: 7
   walkSpeed: 4
-  wallRunSpeed: 10
+  wallRunSpeed: 6
   groundDrag: 5
-  wallRunning: 0
+  isWallRunning: 0
   movementState: 0
   jumpForce: 12
   airMultiplier: 0.4
@@ -327,8 +327,8 @@ MonoBehaviour:
   volume: {fileID: 0}
   crouchSpeed: 2
   crouchScale: 0.65
-  defaultVignette: 0
-  crouchVignette: 0
+  defaultVignette: 0.1
+  crouchVignette: 0.3
   maxSlopeAngle: 35
   stepClimbEnabled: 0
   rayLower: {fileID: 5645119896051830516}
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwPoint: {fileID: 0}
-  maxDistance: 3
+  maxDistance: 2
   moveForce: 30
   moveDrag: 10
   heldObj: {fileID: 0}
@@ -390,9 +390,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwPoint: {fileID: 0}
-  kunaiAvailable: 1
+  kunaiAvailable: 0
   kunai: {fileID: 6179897952453435299, guid: a86ce1ff3dfabd440b44a8dadb496d70, type: 3}
-  totalKunai: 7
+  totalKunai: 3
   kunaiThrowForce: 0.8
   kunaiUpwardForce: 0
   throwableThrowForce: 5

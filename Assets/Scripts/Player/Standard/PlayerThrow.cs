@@ -93,10 +93,8 @@ public class PlayerThrow : MonoBehaviour
 
                 playerPickup.heldObj.GetComponent<Rigidbody>().AddForce(throwableThrowForce * forceDirection + throwableUpwardForce * transform.up, ForceMode.Impulse);
                 
-                print (playerPickup.heldObj);
                 if (playerPickup.heldObj.TryGetComponent(out Distraction distraction)) {
-                    print("found distraction");
-                    distraction.isActive = true;
+                    distraction.ActivateDistraction();
                 }
                 
                 playerPickup.DropObject();
