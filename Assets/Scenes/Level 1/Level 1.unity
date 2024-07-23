@@ -29397,7 +29397,7 @@ GameObject:
   - component: {fileID: 1505759143}
   - component: {fileID: 1505759142}
   - component: {fileID: 1505759141}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44163,7 +44163,7 @@ MonoBehaviour:
   amplitude: 0
   frequency: 0
   isOpen: 0
-  openValue: {x: 0, y: 0, z: 0}
+  openValue: {x: 4, y: 0, z: 0}
   openDuration: 2
 --- !u!2083052967 &6445826191921787334 stripped
 VisualEffect:
@@ -44332,7 +44332,7 @@ PrefabInstance:
     - target: {fileID: 7431460349890109636, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: m_Radius
-      value: 0.8
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8306225624746193754, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}

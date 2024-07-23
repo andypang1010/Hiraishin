@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Start() {
         attackReady = true;
-        attackPoint.localScale = new Vector3(attackDistance, 0.1f, attackReach);
+        attackPoint.localScale = new Vector3(attackDistance, attackPoint.localScale.y, attackReach);
         attackPoint.rotation = Quaternion.Euler(attackPoint.rotation.eulerAngles.x, attackPoint.rotation.eulerAngles.y, attackAngles[Random.Range(0, attackAngles.Length)]);
     }
 

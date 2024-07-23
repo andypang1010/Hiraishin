@@ -4773,6 +4773,11 @@ PrefabInstance:
       objectReference: {fileID: 832575518}
     - target: {fileID: 4045358576660379515, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
+      propertyPath: volume
+      value: 
+      objectReference: {fileID: 832575518}
+    - target: {fileID: 4045358576660379515, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
       propertyPath: wallRunSpeed
       value: 6
       objectReference: {fileID: 0}

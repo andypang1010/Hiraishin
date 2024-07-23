@@ -229,13 +229,13 @@ public class PlayerMovement : MonoBehaviour
     
     void SetDrag()
     {
-        if (Grounded)
+        if (movementState == MovementState.AIR)
         {
-            rb.drag = groundDrag;
+            rb.drag = 0;
         }
         else
         {
-            rb.drag = 0;
+            rb.drag = groundDrag;
         }
     }
 
