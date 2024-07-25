@@ -499,12 +499,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 516240902}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &232983069 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3660827171775930488, guid: 87c5783dc3124254d92d901f29b91785,
-    type: 3}
-  m_PrefabInstance: {fileID: 8921384570813905371}
-  m_PrefabAsset: {fileID: 0}
 --- !u!20 &328966449 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2978212648165182635, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
@@ -1287,18 +1281,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &817496783 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3205348271283424450, guid: 87c5783dc3124254d92d901f29b91785,
-    type: 3}
-  m_PrefabInstance: {fileID: 8921384570813905371}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70b342d8ce5c2fd48b8fa3147d48d1d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -4703,6 +4685,11 @@ PrefabInstance:
       objectReference: {fileID: 832575518}
     - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
       propertyPath: canvasScaler
       value: 
       objectReference: {fileID: 21635186}
@@ -4766,6 +4753,11 @@ PrefabInstance:
       propertyPath: throwPoint
       value: 
       objectReference: {fileID: 8371771913329375162}
+    - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: kunaiAvailable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3719922330760878221, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: volume
@@ -4791,6 +4783,16 @@ PrefabInstance:
       propertyPath: cameraHolder
       value: 
       objectReference: {fileID: 922923165}
+    - target: {fileID: 5084041552704671043, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341653193507387703, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6710756512186343302, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: m_Name
@@ -5181,11 +5183,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SHOOTER ENEMY
       objectReference: {fileID: 0}
-    - target: {fileID: 576009886428640147, guid: 87c5783dc3124254d92d901f29b91785,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1766246671688960151, guid: 87c5783dc3124254d92d901f29b91785,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5238,39 +5235,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3983114734822916570, guid: 87c5783dc3124254d92d901f29b91785,
         type: 3}
-      propertyPath: m_Data.m_Offset.x
-      value: -1.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 3983114734822916570, guid: 87c5783dc3124254d92d901f29b91785,
-        type: 3}
-      propertyPath: m_Data.m_ConstrainedObject
-      value: 
-      objectReference: {fileID: 232983069}
-    - target: {fileID: 3983114734822916570, guid: 87c5783dc3124254d92d901f29b91785,
-        type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 1462873659}
-    - target: {fileID: 6596454722761887029, guid: 87c5783dc3124254d92d901f29b91785,
-        type: 3}
-      propertyPath: playerTracking
-      value: 
-      objectReference: {fileID: 817496783}
-    - target: {fileID: 6596454722761887029, guid: 87c5783dc3124254d92d901f29b91785,
-        type: 3}
-      propertyPath: maxRotationSpeed
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 6856662045570140611, guid: 87c5783dc3124254d92d901f29b91785,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1462873634}
-    - target: {fileID: 9130885597412353846, guid: 87c5783dc3124254d92d901f29b91785,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

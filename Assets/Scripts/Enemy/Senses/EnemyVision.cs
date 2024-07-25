@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyVision : MonoBehaviour
@@ -32,11 +33,19 @@ public class EnemyVision : MonoBehaviour
         Vector3 playerDirection = player.transform.position - eyeTransform.position;
         PlayerDistance = playerDirection.magnitude;
 
-        // Check if player is within viewing distance, angle, and not obstructed
+        // Check if player is within radius
         if (PlayerDistance <= data.lookRadius
-        && Vector3.Angle(eyeTransform.forward, playerDirection.normalized) <= data.lookAngle
+
+        // Check if player's within the angle on XZ plane
+        && Vector3.Angle(eyeTransform.forward, (playerDirection - Vector3.up * playerDirection.y).normalized) <= data.lookAngle
+
+        // Check if player is not obstructed by obstacles
         && Physics.Raycast(eyeTransform.position, playerDirection.normalized, out RaycastHit hit, data.lookRadius)
-        && hit.transform.gameObject == player) {
+        && hit.transform.gameObject == player
+
+        // Check if player's y value is within height
+        && playerDirection.y > -data.lookHeight * 0.5f
+        && playerDirection.y < data.lookHeight * 0.5f) {
 
             playerSeen = true;
         }
@@ -44,6 +53,10 @@ public class EnemyVision : MonoBehaviour
         if (playerSeen) {
             PlayerSeenLocation = player.transform.position;
         }
+    }
+
+    public bool WithinAttackRadius() {
+        return playerSeen && PlayerDistance < data.attackReach * 1.2f;
     }
 
     void OnDrawGizmos() {
@@ -54,13 +67,6 @@ public class EnemyVision : MonoBehaviour
         {
 
             float arcSpan = Mathf.DeltaAngle(startAngle, endAngle);
-        
-            // Since Mathf.DeltaAngle returns a signed angle of the shortest path between two angles, it 
-            // is necessary to offset it by 360.0 degrees to get a positive value
-            if (arcSpan <= 0)
-            {
-                arcSpan += 360.0f;
-            }
         
             // angle step is calculated by dividing the arc span by number of approximation segments
             float angleStep = (arcSpan / arcSegments) * Mathf.Deg2Rad;
@@ -133,11 +139,12 @@ public class EnemyVision : MonoBehaviour
             }
         }
 
-        DrawArc(-data.lookAngle, data.lookAngle, eyeTransform.position, Quaternion.LookRotation(-eyeTransform.right), data.lookRadius, Color.red, false, true);
-    }
-
-    public bool WithinAttackRadius() {
-        print("Within attack radius");
-        return playerSeen && PlayerDistance <= data.attackReach * 1.5f;
+        DrawArc(-data.lookAngle, data.lookAngle, eyeTransform.position + data.lookHeight * Vector3.up * 0.5f, Quaternion.LookRotation(-eyeTransform.right), data.lookRadius, Color.red, false, true);
+        DrawArc(-data.lookAngle, data.lookAngle, eyeTransform.position + data.lookHeight * Vector3.down * 0.5f, Quaternion.LookRotation(-eyeTransform.right), data.lookRadius, Color.red, false, true);
+        // DrawArc(-data.lookAngle, data.lookAngle, eyeTransform.position, Quaternion.LookRotation(-eyeTransform.right), data.lookRadius, Color.red, false, true);
+        
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(eyeTransform.position + data.lookHeight * Vector3.up * 0.5f, eyeTransform.position + data.lookHeight * Vector3.down * 0.5f);
+    
     }
 }

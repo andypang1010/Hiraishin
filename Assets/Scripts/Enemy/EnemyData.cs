@@ -15,6 +15,7 @@ public class EnemyData : ScriptableObject
     [Header("Vision Settings")]
     public float lookRadius;
     [Range(0, 180)] public float lookAngle;
+    public float lookHeight;
 
     [Header("Patrol Settings")]
     public float patrolSpeed;
