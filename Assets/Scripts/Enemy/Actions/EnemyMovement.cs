@@ -74,7 +74,7 @@ public abstract class EnemyMovement : MonoBehaviour
         agent.speed = data.chaseSpeed;
 
         if (player.GetComponent<PlayerMovement>().isWallRunning 
-        && NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 2f, LayerMask.GetMask("Ground"))) {
+        && NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 9f, LayerMask.GetMask("Ground"))) {
             targetPosition = hit.position;
         }
 

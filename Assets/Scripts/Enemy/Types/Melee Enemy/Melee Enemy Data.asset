@@ -18,8 +18,8 @@ MonoBehaviour:
   walkAcceptedStates: 010000000200000003000000
   sprintAcceptedStates: 0200000003000000
   lookRadius: 20
-  lookAngle: 34
-  lookHeight: 2
+  lookAngle: 50
+  lookHeight: 3
   patrolSpeed: 4
   minTargetDistance: 2
   maxRotationSpeed: 360

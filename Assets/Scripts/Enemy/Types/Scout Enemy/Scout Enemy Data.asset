@@ -17,9 +17,9 @@ MonoBehaviour:
   peripheralRadius: 4
   walkAcceptedStates: 010000000200000003000000
   sprintAcceptedStates: 0200000003000000
-  lookRadius: 45
+  lookRadius: 35
   lookAngle: 75
-  lookHeight: 2
+  lookHeight: 7
   patrolSpeed: 2.5
   minTargetDistance: 2
   maxRotationSpeed: 0
