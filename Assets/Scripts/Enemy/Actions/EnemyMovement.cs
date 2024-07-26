@@ -65,21 +65,22 @@ public abstract class EnemyMovement : MonoBehaviour
     protected void Search() {
 
         agent.speed = data.searchSpeed;
-
         targetPosition = hearing.PlayerLastHeardLocation;
+
+        if (player.GetComponent<PlayerMovement>().isWallRunning 
+        && NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 5f, LayerMask.GetMask("Ground"))) {
+            targetPosition = hit.position;
+        }
     }
 
     protected void Chase() {
 
         agent.speed = data.chaseSpeed;
+        targetPosition = vision.PlayerSeenLocation;
 
         if (player.GetComponent<PlayerMovement>().isWallRunning 
-        && NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 9f, LayerMask.GetMask("Ground"))) {
+        && NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 5f, LayerMask.GetMask("Ground"))) {
             targetPosition = hit.position;
-        }
-
-        else {
-            targetPosition = vision.PlayerSeenLocation;
         }
     }
     

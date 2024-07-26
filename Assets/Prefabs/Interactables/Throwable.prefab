@@ -438,4 +438,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActive: 0
-  deactivateTime: 5
+  deactivateTime: 3
