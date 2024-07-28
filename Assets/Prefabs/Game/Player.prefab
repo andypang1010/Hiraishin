@@ -316,7 +316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprintSpeed: 7
   walkSpeed: 4
-  wallRunSpeed: 6
+  wallRunSpeed: 10
   groundDrag: 5
   isWallRunning: 0
   movementState: 0
@@ -412,8 +412,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 0}
-  attackReach: 0.25
-  attackDistance: 0.5
+  attackReach: 0.65
+  attackDistance: 0.8
   attackCD: 0.75
   attackForce: 100
   sliceVFX: {fileID: 0}
@@ -424,7 +424,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6710756512186343302}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dd281fba824ad84a9bb8bcd40d34ce5, type: 3}
   m_Name: 
@@ -446,12 +446,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6710756512186343302}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e744c38fadcea94baa40fcd772b6e37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTagDistance: 2
+  maxTagDistance: 2.5
   minTagTime: 0.1
   taggedMaterial: {fileID: 2100000, guid: 4530fb07261447347a9ffb7a214ea7e1, type: 2}
 --- !u!114 &5084041552704671043
@@ -461,7 +461,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6710756512186343302}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bf576937450ff34cba4c58c3e3bbf03, type: 3}
   m_Name: 

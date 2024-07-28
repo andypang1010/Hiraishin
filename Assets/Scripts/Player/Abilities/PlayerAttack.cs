@@ -47,7 +47,7 @@ public class PlayerAttack : MonoBehaviour
             attackPoint.localScale / 2, 
             Camera.main.transform.forward, 
             attackPoint.rotation, 
-            1,
+            0.25f,
             LayerMask.GetMask("Enemy"))
             .Select(hit => hit.collider.gameObject).ToArray();
 

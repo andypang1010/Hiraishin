@@ -15,7 +15,6 @@ public class WorldSpaceCanvasUIManager : MonoBehaviour
 
     void Update()
     {
-        print(target);
         if (target == null) {
             Destroy(gameObject);
         }

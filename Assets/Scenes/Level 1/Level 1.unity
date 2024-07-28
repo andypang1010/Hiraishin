@@ -44287,7 +44287,7 @@ PrefabInstance:
     - target: {fileID: 4045358576660379515, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: wallRunSpeed
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4045358576660379515, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}

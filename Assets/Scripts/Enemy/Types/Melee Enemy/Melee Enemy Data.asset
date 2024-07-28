@@ -19,7 +19,7 @@ MonoBehaviour:
   sprintAcceptedStates: 0200000003000000
   lookRadius: 20
   lookAngle: 50
-  lookHeight: 3
+  lookHeight: 4.5
   patrolSpeed: 4
   minTargetDistance: 2
   maxRotationSpeed: 360
