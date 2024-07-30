@@ -56,9 +56,12 @@ public class PlayerTeleport : MonoBehaviour
         // Iterate through all teleportables
         foreach (GameObject target in teleportables) {
 
-            if (target == playerPickup.heldObj) {
+            if (target == playerPickup.heldObj || target == null) {
                 continue;
             }
+
+            print(Camera.main);
+            print(target);
 
             // Convert target's world position to screen position
             Vector2 screenPointPos = Camera.main.WorldToScreenPoint(target.transform.position);
