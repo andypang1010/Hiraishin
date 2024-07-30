@@ -17,9 +17,9 @@ MonoBehaviour:
   peripheralRadius: 2
   walkAcceptedStates: 010000000200000003000000
   sprintAcceptedStates: 0200000003000000
-  lookRadius: 30
+  lookRadius: 35
   lookAngle: 35
-  lookHeight: 7
+  lookHeight: 10
   patrolSpeed: 0
   minTargetDistance: 0
   maxRotationSpeed: 360
@@ -32,4 +32,4 @@ MonoBehaviour:
   alertRadius: 0
   alertCD: 0
   attackCD: 3
-  attackReach: 20
+  attackReach: 35
