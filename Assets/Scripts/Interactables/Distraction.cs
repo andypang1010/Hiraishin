@@ -5,12 +5,20 @@ using UnityEngine;
 
 public class Distraction : MonoBehaviour
 {
+    bool isEnabled = false;
     public bool isActive;
     // public float distractRadius;
     public float deactivateTime;
 
     private void OnCollisionEnter(Collision other) {
-        Invoke(nameof(DeactivateDistraction), deactivateTime);
+        if (isEnabled && other.gameObject.name != "PLAYER") {
+            ActivateDistraction();
+            Invoke(nameof(DeactivateDistraction), deactivateTime);
+        }
+    }
+
+    public void EnableDistraction() {
+        isEnabled = true;
     }
 
     public void ActivateDistraction()

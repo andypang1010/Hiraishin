@@ -28,7 +28,8 @@ public class PlayerTeleport : MonoBehaviour
     public float maxLensDistortion;
     public float distortionSpeed;
     public float teleportCD;
-    public bool teleportReady;
+    public bool recycleKunaiEnabled;
+    [HideInInspector] public bool teleportReady;
     [HideInInspector] public static List<GameObject> teleportables = new List<GameObject>();
     PlayerPickup playerPickup;
 
@@ -59,9 +60,6 @@ public class PlayerTeleport : MonoBehaviour
             if (target == playerPickup.heldObj || target == null) {
                 continue;
             }
-
-            print(Camera.main);
-            print(target);
 
             // Convert target's world position to screen position
             Vector2 screenPointPos = Camera.main.WorldToScreenPoint(target.transform.position);
@@ -184,7 +182,10 @@ public class PlayerTeleport : MonoBehaviour
 
         UpdateRotation(closestTarget);
         TeleportObjects(gameObject, closestTarget);
-        GetComponent<PlayerThrow>().AddKunaiCount(1);
+
+        if (recycleKunaiEnabled){
+            GetComponent<PlayerThrow>().AddKunaiCount(1);
+        }
         
         teleportables.Remove(closestTarget);
         Destroy(closestTarget);

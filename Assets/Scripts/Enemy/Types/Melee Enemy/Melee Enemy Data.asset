@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listenWalkRadius: 7
   listenSprintRadius: 13
-  peripheralRadius: 2
+  peripheralRadius: 0
   walkAcceptedStates: 010000000200000003000000
   sprintAcceptedStates: 0200000003000000
   lookRadius: 20
   lookAngle: 50
-  lookHeight: 5
+  lookHeight: 8
   patrolSpeed: 4
   minTargetDistance: 2
   maxRotationSpeed: 360

@@ -78,7 +78,7 @@ public class PlayerThrow : MonoBehaviour
                 // Propel projectile towards force direction
                 rb.AddForce(kunaiThrowForce * forceDirection + kunaiUpwardForce * transform.up, ForceMode.Impulse);
 
-                kunai.GetComponent<Distraction>().ActivateDistraction();
+                kunai.GetComponent<Distraction>().EnableDistraction();
 
                 kunaiRemaining--;
 
@@ -96,7 +96,7 @@ public class PlayerThrow : MonoBehaviour
                 playerPickup.heldObj.GetComponent<Rigidbody>().AddForce(throwableThrowForce * forceDirection + throwableUpwardForce * transform.up, ForceMode.Impulse);
                 
                 if (playerPickup.heldObj.TryGetComponent(out Distraction distraction)) {
-                    distraction.ActivateDistraction();
+                    distraction.EnableDistraction();
                 }
                 
                 playerPickup.DropObject();

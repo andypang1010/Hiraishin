@@ -7,10 +7,6 @@ public class ShootMovement : EnemyMovement
 {
     public Rig playerTracking;
 
-    void Start() {
-        base.Start();
-    }
-
     void Update()
     {
         if (player.GetComponent<PlayerController>().isDead) {
