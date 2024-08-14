@@ -1731,7 +1731,7 @@ GameObject:
   - component: {fileID: 5506438964260095833}
   - component: {fileID: 3357173314838618019}
   - component: {fileID: 2832342171092505135}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: L96_Sniper_Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
