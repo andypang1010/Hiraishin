@@ -48,12 +48,16 @@ public class PlayerAttack : MonoBehaviour
             Camera.main.transform.forward, 
             attackPoint.rotation, 
             0.25f,
-            LayerMask.GetMask("Enemy"))
+            LayerMask.GetMask("Enemy", "Bullet"))
             .Select(hit => hit.collider.gameObject).ToArray();
 
         foreach (GameObject target in targetsInRange)
         {
-            if (target.TryGetComponent(out Limb limb)) {
+            if (target.TryGetComponent(out Bullet _)) {
+                Destroy(target);
+            }
+
+            else if (target.TryGetComponent(out Limb limb)) {
                 limb.Dismember();
                 limb.GetComponent<Rigidbody>().AddExplosionForce(attackForce, limb.transform.position, 1f);
             }

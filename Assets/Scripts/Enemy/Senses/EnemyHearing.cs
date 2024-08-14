@@ -31,7 +31,7 @@ public class EnemyHearing : MonoBehaviour
             return;
         }
 
-        // Check if player is within certain radius and is 
+        // Check if player is within certain radius and is heard
         if (PlayerIsHeard(data.listenWalkRadius, data.walkAcceptedStates) || PlayerIsHeard(data.listenSprintRadius, data.sprintAcceptedStates)
 
         // Check if player is not crouching or not in air
