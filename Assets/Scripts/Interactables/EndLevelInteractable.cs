@@ -6,9 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class EndLevelInteractable : Interactables
 {
+    public bool destroy;
     public override void OnInteract()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        Destroy(gameObject);
+
+        if (destroy) {
+            Destroy(gameObject);
+        }
     }
 }
