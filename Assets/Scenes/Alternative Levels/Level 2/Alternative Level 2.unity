@@ -14758,6 +14758,21 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 44
       objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16106,6 +16121,7 @@ MonoBehaviour:
   frequency: 1
   unlockTeleport: 0
   unlockTag: 1
+  unlockAttack: 0
   unlockBulletTime: 0
 --- !u!1 &1102293765
 GameObject:
@@ -18232,6 +18248,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_VersionIndex
       value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34280,6 +34311,21 @@ PrefabInstance:
       propertyPath: m_VersionIndex
       value: 44
       objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37207,6 +37253,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_VersionIndex
       value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedEdges.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedFaces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8288161772399245387, guid: 996518d9935bbcf4ca312dfdb73e8bca,
+        type: 3}
+      propertyPath: m_SelectedVertices.Array.size
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb0c98d244abfd4890c95f6eadde4d6, type: 3}
   m_Name: Melee Enemy Data
   m_EditorClassIdentifier: 
-  listenWalkRadius: 7
-  listenSprintRadius: 13
+  listenWalkRadius: 5
+  listenSprintRadius: 10
   peripheralRadius: 0
   walkAcceptedStates: 010000000200000003000000
   sprintAcceptedStates: 0200000003000000

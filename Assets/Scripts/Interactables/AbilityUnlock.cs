@@ -8,6 +8,7 @@ public class AbilityUnlock : Interactables
     [Header("Unlock Abilities")]
     public bool unlockTeleport;
     public bool unlockTag;
+    public bool unlockAttack;
     public bool unlockBulletTime;
     
     protected GameObject player;
@@ -21,6 +22,10 @@ public class AbilityUnlock : Interactables
     {
         if (!isActivated) {
             return;
+        }
+
+        if (unlockAttack) {
+            player.GetComponent<PlayerAttack>().enabled = true;
         }
         
         if (unlockTeleport) {

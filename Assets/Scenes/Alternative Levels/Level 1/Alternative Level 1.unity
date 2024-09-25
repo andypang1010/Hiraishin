@@ -16656,6 +16656,7 @@ MonoBehaviour:
   frequency: 1
   unlockTeleport: 1
   unlockTag: 0
+  unlockAttack: 0
   unlockBulletTime: 0
 --- !u!65 &1590181784
 BoxCollider:
@@ -19305,7 +19306,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 2081400784}
-  m_VersionIndex: 2058
+  m_VersionIndex: 2064
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
