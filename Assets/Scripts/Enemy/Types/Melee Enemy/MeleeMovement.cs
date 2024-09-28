@@ -10,22 +10,26 @@ public class MeleeMovement : EnemyMovement
 
         if (vision.playerSeen) {
 
-            Chase();
-            
-            if (agent.hasPath) {   
-                agent.isStopped = false;
+            if (!HasValidPathToPlayer()) {
 
-                animator.SetBool(isPatrolHash, false);
-                animator.SetBool(isSearchHash, false);
-                animator.SetBool(isChaseHash, true);
-            }
-
-            else {
                 agent.isStopped = true;
 
                 animator.SetBool(isPatrolHash, false);
                 animator.SetBool(isSearchHash, true);
                 animator.SetBool(isChaseHash, false);
+
+                return;
+            }
+
+            else {
+                agent.isStopped = false;
+
+                animator.SetBool(isPatrolHash, false);
+                animator.SetBool(isSearchHash, false);
+                animator.SetBool(isChaseHash, true);
+
+                Chase();
+
             }
 
         }

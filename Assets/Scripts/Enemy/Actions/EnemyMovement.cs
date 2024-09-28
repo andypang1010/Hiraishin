@@ -44,9 +44,11 @@ public abstract class EnemyMovement : MonoBehaviour
         isEvadeHash = Animator.StringToHash("isEvade");
 
         // Copy start point and set as first patrol point
-        GameObject patrolPoint0 = new GameObject("Patrol Point 0");
+        GameObject patrolPoint0 = new GameObject(gameObject.name + ": Waypoint 0");
         patrolPoint0.transform.position = transform.position;
         patrolPoint0.transform.rotation = transform.rotation;
+
+        patrolPoint0.transform.SetParent(patrolPoints[0].parent);
         patrolPoints.Insert(0, patrolPoint0.transform);
     }
 
@@ -170,6 +172,22 @@ public abstract class EnemyMovement : MonoBehaviour
 
             // Interpolate between the current and target rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Mathf.Min(1f, maxRotationStep / angle));
+    }
+
+    // Check if there is a valid path to the player
+    protected bool HasValidPathToPlayer()
+    {
+        NavMeshPath path = new NavMeshPath();
+        Vector3 playerPosition = player.transform.position;
+
+        // Calculate the path to the player
+        if (agent.CalculatePath(playerPosition, path))
+        {
+            // Check if the path status is complete
+            return path.status == NavMeshPathStatus.PathComplete;
+        }
+
+        return false;
     }
 
     // private void OnDrawGizmos() {
