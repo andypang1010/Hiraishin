@@ -18,7 +18,7 @@ public class EnemyVision : MonoBehaviour
     void Start()
     {
         playerSeen = false;
-        PlayerDistance = int.MaxValue;
+        PlayerDistance = float.MaxValue;
 
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -56,7 +56,10 @@ public class EnemyVision : MonoBehaviour
     }
 
     public bool WithinAttackRadius() {
-        return playerSeen && PlayerDistance < data.attackReach * 1.2f;
+        print("IsPlayerSeen: " + playerSeen);
+        print("Player is within attack reach: " + (PlayerDistance < data.attackReach * 1.2f));
+
+        return playerSeen && (PlayerDistance < data.attackReach * 1.2f);
     }
 
     void OnDrawGizmos() {

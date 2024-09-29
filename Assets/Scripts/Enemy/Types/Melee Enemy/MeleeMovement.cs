@@ -6,89 +6,58 @@ using UnityEngine.AI;
 public class MeleeMovement : EnemyMovement
 {
 
+    protected int playerHeardHash, playerSeenHash, nearTargetHash, playerReachableHash;
+
+    new void Start() {
+        base.Start();
+
+        playerHeardHash = Animator.StringToHash("playerHeard");
+        playerSeenHash = Animator.StringToHash("playerSeen");
+        nearTargetHash = Animator.StringToHash("nearTarget");
+        playerReachableHash = Animator.StringToHash("playerReachable");
+
+        animator.SetBool(Animator.StringToHash("hasWaypoints"), patrolPoints.Count > 1);
+    }
+
     void Update() {
+        
+        bool closeToHeardTarget = Vector3.Magnitude(transform.position - hearing.PlayerLastHeardLocation) <= data.minTargetDistance;
 
-        if (vision.playerSeen) {
+        // Found a target but can't reach the target
+        if ((vision.playerSeen || hearing.PlayerHeard || playerDetected) && !HasValidPathToPlayer()) {
+            Search();
+        }
 
-            if (!HasValidPathToPlayer()) {
-
-                agent.isStopped = true;
-
-                animator.SetBool(isPatrolHash, false);
-                animator.SetBool(isSearchHash, true);
-                animator.SetBool(isChaseHash, false);
-
-                return;
-            }
-
-            else {
-                agent.isStopped = false;
-
-                animator.SetBool(isPatrolHash, false);
-                animator.SetBool(isSearchHash, false);
-                animator.SetBool(isChaseHash, true);
-
-                Chase();
-
-            }
-
+        if (vision.playerSeen && HasValidPathToPlayer()) {
+            Chase();
         }
 
         else if ((hearing.PlayerHeard || playerDetected) && !player.GetComponent<PlayerController>().isDead) {
             playerDetected = true;
 
-            TurnToTarget(hearing.PlayerLastHeardLocation);
-
-            if (Vector3.SqrMagnitude(transform.position - hearing.PlayerLastHeardLocation) <= Mathf.Pow(data.minTargetDistance, 2)) {
-                agent.isStopped = true;
-
-                animator.SetBool(isPatrolHash, false);
-                animator.SetBool(isSearchHash, true);
-                animator.SetBool(isChaseHash, false);
-
-                if (currentSearchTime >= data.searchDuration)
-                {
-                    playerDetected = false;
-                    currentSearchTime = 0;
-                    agent.isStopped = false;
-
-                    FindNearestPatrolPoint();
-
-                    return;
-                }
-
-                else {
-                    currentSearchTime += Time.deltaTime;
-                }
+            if (closeToHeardTarget || !HasValidPathToPlayer()) {
+                Search();
             }
 
             else {
-                agent.isStopped = false;
-                Search();
-                
-                animator.SetBool(isPatrolHash, true);
-                animator.SetBool(isSearchHash, false);
-                animator.SetBool(isChaseHash, false);
+                Investigate();
             }
         }
 
         else if (patrolPoints.Count > 1) {
-            agent.isStopped = false;
             Patrol();
-
-            animator.SetBool(isPatrolHash, true);
-            animator.SetBool(isSearchHash, false);
-            animator.SetBool(isChaseHash, false);
         }
 
         else {
-            agent.isStopped = true;
-            
-            animator.SetBool(isPatrolHash, false);
-            animator.SetBool(isSearchHash, false);
-            animator.SetBool(isChaseHash, false);
+            Idle();
         }
         
         agent.SetDestination(targetPosition);
+
+        animator.SetBool(playerHeardHash, playerDetected || hearing.PlayerHeard);
+        animator.SetBool(playerSeenHash, vision.playerSeen);
+        animator.SetBool(nearTargetHash, closeToHeardTarget && currentSearchTime < data.searchDuration);
+        animator.SetBool(playerReachableHash, HasValidPathToPlayer());
+
     }
 }

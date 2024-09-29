@@ -52,9 +52,15 @@ public abstract class EnemyMovement : MonoBehaviour
         patrolPoints.Insert(0, patrolPoint0.transform);
     }
 
+    protected void Idle() {
+        agent.speed = 0f;
+        agent.isStopped = true;
+    }
+
     protected void Patrol() {
 
         agent.speed = data.patrolSpeed;
+        agent.isStopped = false;
 
         // If enemy is within minReachPatrolDistance of the patrol point, go to the next patrol point
         if (Vector3.SqrMagnitude(targetPosition - transform.position) <= Mathf.Pow(data.minTargetDistance, 2)) {
@@ -64,9 +70,11 @@ public abstract class EnemyMovement : MonoBehaviour
         targetPosition = patrolPoints[currentPatrolIndex].position;
     }
 
-    protected void Search() {
+    protected void Investigate() {
 
         agent.speed = data.searchSpeed;
+        agent.isStopped = false;
+
         targetPosition = hearing.PlayerLastHeardLocation;
 
         if (player.GetComponent<PlayerMovement>().isWallRunning 
@@ -75,10 +83,39 @@ public abstract class EnemyMovement : MonoBehaviour
         }
     }
 
+    protected void Search() {
+        agent.isStopped = true;
+
+        TurnToTarget(hearing.PlayerLastHeardLocation);
+
+        if (currentSearchTime >= data.searchDuration)
+        {
+            GoBackToPatrol();
+            return;
+        }
+
+        else {
+            currentSearchTime += Time.deltaTime;
+        }
+    }
+
+    private void GoBackToPatrol()
+    {
+        playerDetected = false;
+        currentSearchTime = 0;
+        agent.isStopped = false;
+
+        FindNearestPatrolPoint();
+    }
+
     protected void Chase() {
 
         agent.speed = data.chaseSpeed;
+        agent.isStopped = false;
+
         targetPosition = vision.PlayerSeenLocation;
+
+        TurnToTarget(player.transform.position);
 
         if (player.GetComponent<PlayerMovement>().isWallRunning 
         && NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 5f, LayerMask.GetMask("Ground"))) {
@@ -89,6 +126,7 @@ public abstract class EnemyMovement : MonoBehaviour
     protected void Evade() {
 
         agent.speed = data.evadeSpeed;
+        agent.isStopped = false;
 
         Vector3 targetDirection = (transform.position - player.transform.position).normalized;
 
@@ -177,6 +215,10 @@ public abstract class EnemyMovement : MonoBehaviour
     // Check if there is a valid path to the player
     protected bool HasValidPathToPlayer()
     {
+        if (player.GetComponent<PlayerController>().isDead) {
+            return false;
+        }
+
         NavMeshPath path = new NavMeshPath();
         Vector3 playerPosition = player.transform.position;
 
