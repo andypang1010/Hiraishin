@@ -8,36 +8,32 @@ public class MeleeMovement : EnemyMovement
 
     void Update() {
 
+        if (!HasValidPathToPlayer()) {
+
+            print("Can't reach player");
+            agent.isStopped = true;
+
+            animator.SetBool(isPatrolHash, false);
+            animator.SetBool(isSearchHash, true);
+            animator.SetBool(isChaseHash, false);
+            return;
+        }
+
         if (vision.playerSeen) {
+            agent.isStopped = false;
 
-            if (!HasValidPathToPlayer()) {
+            animator.SetBool(isPatrolHash, false);
+            animator.SetBool(isSearchHash, false);
+            animator.SetBool(isChaseHash, true);
 
-                agent.isStopped = true;
-
-                animator.SetBool(isPatrolHash, false);
-                animator.SetBool(isSearchHash, true);
-                animator.SetBool(isChaseHash, false);
-
-                return;
-            }
-
-            else {
-                agent.isStopped = false;
-
-                animator.SetBool(isPatrolHash, false);
-                animator.SetBool(isSearchHash, false);
-                animator.SetBool(isChaseHash, true);
-
-                Chase();
-
-            }
+            Chase();
 
         }
 
         else if ((hearing.PlayerHeard || playerDetected) && !player.GetComponent<PlayerController>().isDead) {
             playerDetected = true;
 
-            TurnToTarget(hearing.PlayerLastHeardLocation);
+            // TurnToTarget(hearing.PlayerLastHeardLocation);
 
             if (Vector3.SqrMagnitude(transform.position - hearing.PlayerLastHeardLocation) <= Mathf.Pow(data.minTargetDistance, 2)) {
                 agent.isStopped = true;

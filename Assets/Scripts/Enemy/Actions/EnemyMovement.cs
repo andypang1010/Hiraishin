@@ -161,17 +161,17 @@ public abstract class EnemyMovement : MonoBehaviour
         currentPatrolIndex = patrolPoints.IndexOf(closestPatrolPos);
     }
 
-    protected void TurnToTarget(Vector3 targetPos) {
+    public void TurnToTarget(Vector3 targetPos) {
         // Calculate the angular distance between the current and target rotation
-            Vector3 targetDirection = targetPos - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
-            float angle = Quaternion.Angle(transform.rotation, targetRotation);
+        Vector3 targetDirection = targetPos - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
+        float angle = Quaternion.Angle(transform.rotation, targetRotation);
 
-            // Calculate the maximum possible rotation step for this frame
-            float maxRotationStep = data.maxRotationSpeed * Time.deltaTime;
+        // Calculate the maximum possible rotation step for this frame
+        float maxRotationStep = data.maxRotationSpeed * Time.deltaTime;
 
-            // Interpolate between the current and target rotation
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Mathf.Min(1f, maxRotationStep / angle));
+        // Interpolate between the current and target rotation
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Mathf.Min(1f, maxRotationStep / angle));
     }
 
     // Check if there is a valid path to the player

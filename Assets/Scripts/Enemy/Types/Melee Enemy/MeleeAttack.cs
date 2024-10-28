@@ -27,6 +27,7 @@ public class MeleeAttack : EnemyAttack
 
             canAttack = false;
 
+            meleeMovement.TurnToTarget(player.transform.position);
             animator.Play(attackHash);
         }
 
