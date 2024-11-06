@@ -1192,7 +1192,7 @@ GameObject:
   - component: {fileID: 188148659}
   - component: {fileID: 188148658}
   m_Layer: 0
-  m_Name: Pick Up Tutorial (1)
+  m_Name: Teleport Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
