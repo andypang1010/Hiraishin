@@ -6898,7 +6898,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 1798724201}
+  m_Mesh: {fileID: 275664357}
 --- !u!33 &571182222
 MeshFilter:
   m_ObjectHideFlags: 10
@@ -23790,11 +23790,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2978212648165182635, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
+        type: 3}
+      propertyPath: field of view
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3740142633238780010, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
       propertyPath: cameraPosition
       value: 
       objectReference: {fileID: 84367153}
+    - target: {fileID: 4446448150210315335, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
+        type: 3}
+      propertyPath: field of view
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 4446448150210315335, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
       propertyPath: near clip plane
@@ -24212,6 +24222,11 @@ PrefabInstance:
       propertyPath: headBob
       value: 
       objectReference: {fileID: 922923164}
+    - target: {fileID: 4101843119388299001, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: defaultFOV
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 4101843119388299001, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: cameraHolder

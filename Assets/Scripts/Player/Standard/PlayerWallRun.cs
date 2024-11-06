@@ -154,7 +154,7 @@ public class PlayerWallRun : MonoBehaviour
 
         headBob.enabled = true;
 
-        playerCamera.DoFieldOfView(60f);
+        playerCamera.DoFieldOfView(playerCamera.defaultFOV);
         playerCamera.DoTilt(0f);
     }
 

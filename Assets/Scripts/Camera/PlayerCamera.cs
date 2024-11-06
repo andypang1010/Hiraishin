@@ -11,7 +11,8 @@ public class PlayerCamera : MonoBehaviour
     public Transform cameraHolder;
     public Camera mainCamera, uiCamera;
 
-    [Header("Sensitivity")]
+    [Header("Settings")]
+    public float defaultFOV;
     public float sensX;
     public float sensY;
     [HideInInspector] public float rotationX, rotationY;
