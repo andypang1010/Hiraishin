@@ -10,6 +10,9 @@ public class AbilityUnlock : Interactables
     public bool unlockTag;
     public bool unlockAttack;
     public bool unlockBulletTime;
+
+    [Header("Interact")]
+    public Interactables[] interactables;
     
     protected GameObject player;
 
@@ -39,6 +42,10 @@ public class AbilityUnlock : Interactables
 
         if (unlockBulletTime) {
             player.GetComponent<PlayerBulletTime>().enabled = true;
+        }
+
+        foreach (Interactables interactable in interactables) {
+            interactable.isActivated = true;
         }
 
         Destroy(gameObject);

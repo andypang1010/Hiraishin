@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using DG.Tweening;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class Door : Interactables
 {
-    [Header("Door")]
+    [Header("Navmesh")]
+    public GameObject floor;
+    public NavMeshSurface surface;
+    
+    [Header("Settings")]
     public bool isSingleUse;
     public bool isAutoClose;
     public Vector3 openValue;
@@ -60,11 +65,17 @@ public class Door : Interactables
         transform.DOMove(transform.position + openValue, openDuration);
         isActivated = false;
         isOpen = true;
+
+        floor.layer = LayerMask.NameToLayer("Default");
+        surface.BuildNavMesh();
     }
 
     private void Close() {
         transform.DOMove(transform.position - openValue, openDuration);
         isActivated = true;
         isOpen = false;
+
+        floor.layer = LayerMask.NameToLayer("Unwalkable");
+        surface.BuildNavMesh();
     }
 }

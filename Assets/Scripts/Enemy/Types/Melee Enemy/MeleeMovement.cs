@@ -8,25 +8,38 @@ public class MeleeMovement : EnemyMovement
 
     void Update() {
 
-        if (!HasValidPathToPlayer()) {
+        // if (!HasValidPathToPlayer()) {
 
-            print("Can't reach player");
-            agent.isStopped = true;
+        //     print("Can't reach player");
+        //     agent.isStopped = true;
 
-            animator.SetBool(isPatrolHash, false);
-            animator.SetBool(isSearchHash, true);
-            animator.SetBool(isChaseHash, false);
-            return;
-        }
+        //     animator.SetBool(isPatrolHash, false);
+        //     animator.SetBool(isSearchHash, true);
+        //     animator.SetBool(isChaseHash, false);
+        //     return;
+        // }
 
         if (vision.playerSeen) {
-            agent.isStopped = false;
+            if (!HasValidPathToPlayer()) {
 
-            animator.SetBool(isPatrolHash, false);
-            animator.SetBool(isSearchHash, false);
-            animator.SetBool(isChaseHash, true);
+                print("Can't reach player");
+                agent.isStopped = true;
 
-            Chase();
+                animator.SetBool(isPatrolHash, false);
+                animator.SetBool(isSearchHash, true);
+                animator.SetBool(isChaseHash, false);
+                return;
+            }
+
+            else {
+                agent.isStopped = false;
+
+                animator.SetBool(isPatrolHash, false);
+                animator.SetBool(isSearchHash, false);
+                animator.SetBool(isChaseHash, true);
+
+                Chase();
+            }
 
         }
 
