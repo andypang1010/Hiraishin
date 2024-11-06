@@ -8,17 +8,6 @@ public class MeleeMovement : EnemyMovement
 
     void Update() {
 
-        // if (!HasValidPathToPlayer()) {
-
-        //     print("Can't reach player");
-        //     agent.isStopped = true;
-
-        //     animator.SetBool(isPatrolHash, false);
-        //     animator.SetBool(isSearchHash, true);
-        //     animator.SetBool(isChaseHash, false);
-        //     return;
-        // }
-
         if (vision.playerSeen) {
             if (!HasValidPathToPlayer()) {
 

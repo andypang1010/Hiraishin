@@ -298,6 +298,7 @@ MonoBehaviour:
   cameraHolder: {fileID: 0}
   mainCamera: {fileID: 0}
   uiCamera: {fileID: 0}
+  defaultFOV: 50
   sensX: 50
   sensY: 50
   rotationX: 0
@@ -438,6 +439,7 @@ MonoBehaviour:
   maxLensDistortion: 0.7
   distortionSpeed: 5
   teleportCD: 0.75
+  recycleKunaiEnabled: 0
   teleportReady: 0
 --- !u!114 &6341653193507387703
 MonoBehaviour:

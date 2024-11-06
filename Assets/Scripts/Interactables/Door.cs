@@ -66,8 +66,7 @@ public class Door : Interactables
         isActivated = false;
         isOpen = true;
 
-        floor.layer = LayerMask.NameToLayer("Default");
-        surface.BuildNavMesh();
+        RebuildNavmesh("Default");
     }
 
     private void Close() {
@@ -75,7 +74,13 @@ public class Door : Interactables
         isActivated = true;
         isOpen = false;
 
-        floor.layer = LayerMask.NameToLayer("Unwalkable");
-        surface.BuildNavMesh();
+        RebuildNavmesh("Unwalkable");
+    }
+
+    private void RebuildNavmesh(string layer) {
+        if (floor != null) {
+            floor.layer = LayerMask.NameToLayer(layer);
+            surface.BuildNavMesh();
+        }
     }
 }

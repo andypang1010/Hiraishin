@@ -16123,6 +16123,7 @@ MonoBehaviour:
   unlockTag: 1
   unlockAttack: 0
   unlockBulletTime: 0
+  interactables: []
 --- !u!1 &1102293765
 GameObject:
   m_ObjectHideFlags: 0
@@ -22960,6 +22961,8 @@ MonoBehaviour:
   floatEnabled: 0
   amplitude: 0
   frequency: 0
+  floor: {fileID: 0}
+  surface: {fileID: 0}
   isSingleUse: 1
   isAutoClose: 0
   openValue: {x: 0, y: -8, z: 0}
@@ -37001,6 +37004,8 @@ MonoBehaviour:
   floatEnabled: 0
   amplitude: 0
   frequency: 0
+  floor: {fileID: 0}
+  surface: {fileID: 0}
   isSingleUse: 0
   isAutoClose: 1
   openValue: {x: 0, y: -8, z: 0}
@@ -38789,7 +38794,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: 46508ff5e1141a14d8d5d9160a0533a0,
+      objectReference: {fileID: 23800000, guid: d53023eb873f329428a2b30d8ffa0cea,
         type: 2}
     - target: {fileID: 7159329896051752108, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
