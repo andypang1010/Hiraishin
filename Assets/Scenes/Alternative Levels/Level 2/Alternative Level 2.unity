@@ -18423,7 +18423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1185985824
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21699,6 +21699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ac3f36228ea9f4397ae83de8bddb4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ability: {fileID: 0}
   tutorialMessage: {fileID: 1185985823}
 --- !u!65 &1397460542
 BoxCollider:
@@ -28783,6 +28784,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ac3f36228ea9f4397ae83de8bddb4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ability: {fileID: 1073918529}
   tutorialMessage: {fileID: 1271598720}
 --- !u!65 &1719014585
 BoxCollider:
@@ -28866,8 +28868,8 @@ Transform:
   m_GameObject: {fileID: 1719014583}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -45.625, y: 1.5960159, z: -9.250001}
-  m_LocalScale: {x: 12.875166, y: 3.3753116, z: 13.624653}
+  m_LocalPosition: {x: -36.625, y: 1.5960152, z: 2.0624905}
+  m_LocalScale: {x: 30.875132, y: 3.3753116, z: 36.250805}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -37858,6 +37860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ac3f36228ea9f4397ae83de8bddb4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ability: {fileID: 0}
   tutorialMessage: {fileID: 1034279521}
 --- !u!65 &2024033525
 BoxCollider:

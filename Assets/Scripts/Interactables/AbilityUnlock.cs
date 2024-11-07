@@ -23,31 +23,44 @@ public class AbilityUnlock : Interactables
 
     public override void OnInteract()
     {
-        if (!isActivated) {
+        if (!isActivated)
+        {
             return;
         }
 
-        if (unlockAttack) {
+        if (unlockAttack)
+        {
             player.GetComponent<PlayerAttack>().enabled = true;
         }
-        
-        if (unlockTeleport) {
+
+        if (unlockTeleport)
+        {
             player.GetComponent<PlayerTeleport>().enabled = true;
             player.GetComponent<PlayerThrow>().kunaiAvailable = true;
         }
 
-        if (unlockTag) {
+        if (unlockTag)
+        {
             player.GetComponent<PlayerTag>().enabled = true;
         }
 
-        if (unlockBulletTime) {
+        if (unlockBulletTime)
+        {
             player.GetComponent<PlayerBulletTime>().enabled = true;
         }
 
-        foreach (Interactables interactable in interactables) {
+        foreach (Interactables interactable in interactables)
+        {
             interactable.isActivated = true;
         }
 
-        Destroy(gameObject);
+        HideAbility();
+    }
+
+    private void HideAbility()
+    {
+        isActivated = false;
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
+    public AbilityUnlock ability;
     public GameObject tutorialMessage;
 
     private void Start() {
@@ -13,9 +14,12 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnTriggerStay(Collider other) {
         if (other.transform.root.gameObject.Equals(GameObject.Find("PLAYER"))) {
-            tutorialMessage.SetActive(true);
+            if (ability == null || (ability != null && !ability.isActivated))
+            {
+                tutorialMessage.SetActive(true);
+            }
         }
     }
 
