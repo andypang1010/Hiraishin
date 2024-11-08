@@ -57,6 +57,7 @@ public class PlayerTeleport : MonoBehaviour
         // Iterate through all teleportables
         foreach (GameObject target in teleportables) {
 
+
             if (target == playerPickup.heldObj || target == null) {
                 continue;
             }

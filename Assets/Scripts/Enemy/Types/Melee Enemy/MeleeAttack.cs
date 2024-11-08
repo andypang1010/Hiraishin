@@ -44,10 +44,12 @@ public class MeleeAttack : EnemyAttack
     
     protected void StartAttackAnim() {
         meleeMovement.enabled = false;
+        agent.isStopped = true;
     }
 
     protected void EndAttackAnim() {
         meleeMovement.enabled = true;
+        agent.isStopped = false;
         ResetAttack();
     }
 

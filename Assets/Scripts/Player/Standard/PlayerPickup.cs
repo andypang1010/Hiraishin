@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerPickup : MonoBehaviour
@@ -29,6 +30,10 @@ public class PlayerPickup : MonoBehaviour
                         PickUpObject(hit.collider.gameObject);
                         break;
                     case "Interactable":
+                        Interactables interactable = hit.collider.gameObject.GetComponent<Interactables>();
+                        if (interactable.isActivated) {
+                            
+                        }
                         hit.collider.gameObject.GetComponent<Interactables>().OnInteract();
                         break;
                     default:
