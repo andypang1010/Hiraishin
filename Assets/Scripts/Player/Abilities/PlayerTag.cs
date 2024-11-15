@@ -41,7 +41,13 @@ public class PlayerTag : MonoBehaviour
                         t.gameObject.layer = LayerMask.NameToLayer("Tagged");
                     }
 
-                    targetObject.transform.GetChild(targetObject.transform.childCount - 1).gameObject.SetActive(true);
+                    foreach (Transform child in targetObject.transform) {
+                        if (child.name == "Tagged Marker") {
+                            child.gameObject.SetActive(true);
+                        }
+                    }
+
+                    // targetObject.transform.GetChild(targetObject.transform.childCount - 1).gameObject.SetActive(true);
 
                     // if (targetObject.TryGetComponent(out Renderer renderer)) {
                     //     renderer.material = taggedMaterial;

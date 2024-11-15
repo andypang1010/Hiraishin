@@ -20,7 +20,12 @@ public class WorldSpaceCanvasUIManager : MonoBehaviour
         }
 
         else {
-            transform.position = target.transform.position;
+            if (target.CompareTag("Enemy")) {
+                transform.position = target.transform.position + 0.9f * Vector3.up;
+            }
+            else {
+                transform.position = target.transform.position;
+            }
         }
 
         transform.LookAt(Camera.main.transform, Vector3.up);

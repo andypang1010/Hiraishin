@@ -44,12 +44,15 @@ public abstract class EnemyMovement : MonoBehaviour
         isEvadeHash = Animator.StringToHash("isEvade");
 
         // Copy start point and set as first patrol point
-        GameObject patrolPoint0 = new GameObject(gameObject.name + ": Waypoint 0");
-        patrolPoint0.transform.position = transform.position;
-        patrolPoint0.transform.rotation = transform.rotation;
+        GameObject startPatrolPoint = new GameObject(gameObject.name + ": Waypoint 0");
+        startPatrolPoint.transform.position = transform.position;
+        startPatrolPoint.transform.rotation = transform.rotation;
 
-        patrolPoint0.transform.SetParent(patrolPoints[0].parent);
-        patrolPoints.Insert(0, patrolPoint0.transform);
+        if (patrolPoints.Count > 0) {
+            startPatrolPoint.transform.SetParent(patrolPoints[0].parent);
+        }
+        
+        patrolPoints.Insert(0, startPatrolPoint.transform);
     }
 
     protected void Patrol() {
