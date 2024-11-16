@@ -1977,7 +1977,7 @@ MonoBehaviour:
       m_Width: 41
       m_Height: 22
       m_HorizontalBearingX: 0
-      m_HorizontalBearingY: 20
+      m_HorizontalBearingY: 15
       m_HorizontalAdvance: 41
     m_GlyphRect:
       m_X: 367

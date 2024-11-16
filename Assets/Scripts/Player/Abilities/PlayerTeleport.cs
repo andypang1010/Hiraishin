@@ -133,7 +133,8 @@ public class PlayerTeleport : MonoBehaviour
 
                 // Crouch if teleporting into a tunnel
                 if (sourceRB.TryGetComponent(out PlayerMovement playerMovement)
-                && Physics.Raycast(target.transform.position, Vector3.up, playerMovement.playerHeight * 0.5f + 0.5f)) {
+                && Physics.Raycast(target.transform.position, Vector3.up, playerMovement.playerHeight * 0.5f + 0.2f)
+                && Physics.Raycast(target.transform.position, Vector3.down, playerMovement.playerHeight * 0.5f + 0.2f)) {
                     playerMovement.Crouch();
                     playerMovement.movementState = PlayerMovement.MovementState.CROUCH;
                 }

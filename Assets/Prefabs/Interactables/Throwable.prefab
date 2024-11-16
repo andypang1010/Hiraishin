@@ -103,9 +103,8 @@ GameObject:
   - component: {fileID: 5017225036665037168}
   - component: {fileID: 4430964291279283192}
   - component: {fileID: 3556632428082889507}
-  - component: {fileID: -3690483798865588192}
   - component: {fileID: -3515839961184116831}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Throwable
   m_TagString: Throwable
   m_Icon: {fileID: 0}
@@ -498,22 +497,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!208 &-3690483798865588192
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5706319579097349964}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.25, y: 0.25, z: 0.25}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!114 &-3515839961184116831
 MonoBehaviour:
   m_ObjectHideFlags: 0
