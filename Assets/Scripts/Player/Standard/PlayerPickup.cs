@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerPickup : MonoBehaviour
 {
     [Header("References")]
     public Transform throwPoint;
+    public GameObject throwCrosshair;
+    public Sprite pickupCrosshair;
+    Sprite defaultCrosshair;
 
     [Header("Settings")]
     public float maxDistance;
@@ -14,35 +18,51 @@ public class PlayerPickup : MonoBehaviour
     public float moveDrag;
     [HideInInspector] public GameObject heldObj;
 
+    private void Start() {
+        defaultCrosshair = throwCrosshair.GetComponent<Image>().sprite;
+    }
+
     void Update() {
-        if (InputController.Instance.GetPickupDown()) {
+    
+        // If throwable found within range
+        if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxDistance)) {
+        
+            if (InputController.Instance.GetPickupDown()) {
 
-            // If player already holding an object
-            if (heldObj != null) {
-                DropObject();
-            }
+                // If player already holding an object
+                if (heldObj != null) {
+                    DropObject();
+                }
 
-            // If throwable found within range
-            if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxDistance))
-            {
                 switch (hit.collider.gameObject.tag) {
                     case "Throwable":
-                        PickUpObject(hit.collider.gameObject);
+                        PickUpObject(hit.transform.root.gameObject);
                         break;
                     case "Interactable":
-                        Interactables interactable = hit.collider.gameObject.GetComponent<Interactables>();
-                        if (interactable.isActivated) {
-                            
-                        }
+                        // Interactables interactable = hit.collider.gameObject.GetComponent<Interactables>();
                         hit.collider.gameObject.GetComponent<Interactables>().OnInteract();
                         break;
                     default:
-                        Debug.LogWarning("Trying to pick up " + hit.collider.gameObject + ", of tag " + hit.collider.gameObject.tag);
+                        // Debug.LogWarning("Trying to pick up " + hit.collider.gameObject + ", of tag " + hit.collider.gameObject.tag);
                         break;
                 }
             }
 
+            if (hit.collider.gameObject.CompareTag("Throwable") || hit.collider.gameObject.CompareTag("Interactable"))
+            {
+                throwCrosshair.GetComponent<Image>().sprite = pickupCrosshair;
+            }
+
+            else {
+                throwCrosshair.GetComponent<Image>().sprite = defaultCrosshair;
+            }
         }
+
+        else {
+            throwCrosshair.GetComponent<Image>().sprite = defaultCrosshair;
+        }
+
+
     }
 
     void FixedUpdate()

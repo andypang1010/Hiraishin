@@ -169,10 +169,7 @@ public class PlayerMovement : MonoBehaviour
             // Crouching and something above
             || (movementState == MovementState.CROUCH 
             && !InputController.Instance.GetCrouchHold()
-            && Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.2f))
-
-            || (Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.2f) 
-            && Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f))) {
+            && Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.2f))) {
             // && Physics.CapsuleCast(transform.position + GetComponentInChildren<CapsuleCollider>().bounds.center + Vector3.down * playerHeight * 0.5f, transform.position + GetComponentInChildren<CapsuleCollider>().bounds.center + Vector3.up * playerHeight * 0.5f, 0.5f, Vector3.up, 0.5f))) {
                 movementState = MovementState.CROUCH;
                 moveSpeed = crouchSpeed;

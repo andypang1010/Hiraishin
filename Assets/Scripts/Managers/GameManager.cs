@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     void Update() {
         Application.targetFrameRate = frameRate;
 
-        if (Input.GetKeyDown(KeyCode.R)) {
+        if (Input.GetKeyDown(KeyCode.P)) {
             RestartLevel();
         }
     }

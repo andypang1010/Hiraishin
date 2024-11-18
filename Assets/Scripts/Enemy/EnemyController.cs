@@ -22,7 +22,6 @@ public class EnemyController : MonoBehaviour
     }
 
     public void Die() {
-
         ActivateRagdoll();
         PlayerTeleport.teleportables.Remove(gameObject);
     }
@@ -31,6 +30,7 @@ public class EnemyController : MonoBehaviour
         foreach (Rigidbody rb in new List<Rigidbody>(transform.GetComponentsInChildren<Rigidbody>())) {
             rb.useGravity = true;
             rb.isKinematic = false;
+            rb.mass = 0.01f;
         }
 
         foreach (var component in GetComponents<Component>()) {

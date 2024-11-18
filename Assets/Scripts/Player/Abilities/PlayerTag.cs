@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class PlayerTag : MonoBehaviour
 {
+    [Header("References")]
+    public GameObject marker;
+    public Material taggedMaterial;
+
     [Header("Settings")]
     public float maxTagDistance;
     public float minTagTime;
-    public Material taggedMaterial;
     [HideInInspector] public float holdTime { get; private set; }
     GameObject targetObject;
     RaycastHit hit;
@@ -41,25 +44,7 @@ public class PlayerTag : MonoBehaviour
                         t.gameObject.layer = LayerMask.NameToLayer("Tagged");
                     }
 
-                    foreach (Transform child in targetObject.transform) {
-                        if (child.name == "Tagged Marker") {
-                            child.gameObject.SetActive(true);
-                        }
-                    }
-
-                    // targetObject.transform.GetChild(targetObject.transform.childCount - 1).gameObject.SetActive(true);
-
-                    // if (targetObject.TryGetComponent(out Renderer renderer)) {
-                    //     renderer.material = taggedMaterial;
-                    // }
-
-                    // else {
-                    //     Renderer[] renderers = targetObject.GetComponentsInChildren<Renderer>();
-                    //     foreach (Renderer r in renderers)
-                    //     {
-                    //         r.material = taggedMaterial;
-                    //     }
-                    // }
+                    GameObject taggedMarker = Instantiate(marker, targetObject.transform);
                     
                     PlayerTeleport.teleportables.Add(targetObject);
                     targetObject = null;

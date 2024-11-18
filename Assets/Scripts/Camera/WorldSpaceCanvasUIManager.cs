@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WorldSpaceCanvasUIManager : MonoBehaviour
 {
-    GameObject target;
+    public GameObject target;
     GameObject worldSpaceCanvas;
 
     void Start () 

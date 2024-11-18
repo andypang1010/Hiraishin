@@ -12615,10 +12615,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press <sprite=71> to attack
+  m_text: 'Press <sprite=71> to attack
+
+
+    "All enemies can be killed in one hit,
+    but the same applies to you too"'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9c003d14b6465b84389174d64332ff0d, type: 2}
+  m_sharedMaterial: {fileID: 351551478357560221, guid: 9c003d14b6465b84389174d64332ff0d,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12710,7 +12715,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -800}
+  m_AnchoredPosition: {x: 0, y: -700}
   m_SizeDelta: {x: 3840, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!43 &977744926
@@ -27459,7 +27464,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: eb3177919dea77a42b309b2ea45a5c2c,
+      objectReference: {fileID: 23800000, guid: 1c788e7c3afcccb419da958c80fed02a,
         type: 2}
     - target: {fileID: 7159329896051752108, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
@@ -27739,6 +27744,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &5171490971196204198 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2244974843607274524, guid: e663ef82aff937f498fd08a5e0485170,
+    type: 3}
+  m_PrefabInstance: {fileID: 5171490971196204194}
+  m_PrefabAsset: {fileID: 0}
 --- !u!2083052967 &6445826191921787334 stripped
 VisualEffect:
   m_CorrespondingSourceObject: {fileID: 7925507027435409297, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
@@ -27763,6 +27774,11 @@ PrefabInstance:
       propertyPath: canvasScaler
       value: 
       objectReference: {fileID: 21635186}
+    - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: throwCrosshair
+      value: 
+      objectReference: {fileID: 5171490971196204198}
     - target: {fileID: 1446793639409962404, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: teleportCrosshair
@@ -27908,6 +27924,11 @@ PrefabInstance:
       propertyPath: maxDistance
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8306225624746193754, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: throwCrosshair
+      value: 
+      objectReference: {fileID: 5171490971196204198}
     - target: {fileID: 8438454574634364125, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: sliceVFX

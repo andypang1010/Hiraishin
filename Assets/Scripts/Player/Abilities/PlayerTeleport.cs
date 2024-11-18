@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework.Constraints;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,11 +15,12 @@ public class PlayerTeleport : MonoBehaviour
     [Header("References")]
     public CanvasScaler canvasScaler;
     public GameObject teleportCrosshair;
+    public GameObject throwCrosshair;
     public Volume volume;
     float detectionRadius;
     Vector2 centerPoint;
     RectTransform crosshairRectTransform;
-    Image crosshairImage;
+    Image teleportImage, throwImage;
     LensDistortion lensDistortion;
 
     [Header("Settings")]
@@ -35,7 +37,8 @@ public class PlayerTeleport : MonoBehaviour
 
     void Start() {
         crosshairRectTransform = teleportCrosshair.GetComponent<RectTransform>();
-        crosshairImage = teleportCrosshair.GetComponent<Image>();
+        teleportImage = teleportCrosshair.GetComponent<Image>();
+        throwImage = throwCrosshair.GetComponent<Image>();
 
         playerPickup = GetComponent<PlayerPickup>();
         
@@ -87,7 +90,8 @@ public class PlayerTeleport : MonoBehaviour
         }
 
         if (closestTarget != null) {
-            crosshairImage.color = detectedColor;
+            teleportImage.color = detectedColor;
+            throwImage.color = detectedColor;
 
             // When player wants to teleport
             if (InputController.Instance.GetTeleportDown() && teleportReady) {
@@ -113,7 +117,8 @@ public class PlayerTeleport : MonoBehaviour
         }
 
         else {
-            crosshairImage.color = defaultColor;
+            teleportImage.color = defaultColor;
+            throwImage.color = defaultColor;
         }
     }
 
