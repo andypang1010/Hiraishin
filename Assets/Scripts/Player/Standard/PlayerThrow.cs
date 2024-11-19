@@ -55,8 +55,14 @@ public class PlayerThrow : MonoBehaviour
     void Throw(GameObject gameObject) {
         readyToThrow = false;
 
-        Vector3 forceDirection = new Vector3();
+        // Calculate default force direction
+        Vector3 forceDirection = (Camera.main.transform.position + maxAccurateDistance * Camera.main.transform.forward - throwPoint.position).normalized;
         
+        // Calculate accurate force direction if in range
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxAccurateDistance, ~0, QueryTriggerInteraction.Ignore)) {
+            forceDirection = (hit.point - throwPoint.position).normalized;
+        }
+
         // Calculate throw force
         switch (gameObject.GetComponent<Collider>().tag) {
             case "Kunai":
@@ -65,37 +71,20 @@ public class PlayerThrow : MonoBehaviour
                 GameObject kunai = Instantiate(gameObject, throwPoint.position, Camera.main.transform.rotation);
                 PlayerTeleport.teleportables.Add(kunai);
 
-                Rigidbody rb = kunai.GetComponent<Rigidbody>();
-
-                // Calculate default force direction
-                forceDirection = (Camera.main.transform.position + maxAccurateDistance * Camera.main.transform.forward - throwPoint.position).normalized;
-
-                // Calculate accurate force direction if in range
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxAccurateDistance)) {
-                    forceDirection = (hit.point - throwPoint.position).normalized;
-                }
-
                 // Propel projectile towards force direction
-                rb.AddForce(kunaiThrowForce * forceDirection + kunaiUpwardForce * transform.up, ForceMode.Impulse);
+                kunai.GetComponent<Rigidbody>().AddForce(kunaiThrowForce * forceDirection + kunaiUpwardForce * transform.up, ForceMode.Impulse);
 
                 kunaiRemaining--;
-
                 break;
 
             case "Throwable":
-                // Calculate default force direction
-                forceDirection = (Camera.main.transform.position + maxAccurateDistance * Camera.main.transform.forward - playerPickup.throwPoint.position).normalized;
 
-                // Calculate accurate force direction if in range
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxAccurateDistance)) {
-                    forceDirection = (hit.point - playerPickup.throwPoint.position).normalized;
-                }
-
-                playerPickup.heldObj.GetComponent<Rigidbody>().AddForce(throwableThrowForce * forceDirection + throwableUpwardForce * transform.up, ForceMode.Impulse);
-                
                 if (playerPickup.heldObj.TryGetComponent(out Distraction distraction)) {
                     distraction.EnableDistraction();
                 }
+
+                // Propel projectile towards force direction
+                playerPickup.heldObj.GetComponent<Rigidbody>().AddForce(throwableThrowForce * forceDirection + throwableUpwardForce * transform.up, ForceMode.Impulse);
                 
                 playerPickup.DropObject();
                 break;

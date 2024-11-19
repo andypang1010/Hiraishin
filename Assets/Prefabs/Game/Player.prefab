@@ -328,6 +328,7 @@ MonoBehaviour:
   volume: {fileID: 0}
   crouchSpeed: 2
   crouchScale: 0.6
+  upDetectionHeight: 0.5
   defaultVignette: 0.1
   crouchVignette: 0.3
   maxSlopeAngle: 35

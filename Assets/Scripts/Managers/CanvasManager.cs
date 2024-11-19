@@ -33,7 +33,7 @@ public class CanvasManager : MonoBehaviour
             kunai.gameObject.SetActive(false);
         }
 
-        kunaiCount.text = " x " + playerThrow.kunaiRemaining;
+        kunaiCount.text = " × " + playerThrow.kunaiRemaining;
 
         playerSpeed.gameObject.SetActive(isDebug);
         bulletTimeCD.gameObject.SetActive(isDebug);

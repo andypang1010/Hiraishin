@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     public Volume volume;
     public float crouchSpeed;
     public float crouchScale;
+    public float upDetectionHeight;
+    private float downDetectionHeight = 0.2f;
     public float defaultVignette, crouchVignette;
     private float defaultScale;
     private Vignette vignette;
@@ -46,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     public float maxSlopeAngle;
     public bool Grounded { get; private set; }
     RaycastHit slopeHit;
-    public float playerHeight { get; private set; } = 1.8f;
+    public float playerHeight { get; private set; }
     bool exitingSlope;
 
     [Header("Step Check")]
@@ -65,6 +67,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+        playerHeight = GetComponentInChildren<CapsuleCollider>().height * gameObject.transform.localScale.y;
+
         if (!volume.profile.TryGet(out vignette)) {
             Debug.LogWarning("No Vignette component found on Global Volume");
         }
@@ -77,9 +81,9 @@ public class PlayerMovement : MonoBehaviour
     {
         
         // Check if is grounded
-        Grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f);
+        Grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + downDetectionHeight, ~0, QueryTriggerInteraction.Ignore);
         exitingSlope = !Grounded;
-
+        
         GetInput();
         SpeedControl();
         SetDrag();
@@ -118,13 +122,18 @@ public class PlayerMovement : MonoBehaviour
                 Crouch();
                 return;
             }
-        }
 
-        if ((!InputController.Instance.GetCrouchHold()
-        || !Grounded)
-        && !Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.2f))
-        {
-            transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
+            else if (InputController.Instance.GetCrouchHold()
+            || Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + upDetectionHeight)) 
+            {
+                transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
+                return;
+            }
+
+            else {
+                transform.localScale = new Vector3(transform.localScale.x, defaultScale, transform.localScale.z);
+                return;
+            }
         }
     }
 
@@ -164,13 +173,23 @@ public class PlayerMovement : MonoBehaviour
         }
 
         else {
-            if ((InputController.Instance.GetCrouchHold() && Grounded)
+
+            // Something above and below
+            if (Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + upDetectionHeight)
+            && Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + downDetectionHeight)) {
+                movementState = MovementState.CROUCH;
+                moveSpeed = crouchSpeed;
+
+                transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
+            }
+
+            else if ((InputController.Instance.GetCrouchHold() && Grounded)
 
             // Crouching and something above
-            || (movementState == MovementState.CROUCH 
+            || movementState == MovementState.CROUCH 
             && !InputController.Instance.GetCrouchHold()
-            && Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + 0.2f))) {
-            // && Physics.CapsuleCast(transform.position + GetComponentInChildren<CapsuleCollider>().bounds.center + Vector3.down * playerHeight * 0.5f, transform.position + GetComponentInChildren<CapsuleCollider>().bounds.center + Vector3.up * playerHeight * 0.5f, 0.5f, Vector3.up, 0.5f))) {
+            && Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + upDetectionHeight)) {
+
                 movementState = MovementState.CROUCH;
                 moveSpeed = crouchSpeed;
             }
