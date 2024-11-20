@@ -401,7 +401,7 @@ MonoBehaviour:
   kunaiUpwardForce: 0
   throwableThrowForce: 5
   throwableUpwardForce: 1.5
-  maxAccurateDistance: 30
+  maxAccurateDistance: 50
   throwCD: 0.2
 --- !u!114 &1446793639409962404
 MonoBehaviour:

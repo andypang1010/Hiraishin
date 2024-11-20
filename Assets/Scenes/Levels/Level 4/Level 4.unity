@@ -31330,22 +31330,12 @@ PrefabInstance:
     - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: totalKunai
-      value: 1000000
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: kunaiAvailable
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
-        type: 3}
-      propertyPath: kunaiThrowForce
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
-        type: 3}
-      propertyPath: maxAccurateDistance
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3719922330760878221, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
