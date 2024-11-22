@@ -164,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
         if (!Grounded) {
             if (isWallRunning) {
                 movementState = MovementState.WALLRUN;
-                moveSpeed = wallRunSpeed;
+                moveSpeed = wallRunSpeed / Time.timeScale;
             }
 
             else {
@@ -178,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
             if (Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + upDetectionHeight)
             && Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + downDetectionHeight)) {
                 movementState = MovementState.CROUCH;
-                moveSpeed = crouchSpeed;
+                moveSpeed = crouchSpeed / Time.timeScale;
 
                 transform.localScale = new Vector3(transform.localScale.x, crouchScale, transform.localScale.z);
             }
@@ -191,18 +191,18 @@ public class PlayerMovement : MonoBehaviour
             && Physics.Raycast(transform.position, Vector3.up, playerHeight * 0.5f + upDetectionHeight)) {
 
                 movementState = MovementState.CROUCH;
-                moveSpeed = crouchSpeed;
+                moveSpeed = crouchSpeed / Time.timeScale;
             }
 
             else if (InputController.Instance.GetSprint()) {
                 movementState = MovementState.SPRINT;
-                moveSpeed = sprintSpeed;
+                moveSpeed = sprintSpeed / Time.timeScale;
             }
 
 
             else if (InputController.Instance.GetWalkDirection().magnitude > 0) {
                 movementState = MovementState.WALK;
-                moveSpeed = walkSpeed;
+                moveSpeed = walkSpeed / Time.timeScale;
             }
 
             else {
@@ -225,22 +225,22 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply force perpendicular to slope's normal if on slope
         if (OnSlope() && !exitingSlope) {
-            rb.AddForce(20 * moveSpeed * GetSlopeMoveDirection(), ForceMode.Force);
+            rb.AddForce(20 * moveSpeed * GetSlopeMoveDirection() / Time.timeScale, ForceMode.Force);
 
             // Apply downward force to keep player on slope
             if (rb.velocity.y > 0) {
-                rb.AddForce(Vector3.down * (movementState == MovementState.CROUCH ? 40f : 80f), ForceMode.Force);
+                rb.AddForce(Vector3.down * (movementState == MovementState.CROUCH ? 40f : 80f) / Time.timeScale, ForceMode.Force);
             }
         }
 
         // Move in direction
         else if (Grounded) {
-            rb.AddForce(10 * moveSpeed * moveDirection, ForceMode.Force);
+            rb.AddForce(10 * moveSpeed * moveDirection / Time.timeScale, ForceMode.Force);
         }
 
         // Move in direction but slower in air
         else if (!Grounded) {
-            rb.AddForce(10 * moveSpeed * moveDirection * airMultiplier, ForceMode.Force);
+            rb.AddForce(10 * moveSpeed * moveDirection * airMultiplier / Time.timeScale, ForceMode.Force);
         }
 
         // Disable gravity while on slope to avoid slipping

@@ -44,12 +44,12 @@ public class PlayerBulletTime : MonoBehaviour
         else {
 
             // Decrement CD countdown
-            cooldownCounter -= Time.deltaTime / Time.timeScale;
+            cooldownCounter -= Time.unscaledDeltaTime;
         }
 
         // In bullet time mode and duration is still within max duration
         if (inBulletTime && durationCounter < bulletTimeDuration) {
-            durationCounter += Time.deltaTime / Time.timeScale;
+            durationCounter += Time.unscaledDeltaTime;
 
             // Slow down time
             Time.timeScale = dilutedTimeScale;

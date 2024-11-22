@@ -39,25 +39,25 @@ public class HeadBob : MonoBehaviour
         PlayerMovement.MovementState movementState = playerMovement.GetMovementState();
 
         if (playerMovement.GetMoveVelocity().magnitude <= 0.3f) {
-            amplitude = idleAmplitude;
-            frequency = idleFrequency;
+            amplitude = idleAmplitude / Time.timeScale;
+            frequency = idleFrequency / Time.timeScale;
         }
         else {
             // Change amplitude and frequency depending on movement state
             switch(movementState) {
                 case PlayerMovement.MovementState.SPRINT:
                 case PlayerMovement.MovementState.WALLRUN:
-                    amplitude = sprintAmplitude;
-                    frequency = sprintFrequency;
+                    amplitude = sprintAmplitude / Time.timeScale;
+                    frequency = sprintFrequency / Time.timeScale;
                     break;
                 case PlayerMovement.MovementState.CROUCH: 
-                    amplitude = crouchAmplitude;
-                    frequency = crouchFrequency;
+                    amplitude = crouchAmplitude / Time.timeScale;
+                    frequency = crouchFrequency / Time.timeScale;
                     break;
                 case PlayerMovement.MovementState.WALK:
                 default:
-                    amplitude = walkAmplitude;
-                    frequency = walkFrequency;
+                    amplitude = walkAmplitude / Time.timeScale;
+                    frequency = walkFrequency / Time.timeScale;
                     break;
             }
         }
