@@ -44,6 +44,8 @@ public class PlayerTag : MonoBehaviour
                         t.gameObject.layer = LayerMask.NameToLayer("Tagged");
                     }
 
+                    Distraction targetDistraction = targetObject.AddComponent<Distraction>();
+
                     GameObject taggedMarker = Instantiate(marker, targetObject.transform);
                     
                     PlayerTeleport.teleportables.Add(targetObject);
