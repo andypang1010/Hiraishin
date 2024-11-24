@@ -33,12 +33,12 @@ public class PlayerAttack : MonoBehaviour
             attackPoint.rotation = Quaternion.Euler(attackPoint.rotation.eulerAngles.x, attackPoint.rotation.eulerAngles.y, attackAngles[Random.Range(0, attackAngles.Length)]);
 
             attackReady = false;
-            Invoke(nameof(ResetAttackReady), attackCD);
+            Invoke(nameof(ResetAttackReady), attackCD * Time.timeScale);
         }
     }
 
     void Attack() {
-
+        sliceVFX.playRate = 1 / Time.timeScale;
         sliceVFX.Play();
 
         // Get all targets in range

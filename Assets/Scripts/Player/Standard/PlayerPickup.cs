@@ -36,6 +36,10 @@ public class PlayerPickup : MonoBehaviour
 
                 switch (hit.collider.gameObject.tag) {
                     case "Throwable":
+                        if (!hit.transform.root.gameObject.TryGetComponent<Distraction>(out _)) {
+                            hit.transform.root.gameObject.AddComponent<Distraction>();
+                        }
+                        
                         PickUpObject(hit.transform.root.gameObject);
                         break;
                     case "Interactable":

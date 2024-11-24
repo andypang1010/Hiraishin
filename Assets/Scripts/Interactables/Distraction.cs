@@ -8,7 +8,7 @@ public class Distraction : MonoBehaviour
     bool isEnabled = false;
     public bool isActive;
     // public float distractRadius;
-    public float deactivateTime;
+    public float deactivateTime = 3f;
 
     private void OnCollisionEnter(Collision other) {
         if (isEnabled && other.gameObject.name != "PLAYER") {
