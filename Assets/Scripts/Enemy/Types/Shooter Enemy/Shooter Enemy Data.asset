@@ -15,7 +15,7 @@ MonoBehaviour:
   listenWalkRadius: 5
   listenSprintRadius: 7
   peripheralRadius: 2
-  walkAcceptedStates: 010000000200000003000000
+  walkAcceptedStates: 0200000003000000
   sprintAcceptedStates: 0200000003000000
   lookRadius: 35
   lookAngle: 35
