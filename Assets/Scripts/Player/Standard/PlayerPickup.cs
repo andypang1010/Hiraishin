@@ -25,8 +25,18 @@ public class PlayerPickup : MonoBehaviour
     void Update() {
     
         // If throwable found within range
-        if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxDistance)) {
-        
+        if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxDistance, ~0, QueryTriggerInteraction.Ignore)) {
+
+            if (hit.collider.gameObject.CompareTag("Throwable") || hit.collider.gameObject.CompareTag("Interactable"))
+            {
+                print("Pick Up Distance to " + hit.collider.gameObject.name + ": " + hit.distance);
+                throwCrosshair.GetComponent<Image>().sprite = pickupCrosshair;
+            }
+
+            else {
+                throwCrosshair.GetComponent<Image>().sprite = defaultCrosshair;
+            }
+
             if (InputController.Instance.GetPickupDown()) {
 
                 // If player already holding an object
@@ -51,22 +61,11 @@ public class PlayerPickup : MonoBehaviour
                         break;
                 }
             }
-
-            if (hit.collider.gameObject.CompareTag("Throwable") || hit.collider.gameObject.CompareTag("Interactable"))
-            {
-                throwCrosshair.GetComponent<Image>().sprite = pickupCrosshair;
-            }
-
-            else {
-                throwCrosshair.GetComponent<Image>().sprite = defaultCrosshair;
-            }
         }
 
         else {
             throwCrosshair.GetComponent<Image>().sprite = defaultCrosshair;
         }
-
-
     }
 
     void FixedUpdate()

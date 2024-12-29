@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerTag : MonoBehaviour
 {
     [Header("References")]
     public GameObject marker;
-    public Material taggedMaterial;
+    public GameObject teleportCrosshair;
+    public Sprite tagCrosshair;
+    Sprite defaultCrosshair;
 
     [Header("Settings")]
     public float maxTagDistance;
@@ -15,24 +18,35 @@ public class PlayerTag : MonoBehaviour
     GameObject targetObject;
     RaycastHit hit;
 
+    private void Start() {
+        defaultCrosshair = teleportCrosshair.GetComponent<Image>().sprite;
+    }
+
     void Update()
     {
-        if (InputController.Instance.GetTagDown()
-            && Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out hit, maxTagDistance) 
+        if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out hit, maxTagDistance, ~LayerMask.GetMask("Tagged"), QueryTriggerInteraction.Ignore) 
             && (hit.transform.root.gameObject.CompareTag("Throwable")
-            || hit.transform.root.gameObject.CompareTag("Enemy"))
-            && hit.collider.gameObject.layer != LayerMask.NameToLayer("Tagged")) {
-                holdTime = 0;
+            || hit.transform.root.gameObject.CompareTag("Enemy"))) {
+                teleportCrosshair.GetComponent<Image>().sprite = tagCrosshair;
 
-                targetObject = hit.transform.root.gameObject;
-            }
+                print("Tag Distance to Target: " + hit.distance);
+
+                if (InputController.Instance.GetTagDown()) {
+                    holdTime = 0;
+                    targetObject = hit.transform.root.gameObject;
+                }
+        }
+
+        else {
+            teleportCrosshair.GetComponent<Image>().sprite = defaultCrosshair;
+        }
 
         if (InputController.Instance.GetTagUp()) {
             holdTime = 0;
         }
    
         if (InputController.Instance.GetTagHold()) {
-            if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out hit, maxTagDistance)
+            if (Physics.Raycast(Camera.main.transform.transform.position, Camera.main.transform.forward, out hit, maxTagDistance,  ~LayerMask.GetMask("Tagged"), QueryTriggerInteraction.Ignore)
             && hit.transform.root.gameObject == targetObject) {
                 holdTime += Time.deltaTime;
 
