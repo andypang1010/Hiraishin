@@ -29,6 +29,10 @@ public class ShootMovement : EnemyMovement
             playerDetected = true;
         }
 
+        else {
+            playerDetected = false;
+        }
+
         if (playerDetected) {
             playerTracking.weight = 1;
 

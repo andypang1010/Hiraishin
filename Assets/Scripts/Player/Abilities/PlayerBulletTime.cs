@@ -11,7 +11,7 @@ public class PlayerBulletTime : MonoBehaviour
     [HideInInspector] public float durationCounter { get; private set; }
     [HideInInspector] public float cooldownCounter { get; private set; }
 
-    bool inBulletTime;
+    public bool inBulletTime {get; private set; }
     float defaultTimeScale;
     float defaultDeltaTime;
     bool startCooldown;

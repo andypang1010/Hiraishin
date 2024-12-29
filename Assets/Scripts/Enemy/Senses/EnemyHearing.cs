@@ -26,7 +26,8 @@ public class EnemyHearing : MonoBehaviour
 
     void Update()
     {
-        if (player.GetComponent<PlayerController>().isDead) {
+        if (player.GetComponent<PlayerController>().isDead
+        || (player.TryGetComponent(out PlayerBulletTime playerBulletTime) && playerBulletTime.inBulletTime)) {
             PlayerHeard = false;
             return;
         }
