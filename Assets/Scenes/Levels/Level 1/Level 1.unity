@@ -7433,13 +7433,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 623974754}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -30.9405, y: 0.84375, z: -23.026876}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -30.9405, y: 1.0625, z: -23.026876}
   m_LocalScale: {x: 9, y: 9, z: 9}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 242260108}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 90}
 --- !u!23 &623974756
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7511,7 +7511,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.17, y: 0.09, z: 0.24227649}
+  m_Size: {x: 0.06, y: 0.09, z: 0.24227649}
   m_Center: {x: -0.0000000027939704, y: 0.000000021886082, z: 0.120771065}
 --- !u!114 &623974759
 MonoBehaviour:
@@ -24322,6 +24322,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85674d30ce17ce84ea2415d9f5fc0e37, type: 3}
+--- !u!4 &2644700636370575355 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8753416328199896941, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
+    type: 3}
+  m_PrefabInstance: {fileID: 2644700636370575354}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3881693799698960825 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8221981181624628507, guid: e663ef82aff937f498fd08a5e0485170,
@@ -24658,6 +24664,11 @@ PrefabInstance:
       propertyPath: kunaiThrowForce
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: kunaiThrowPoint
+      value: 
+      objectReference: {fileID: 2644700636370575355}
     - target: {fileID: 3719922330760878221, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: volume
@@ -24693,6 +24704,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6341653193507387703, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: teleportCrosshair
+      value: 
+      objectReference: {fileID: 7578974478108011774}
     - target: {fileID: 6710756512186343302, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: m_Name

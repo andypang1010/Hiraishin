@@ -20457,7 +20457,8 @@ GameObject:
   - component: {fileID: 1535944765}
   - component: {fileID: 1535944764}
   - component: {fileID: 1535944768}
-  m_Layer: 10
+  - component: {fileID: 1535944769}
+  m_Layer: 0
   m_Name: Attack Ability
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -20565,15 +20566,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActivated: 1
-  floatEnabled: 0
-  amplitude: 0
-  frequency: 0
+  floatEnabled: 1
+  amplitude: 0.15
+  frequency: 1
   unlockTeleport: 0
   unlockTag: 0
   unlockAttack: 1
   unlockBulletTime: 0
   interactables:
   - {fileID: 2134085630}
+--- !u!208 &1535944769
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535944762}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 10.157001, y: 5.004, z: 56.376003}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -1.417, y: -1.1880001, z: -10.933001}
+  m_TimeToStationary: 0.5
 --- !u!1 &1572879987
 GameObject:
   m_ObjectHideFlags: 0
@@ -27315,6 +27332,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85674d30ce17ce84ea2415d9f5fc0e37, type: 3}
+--- !u!4 &2644700636370575355 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8753416328199896941, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
+    type: 3}
+  m_PrefabInstance: {fileID: 2644700636370575354}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4028447675709716782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27862,6 +27885,11 @@ PrefabInstance:
       propertyPath: kunaiThrowForce
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 2320831910497088472, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: kunaiThrowPoint
+      value: 
+      objectReference: {fileID: 2644700636370575355}
     - target: {fileID: 3719922330760878221, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: volume
@@ -27907,6 +27935,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6341653193507387703, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: teleportCrosshair
+      value: 
+      objectReference: {fileID: 1694458867}
     - target: {fileID: 6710756512186343302, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: m_Name
