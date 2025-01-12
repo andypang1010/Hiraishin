@@ -29,8 +29,6 @@ public class PlayerTag : MonoBehaviour
             || hit.transform.root.gameObject.CompareTag("Enemy"))) {
                 teleportCrosshair.GetComponent<Image>().sprite = tagCrosshair;
 
-                print("Tag Distance to Target: " + hit.distance);
-
                 if (InputController.Instance.GetTagDown()) {
                     holdTime = 0;
                     targetObject = hit.transform.root.gameObject;

@@ -60,7 +60,22 @@ public class AbilityUnlock : Interactables
     private void HideAbility()
     {
         isActivated = false;
-        GetComponent<MeshRenderer>().enabled = false;
-        GetComponent<Collider>().enabled = false;
+
+        if (TryGetComponent(out Collider collider)) {
+            collider.enabled = false;
+        }
+
+        foreach (Collider childCollider in GetComponentsInChildren<Collider>(true)) {
+            childCollider.enabled = false;
+        }
+
+        
+        if (TryGetComponent(out MeshRenderer meshRenderer)) {
+            meshRenderer.enabled = false;
+        }
+
+        foreach (MeshRenderer childMesh in GetComponentsInChildren<MeshRenderer>(true)) {
+            childMesh.enabled = false;
+        }
     }
 }

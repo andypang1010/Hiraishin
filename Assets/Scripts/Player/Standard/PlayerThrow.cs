@@ -7,6 +7,7 @@ public class PlayerThrow : MonoBehaviour
 {
     [Header("References")]
     public Transform throwPoint;
+    public Transform kunaiThrowPoint;
 
     [Header("Kunai")]
     public bool kunaiAvailable;
@@ -68,7 +69,7 @@ public class PlayerThrow : MonoBehaviour
             case "Kunai":
 
                 // Instantiate kunai
-                GameObject kunai = Instantiate(gameObject, throwPoint.position, Camera.main.transform.rotation);
+                GameObject kunai = Instantiate(gameObject, kunaiThrowPoint.position, Camera.main.transform.rotation);
                 PlayerTeleport.teleportables.Add(kunai);
 
                 // Propel projectile towards force direction

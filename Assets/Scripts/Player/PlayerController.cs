@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public bool isDead;
     public Volume volume;
     ChromaticAberration chromaticAberration;
+    ColorAdjustments colorAdjustments;
     GameObject cam;
 
     void Start()
@@ -23,12 +24,21 @@ public class PlayerController : MonoBehaviour
         else {
             chromaticAberration.intensity.value = 0f;
         }
+
+        if (!volume.profile.TryGet(out colorAdjustments)) {
+            Debug.LogWarning("No Color Adjustments component found on Global Volume");
+        }
+        else {
+            colorAdjustments.active = false;
+        }
     }
 
     public IEnumerator Die()
     {
         isDead = true;
+
         chromaticAberration.intensity.value = 1f;
+        colorAdjustments.active = false;
 
         // Remove HeadBob and MoveCamera
         cam.GetComponent<HeadBob>().enabled = false;

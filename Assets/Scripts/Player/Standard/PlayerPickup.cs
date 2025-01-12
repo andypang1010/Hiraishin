@@ -29,7 +29,7 @@ public class PlayerPickup : MonoBehaviour
 
             if (hit.collider.gameObject.CompareTag("Throwable") || hit.collider.gameObject.CompareTag("Interactable"))
             {
-                print("Pick Up Distance to " + hit.collider.gameObject.name + ": " + hit.distance);
+                // print("Pick Up Distance to " + hit.collider.gameObject.name + ": " + hit.distance);
                 throwCrosshair.GetComponent<Image>().sprite = pickupCrosshair;
             }
 
