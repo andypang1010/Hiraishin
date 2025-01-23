@@ -134,23 +134,7 @@ public class PlayerTeleport : MonoBehaviour
                 sourceRB.MovePosition(target.transform.position + Vector3.down);
             }
 
-            else {
-
-                // RaycastHit up = new RaycastHit();
-                // RaycastHit down = new RaycastHit();
-
-                // print("TELEPORTING " + source.gameObject + " TO " + target.gameObject);;
-
-                // // Crouch if teleporting into a tunnel
-                // if (source.TryGetComponent(out PlayerMovement playerMovement)
-                // && Physics.Raycast(target.transform.position, Vector3.up, out up, playerMovement.playerHeight * 0.5f + 0.5f)
-                // && Physics.Raycast(target.transform.position, Vector3.down, out down, playerMovement.playerHeight * 0.5f + 0.5f)) {
-
-                //     print("Teleporting to Crouching!");
-                //     playerMovement.Crouch();
-                //     playerMovement.movementState = PlayerMovement.MovementState.CROUCH;
-                // }
-                
+            else {                
                 sourceRB.MovePosition(target.transform.position);
             }
 

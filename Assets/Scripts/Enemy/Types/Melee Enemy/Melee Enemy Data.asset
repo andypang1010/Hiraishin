@@ -1,35 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beb0c98d244abfd4890c95f6eadde4d6, type: 3}
-  m_Name: Melee Enemy Data
-  m_EditorClassIdentifier: 
-  listenWalkRadius: 4
-  listenSprintRadius: 8
-  peripheralRadius: 0
-  walkAcceptedStates: 010000000200000003000000
-  sprintAcceptedStates: 0200000003000000
-  lookRadius: 15
-  lookAngle: 50
-  lookHeight: 7
-  patrolSpeed: 2.5
-  minTargetDistance: 2
-  maxRotationSpeed: 360
-  searchSpeed: 5
-  searchDuration: 5
-  chaseSpeed: 8.5
-  evadeSpeed: 0
-  startEvadeDistance: 0
-  evadeSafeDistance: 0
-  alertRadius: 0
-  alertCD: 0
-  attackCD: 2
-  attackReach: 1
+version https://git-lfs.github.com/spec/v1
+oid sha256:4b9468c5be86e4c07b3214d32f8789f3e6c27df8656dbff579050a5f4aac2890
+size 855

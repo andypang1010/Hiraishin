@@ -192,9 +192,4 @@ public abstract class EnemyMovement : MonoBehaviour
 
         return false;
     }
-
-    // private void OnDrawGizmos() {
-    //     Gizmos.color = Color.magenta;
-    //     Gizmos.DrawCube(targetPosition, 1 * Vector3.one);
-    // }
 }
