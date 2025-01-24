@@ -60,7 +60,7 @@ public class PlayerThrow : MonoBehaviour
         Vector3 forceDirection = (Camera.main.transform.position + maxAccurateDistance * Camera.main.transform.forward - throwPoint.position).normalized;
         
         // Calculate accurate force direction if in range
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxAccurateDistance, ~0, QueryTriggerInteraction.Ignore)) {
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxAccurateDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore)) {
             forceDirection = (hit.point - throwPoint.position).normalized;
         }
 
@@ -93,7 +93,7 @@ public class PlayerThrow : MonoBehaviour
         }
 
         // Apply force
-        Invoke(nameof(ResetThrow), throwCD);
+        Invoke(nameof(ResetThrow), throwCD * Time.timeScale);
     }
 
     void ResetThrow() {

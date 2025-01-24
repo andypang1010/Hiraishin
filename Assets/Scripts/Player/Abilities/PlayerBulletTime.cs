@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class PlayerBulletTime : MonoBehaviour
 {
+    [Header("References")]
+    public Slider bulletTimeSlider;
+    public Image bulletTimeFill;
+    public Color cooldownColor;
+    public Color readyColor;
     [Header("Settings")]
     public float dilutedTimeScale;
     public float bulletTimeDuration;
@@ -29,6 +35,9 @@ public class PlayerBulletTime : MonoBehaviour
         }
 
         startCooldown = true;
+
+        bulletTimeSlider.maxValue = bulletTimeDuration;
+        bulletTimeSlider.value = bulletTimeDuration;
     }
 
     void Update()
@@ -43,6 +52,8 @@ public class PlayerBulletTime : MonoBehaviour
 
                 // Initialize duration counter
                 durationCounter = 0;
+
+                bulletTimeSlider.maxValue = bulletTimeDuration;
             }
 
             else if (inBulletTime)
@@ -62,6 +73,8 @@ public class PlayerBulletTime : MonoBehaviour
 
             durationCounter += Time.unscaledDeltaTime;
 
+            bulletTimeSlider.value = bulletTimeDuration - durationCounter;
+
             // Slow down time
             Time.timeScale = dilutedTimeScale;
             Time.fixedDeltaTime = defaultDeltaTime * dilutedTimeScale;
@@ -71,6 +84,15 @@ public class PlayerBulletTime : MonoBehaviour
             // Set time to regular scale
             Time.timeScale = defaultTimeScale;
             Time.fixedDeltaTime = defaultDeltaTime;
+
+            if (cooldownCounter > 0) {
+                bulletTimeSlider.value = bulletTimeCD - cooldownCounter;
+                bulletTimeFill.color = cooldownColor;
+            }
+
+            else {
+                bulletTimeFill.color = readyColor;
+            }
 
             StartCoolDown();
         }
@@ -87,6 +109,9 @@ public class PlayerBulletTime : MonoBehaviour
 
             // Cooldown time is dependent on how long the ability is used
             cooldownCounter = bulletTimeCD * (durationCounter / bulletTimeDuration);
+
+            bulletTimeSlider.maxValue = bulletTimeCD;
+
         }
     }
 }

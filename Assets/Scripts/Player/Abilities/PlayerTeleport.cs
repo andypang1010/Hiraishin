@@ -112,7 +112,7 @@ public class PlayerTeleport : MonoBehaviour
                     StartCoroutine(SwapLocations(closestTarget, temp));
                 }
 
-                Invoke(nameof(ResetTeleport), teleportCD);
+                Invoke(nameof(ResetTeleport), teleportCD * Time.timeScale);
             }
         }
 

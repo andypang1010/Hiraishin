@@ -470,13 +470,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6710756512186343302}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bf576937450ff34cba4c58c3e3bbf03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletTimeSlider: {fileID: 0}
+  bulletTimeFill: {fileID: 0}
+  cooldownColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
+  readyColor: {r: 0.35686275, g: 0, b: 0.7294118, a: 1}
   dilutedTimeScale: 0.1
-  bulletTimeDuration: 5
+  bulletTimeDuration: 8
   bulletTimeCD: 15
   volume: {fileID: 0}
 --- !u!1 &7116412392107224735
