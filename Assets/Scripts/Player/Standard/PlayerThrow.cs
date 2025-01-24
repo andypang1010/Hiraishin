@@ -58,11 +58,6 @@ public class PlayerThrow : MonoBehaviour
 
         // Calculate default force direction
         Vector3 forceDirection = (Camera.main.transform.position + maxAccurateDistance * Camera.main.transform.forward - throwPoint.position).normalized;
-        
-        // Calculate accurate force direction if in range
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxAccurateDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore)) {
-            forceDirection = (hit.point - throwPoint.position).normalized;
-        }
 
         // Calculate throw force
         switch (gameObject.GetComponent<Collider>().tag) {
@@ -82,6 +77,11 @@ public class PlayerThrow : MonoBehaviour
 
                 if (playerPickup.heldObj.TryGetComponent(out Distraction distraction)) {
                     distraction.EnableDistraction();
+                }
+
+                // Calculate accurate force direction if in range
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, maxAccurateDistance, Physics.AllLayers, QueryTriggerInteraction.Ignore)) {
+                    forceDirection = (hit.point - throwPoint.position).normalized;
                 }
 
                 // Propel projectile towards force direction
