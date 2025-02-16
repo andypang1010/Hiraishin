@@ -18001,18 +18001,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!114 &1149376822 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3344187128542432860, guid: e663ef82aff937f498fd08a5e0485170,
-    type: 3}
-  m_PrefabInstance: {fileID: 5171490971196204194}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1172457132
 GameObject:
   m_ObjectHideFlags: 0
@@ -20238,18 +20226,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1555838790}
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
---- !u!114 &1305910688 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2425154041484405286, guid: e663ef82aff937f498fd08a5e0485170,
-    type: 3}
-  m_PrefabInstance: {fileID: 5171490971196204194}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &1307694049
 Mesh:
   m_ObjectHideFlags: 0
@@ -28088,18 +28064,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!114 &1862795184 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1775170601765118064, guid: e663ef82aff937f498fd08a5e0485170,
-    type: 3}
-  m_PrefabInstance: {fileID: 5171490971196204194}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &1863752243
 Mesh:
   m_ObjectHideFlags: 0
@@ -29934,6 +29898,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5171490971196204194}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2085143662 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1288204628187782286, guid: e663ef82aff937f498fd08a5e0485170,
+    type: 3}
+  m_PrefabInstance: {fileID: 5171490971196204194}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2085143663 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1024977600402819593, guid: e663ef82aff937f498fd08a5e0485170,
+    type: 3}
+  m_PrefabInstance: {fileID: 5171490971196204194}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &2096137531
 Mesh:
   m_ObjectHideFlags: 0
@@ -30837,6 +30813,11 @@ PrefabInstance:
       objectReference: {fileID: 5171490971196204197}
     - target: {fileID: 4926103014756612030, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
+      propertyPath: kunaiHUD
+      value: 
+      objectReference: {fileID: 2085143663}
+    - target: {fileID: 4926103014756612030, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
+        type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -30859,7 +30840,7 @@ PrefabInstance:
         type: 3}
       propertyPath: playerSpeed
       value: 
-      objectReference: {fileID: 1305910688}
+      objectReference: {fileID: 0}
     - target: {fileID: 4926103014756612030, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
       propertyPath: playerThrow
@@ -30869,7 +30850,7 @@ PrefabInstance:
         type: 3}
       propertyPath: bulletTimeCD
       value: 
-      objectReference: {fileID: 1149376822}
+      objectReference: {fileID: 0}
     - target: {fileID: 4926103014756612030, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
       propertyPath: playerAttack
@@ -30880,6 +30861,11 @@ PrefabInstance:
       propertyPath: tagCountdown
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4926103014756612030, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
+        type: 3}
+      propertyPath: bulletTimeHUD
+      value: 
+      objectReference: {fileID: 2085143662}
     - target: {fileID: 4926103014756612030, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
       propertyPath: playerMovement
@@ -30894,7 +30880,7 @@ PrefabInstance:
         type: 3}
       propertyPath: bulletTimeDuration
       value: 
-      objectReference: {fileID: 1862795184}
+      objectReference: {fileID: 0}
     - target: {fileID: 6342119578714968208, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
       propertyPath: m_Name
@@ -31230,6 +31216,30 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 5171490971196204194}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085143663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5171490971196204198 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3502669720391453812, guid: e663ef82aff937f498fd08a5e0485170,
+    type: 3}
+  m_PrefabInstance: {fileID: 5171490971196204194}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5171490971196204199 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1148066244642164924, guid: e663ef82aff937f498fd08a5e0485170,
+    type: 3}
+  m_PrefabInstance: {fileID: 5171490971196204194}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -31387,9 +31397,24 @@ PrefabInstance:
       objectReference: {fileID: 1852575280}
     - target: {fileID: 5084041552704671043, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
+      propertyPath: volume
+      value: 
+      objectReference: {fileID: 832575518}
+    - target: {fileID: 5084041552704671043, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5084041552704671043, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: bulletTimeFill
+      value: 
+      objectReference: {fileID: 5171490971196204199}
+    - target: {fileID: 5084041552704671043, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: bulletTimeSlider
+      value: 
+      objectReference: {fileID: 5171490971196204198}
     - target: {fileID: 6110650131793575937, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: m_CollisionDetection
