@@ -6,6 +6,7 @@ public class InputController : MonoBehaviour
 {
     public static InputController Instance { get; private set;}
     
+    public KeyCode pauseKey = KeyCode.Escape;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode crouchKey = KeyCode.LeftControl;
     public KeyCode altCrouchKey = KeyCode.LeftCommand;
@@ -31,6 +32,10 @@ public class InputController : MonoBehaviour
 
     public Vector2 GetLookDirection() {
         return new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+    }
+
+    public bool GetPause() {
+        return Input.GetKeyDown(KeyCode.Pause);
     }
 
     public bool GetSprint() {

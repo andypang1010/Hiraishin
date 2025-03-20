@@ -11,6 +11,7 @@ public class CanvasManager : MonoBehaviour
     public PlayerMovement playerMovement;
     public PlayerThrow playerThrow;
     public PlayerBulletTime playerBulletTime;
+    public GameObject pauseMenu;
 
     [Header("UI")]
     public GameObject kunaiHUD;
