@@ -126,7 +126,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3169311120127721501}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -180,8 +180,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5808903566949673024}
-  - component: {fileID: 6589049721308720036}
-  - component: {fileID: 9068564511017739933}
+  - component: {fileID: 6548268109650979657}
+  - component: {fileID: 8968389245425428168}
   m_Layer: 0
   m_Name: Throw Point
   m_TagString: Untagged
@@ -204,7 +204,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6902849093831603241}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &6589049721308720036
+--- !u!33 &6548268109650979657
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,7 +212,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5961561435554987497}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &9068564511017739933
+--- !u!23 &8968389245425428168
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
