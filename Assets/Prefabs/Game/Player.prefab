@@ -458,7 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 0}
-  attackReach: 0.65
+  attackReach: 1
   attackDistance: 0.8
   attackCD: 0.75
   attackForce: 100
