@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 6341653193507387703}
   - component: {fileID: 8438454574634364125}
   - component: {fileID: 5084041552704671043}
+  - component: {fileID: -5952538951471918903}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -483,6 +484,22 @@ MonoBehaviour:
   bulletTimeDuration: 8
   bulletTimeCD: 15
   volume: {fileID: 0}
+--- !u!208 &-5952538951471918903
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6710756512186343302}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.4, y: 1, z: 0.4}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7116412392107224735
 GameObject:
   m_ObjectHideFlags: 0
