@@ -26787,6 +26787,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 70413967065341561, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037849127990740714, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2700550143776567090, guid: 85674d30ce17ce84ea2415d9f5fc0e37,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27104,6 +27114,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342526816608125370, guid: e663ef82aff937f498fd08a5e0485170,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342526816608125370, guid: e663ef82aff937f498fd08a5e0485170,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1775170601765118064, guid: e663ef82aff937f498fd08a5e0485170,
         type: 3}
@@ -27504,6 +27524,11 @@ PrefabInstance:
       propertyPath: cameraHolder
       value: 
       objectReference: {fileID: 1852575280}
+    - target: {fileID: 4102721824815875172, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5084041552704671043, guid: 316dd6211a8a8964698e6a6c1c191a4e,
         type: 3}
       propertyPath: volume

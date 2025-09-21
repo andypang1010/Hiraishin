@@ -460,7 +460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 0}
   attackReach: 1
-  attackDistance: 0.8
+  attackDistance: 1.5
   attackCD: 0.75
   attackForce: 100
   sliceVFX: {fileID: 0}
