@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class CanvasManager : MonoBehaviour
 {
     [Header("References")]
+    public PlayerController playerController;
     public PlayerMovement playerMovement;
     public PlayerThrow playerThrow;
     public PlayerBulletTime playerBulletTime;
@@ -20,9 +21,14 @@ public class CanvasManager : MonoBehaviour
 
     void Update()
     {
+        if (playerController.isDead) {
+            kunaiHUD.SetActive(false);
+            bulletTimeHUD.SetActive(false);
+            return;
+        }
+        
         kunaiHUD.SetActive(playerThrow.kunaiAvailable);
         bulletTimeHUD.SetActive(playerBulletTime.enabled);
-
         kunaiCount.text = " × " + playerThrow.kunaiRemaining;
     }
 }

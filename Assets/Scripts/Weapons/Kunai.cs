@@ -17,10 +17,4 @@ public class Kunai : MonoBehaviour
         transform.SetParent(other.transform);
         
     }
-
-    void UseGravity() {
-        if (rb != null) {
-            rb.useGravity = true;
-        }
-    }
 }

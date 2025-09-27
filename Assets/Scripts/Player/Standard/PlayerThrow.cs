@@ -68,7 +68,7 @@ public class PlayerThrow : MonoBehaviour
                 PlayerTeleport.teleportables.Add(kunai);
 
                 // Propel projectile towards force direction
-                kunai.GetComponent<Rigidbody>().AddForce(kunaiThrowForce * forceDirection + kunaiUpwardForce * transform.up, ForceMode.Impulse);
+                kunai.GetComponent<Rigidbody>().AddForce((kunaiThrowForce * forceDirection + kunaiUpwardForce * transform.up) / Time.timeScale, ForceMode.Impulse);
 
                 kunaiRemaining--;
                 break;
