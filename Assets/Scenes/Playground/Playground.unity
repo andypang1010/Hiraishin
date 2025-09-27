@@ -2748,6 +2748,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7275962397415266444}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1462873666 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3719922330760878221, guid: 316dd6211a8a8964698e6a6c1c191a4e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7275962397415266444}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462873634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2af0fbeb357a9c247bb3f23b2683d42e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1694458867 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3380301725535242332, guid: e663ef82aff937f498fd08a5e0485170,
@@ -3926,6 +3938,11 @@ PrefabInstance:
       objectReference: {fileID: 1462873643}
     - target: {fileID: 4926103014756612030, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1462873666}
+    - target: {fileID: 4926103014756612030, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
+        type: 3}
       propertyPath: bulletTimeDuration
       value: 
       objectReference: {fileID: 0}
@@ -3937,7 +3954,7 @@ PrefabInstance:
     - target: {fileID: 7159329896051752108, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
       propertyPath: m_VoxelSize
-      value: 0.083333336
+      value: 0.16666667
       objectReference: {fileID: 0}
     - target: {fileID: 7159329896051752108, guid: 4d35c61a579d3f74e803477bc0aaa8bf,
         type: 3}
@@ -4235,6 +4252,16 @@ PrefabInstance:
     - target: {fileID: 103303654144811438, guid: e663ef82aff937f498fd08a5e0485170,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342526816608125370, guid: e663ef82aff937f498fd08a5e0485170,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342526816608125370, guid: e663ef82aff937f498fd08a5e0485170,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1578630235188753837, guid: e663ef82aff937f498fd08a5e0485170,
