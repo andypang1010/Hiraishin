@@ -140,7 +140,7 @@ public class PlayerTeleport : MonoBehaviour
 
             // Inherit target object velocity
             if (target.TryGetComponent(out Rigidbody targetRB)) {
-                sourceRB.velocity = new Vector3(targetRB.velocity.x, 0, targetRB.velocity.z);
+                sourceRB.linearVelocity = new Vector3(targetRB.linearVelocity.x, 0, targetRB.linearVelocity.z);
             }
         }
 

@@ -82,7 +82,7 @@ public class PlayerPickup : MonoBehaviour
         if (pickedObj.TryGetComponent(out Rigidbody rb)) {
             rb.useGravity = false;
             rb.freezeRotation = true;
-            rb.drag = moveDrag;
+            rb.linearDamping = moveDrag;
 
             Physics.IgnoreCollision(pickedObj.GetComponent<Collider>(), gameObject.GetComponentInChildren<Collider>(), true);
 
@@ -111,7 +111,7 @@ public class PlayerPickup : MonoBehaviour
         if (heldObj != null && heldObj.TryGetComponent(out Rigidbody rb)) {
                 rb.useGravity = true;
                 rb.freezeRotation = false;
-                rb.drag = 0f;
+                rb.linearDamping = 0f;
 
                 Physics.IgnoreCollision(heldObj.GetComponent<Collider>(), gameObject.GetComponentInChildren<Collider>(), false);
 

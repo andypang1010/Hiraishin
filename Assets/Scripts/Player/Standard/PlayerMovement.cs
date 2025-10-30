@@ -228,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(20 * moveSpeed * GetSlopeMoveDirection() / Time.timeScale, ForceMode.Force);
 
             // Apply downward force to keep player on slope
-            if (rb.velocity.y > 0) {
+            if (rb.linearVelocity.y > 0) {
                 rb.AddForce(Vector3.down * (movementState == MovementState.CROUCH ? 40f : 80f) / Time.timeScale, ForceMode.Force);
             }
         }
@@ -252,27 +252,27 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movementState == MovementState.AIR)
         {
-            rb.drag = 0;
+            rb.linearDamping = 0;
         }
         else
         {
-            rb.drag = groundDrag;
+            rb.linearDamping = groundDrag;
         }
     }
 
     void SpeedControl() {
         // Prevents player from exceeding move speed on slopes
-        if (OnSlope() && !exitingSlope && rb.velocity.magnitude > moveSpeed) {
-            rb.velocity = rb.velocity.normalized * moveSpeed;
+        if (OnSlope() && !exitingSlope && rb.linearVelocity.magnitude > moveSpeed) {
+            rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;
         }
 
         else {
-            Vector3 rawVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            Vector3 rawVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
 
             // Clamp x and z axis velocity
             if (rawVelocity.magnitude > moveSpeed) {
                 Vector3 clampedVelocity = rawVelocity.normalized * moveSpeed;
-                rb.velocity = new Vector3(clampedVelocity.x, rb.velocity.y, clampedVelocity.z);
+                rb.linearVelocity = new Vector3(clampedVelocity.x, rb.linearVelocity.y, clampedVelocity.z);
             }
         }
     }
@@ -292,7 +292,7 @@ public class PlayerMovement : MonoBehaviour
         exitingSlope = true;
 
         // Resets y-velocity to have consistent jump height
-        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
@@ -326,7 +326,7 @@ public class PlayerMovement : MonoBehaviour
             return Vector3.zero;
         }
         
-        return new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        return new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
     }
     
     public MovementState GetMovementState() {

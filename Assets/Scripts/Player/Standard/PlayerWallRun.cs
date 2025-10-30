@@ -134,7 +134,7 @@ public class PlayerWallRun : MonoBehaviour
 
         // Disable physics and stop vertical movement
         rb.useGravity = false;
-        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
 
         playerMovement.isWallRunning = true;
 
@@ -165,7 +165,7 @@ public class PlayerWallRun : MonoBehaviour
         Vector3 wallNormal = hasRight ? rightHit.normal: leftHit.normal;
         Vector3 jumpForce = transform.up * wallJumpUpForce + wallNormal * wallJumpSideForce;
 
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(jumpForce, ForceMode.Impulse);
     }
 }
